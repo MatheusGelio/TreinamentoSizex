@@ -1,0 +1,41 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox">
+
+    <!-- COLORS 
+    ==============================================================================================================================================-->
+    <Color x:Key="bg-primary-light">#FFfca368</Color>
+    <Color x:Key="bg-primary">#FFff6600</Color>
+    <Color x:Key="bg-secondary">#FF0b0686</Color>
+    <Color x:Key="bg-success-light">#FF0ee27a</Color>
+    <Color x:Key="bg-success">#FF00aa57</Color>
+    <Color x:Key="bg-danger-light">#FFff4d5d</Color>
+    <Color x:Key="bg-danger">#FFc82333</Color>
+    <Color x:Key="bg-warning">#FFffff00</Color>
+    <Color x:Key="bg-info">#FFff8b00</Color>
+    <Color x:Key="bg-light">#FFeff3f6</Color>
+    <Color x:Key="bg-white">#FFffffff</Color>
+    <Color x:Key="bg-gray-light">#FFbbbbbb</Color>
+    <Color x:Key="bg-gray">#FFcccccc</Color>
+    <Color x:Key="bg-dark">#FF343a40</Color>
+    <Color x:Key="bg-black">#FF111111</Color>
+    <Color x:Key="bg-cor-titulo">#537a7d</Color>
+
+    <SolidColorBrush x:Key="primary-light" Color="{DynamicResource bg-primary-light}"/>
+    <SolidColorBrush x:Key="primary" Color="{DynamicResource bg-primary}"/>
+    <SolidColorBrush x:Key="secondary" Color="{DynamicResource bg-secondary}"/>
+    <SolidColorBrush x:Key="success-light" Color="{DynamicResource bg-success-light}"/>
+    <SolidColorBrush x:Key="success" Color="{DynamicResource bg-success}"/>
+    <SolidColorBrush x:Key="danger-light" Color="{DynamicResource bg-danger-light}"/>
+    <SolidColorBrush x:Key="danger" Color="{DynamicResource bg-danger}"/>
+    <SolidColorBrush x:Key="warning" Color="{DynamicResource bg-warning}"/>
+    <SolidColorBrush x:Key="info" Color="{DynamicResource bg-info}"/>
+    <SolidColorBrush x:Key="light" Color="{DynamicResource bg-light}"/>
+    <SolidColorBrush x:Key="white" Color="{DynamicResource bg-white}"/>
+    <SolidColorBrush x:Key="gray-light" Color="{DynamicResource bg-gray-light}"/>
+    <SolidColorBrush x:Key="gray" Color="{DynamicResource bg-gray}"/>
+    <SolidColorBrush x:Key="dark" Color="{DynamicResource bg-dark}"/>
+    <SolidColorBrush x:Key="black" Color="{DynamicResource bg-black}"/>
+    <SolidColorBrush x:Key="cor-titulo" Color="{DynamicResource bg-cor-titulo}"/>
+</ResourceDictionary>

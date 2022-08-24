@@ -8,7 +8,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#537a7d">
+        <Grid Grid.Row="0" Background="{DynamicResource cor-titulo}">
             <Label x:Name="TituloLbl" Content="Cadastro de Clientes" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="22" FontFamily="Calibri" Foreground="White">
             </Label>
         </Grid>
