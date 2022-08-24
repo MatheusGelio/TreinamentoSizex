@@ -38,4 +38,48 @@
     <SolidColorBrush x:Key="dark" Color="{DynamicResource bg-dark}"/>
     <SolidColorBrush x:Key="black" Color="{DynamicResource bg-black}"/>
     <SolidColorBrush x:Key="cor-titulo" Color="{DynamicResource bg-cor-titulo}"/>
+
+    <!-- TEXTBOX 
+    ==============================================================================================================================================-->
+    <Style x:Key="TextBox" TargetType="{x:Type TextBox}">
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="CharacterCasing" Value="Upper" />
+        <Setter Property="Padding" Value="2,6" />
+        <Setter Property="SelectionBrush" Value="{DynamicResource primary}" />
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CaretBrush" Value="{DynamicResource black}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border Name="Border" CornerRadius="2" Padding="2" BorderThickness="1">
+                        <Border.Background>
+                            <SolidColorBrush Color="{DynamicResource bg-white}" />
+                        </Border.Background>
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="#FF0b0686" />
+                        </Border.BorderBrush>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#eeeeee" />
+                                        </ColorAnimationUsingKeyFrames>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="#aaaaaa"/>
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ReadOnly" />
+                                <VisualState x:Name="MouseOver" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

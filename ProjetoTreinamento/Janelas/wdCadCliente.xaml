@@ -40,11 +40,11 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="CpfLbl" Content="CPF:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <TextBox x:Name="CpfTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TextAlignment="Right" TabIndex="0" BorderBrush="#FF4B4B4B"/>
+                                    <TextBox x:Name="CpfTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="0" TextAlignment="Right" Style="{StaticResource TextBox}"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="RgLbl" Content="RG:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <TextBox x:Name="RgTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TextAlignment="Right" TabIndex="1" BorderBrush="#FF4B4B4B"/>
+                                    <TextBox x:Name="RgTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="1" TextAlignment="Right" Style="{StaticResource TextBox}"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Label x:Name="DataLbl" Content="Data Cadastro:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
