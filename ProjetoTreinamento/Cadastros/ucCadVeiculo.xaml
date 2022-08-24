@@ -1,10 +1,5 @@
-﻿<UserControl x:Class="ucCadVeiculo"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000">
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox" x:Class="ucCadVeiculo" 
+             d:DesignHeight="600" d:DesignWidth="1000" mc:Ignorable="d">
     <Grid Background="#FFD6D6D6">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -12,19 +7,18 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#537a7d">
-            <Label x:Name="TituloLbl" Content="Cadastro de Veículos" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="22" FontFamily="Calibri" Foreground="White">
-            </Label>
+            <Label x:Name="TituloLbl" Content="Cadastro de Veículos" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="22" FontFamily="Calibri" Foreground="White"/>
         </Grid>
         <Grid Grid.Row="1">
             <TabControl x:Name="PrincipalTb" TabStripPlacement="Bottom">
-                <TabItem Name="CadTb" Header="Cadastro">
+                <TabItem x:Name="CadTb" Header="Cadastro">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <ContentControl Name="FotoCt"/>
+                            <ContentControl x:Name="FotoCt"/>
                         </Grid>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -39,7 +33,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="PlacaLbl" Content="Placa:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <TextBox x:Name="PlacaTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="0" CharacterCasing="Upper" BorderBrush="#FF4B4B4B"/>
+                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="0" BorderBrush="#FF4B4B4B" Mask="###-0000"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="DescricaoLbl" Content="Descrição do Veículo:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
@@ -55,16 +49,11 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="CombustivelLbl" Content="Combustível:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <ComboBox x:Name="CombustivelCmb" HorizontalAlignment="Stretch" Margin="5,23,0,0" FontFamily="Calibri" FontSize="14" TabIndex="2" BorderBrush="#FF4B4B4B">
-                                        <ComboBoxItem Content="DIESEL"/>
-                                        <ComboBoxItem Content="ETANOL"/>
-                                        <ComboBoxItem Content="FLEX"/>
-                                        <ComboBoxItem Content="GASOLINA"/>
-                                    </ComboBox>
+                                    <ctTextBox:ctAutoComplete x:Name="CombustivelTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" FontFamily="Calibri" FontSize="14" TabIndex="2" BorderBrush="#FF4B4B4B" IsTextCompletionEnabled="True"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="KmLbl" Content="Último KM:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <TextBox x:Name="KmTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TextAlignment="Right" TabIndex="3" BorderBrush="#FF4B4B4B"/>
+                                    <ctTextBox:ctTextInt Name="KmTxt" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="3" BorderBrush="#FF4B4B4B"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Label x:Name="ValorLbl" Content="Valor da Compra:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
@@ -102,7 +91,7 @@
                                     </Grid>
                                     <Grid Grid.Column="3">
                                         <Label x:Name="TotalLbl" Content="Valor Total:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                        <TextBox x:Name="TotalTxt" HorizontalAlignment="Stretch" Margin="5,23,5,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TextAlignment="Right" TabIndex="9" BorderBrush="#FF4B4B4B"/>
+                                        <ctTextBox:ctDecimalBox Name="TotalTxt" Margin="5,23,5,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="9" BorderBrush="#FF4B4B4B" NrDecimais="2"/>
                                     </Grid>
                                     <Grid Grid.Column="4">
                                         <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="0,15,35,0" FontWeight="ExtraBold" FontSize="14" Background="#FF075100" Foreground="White"/>
@@ -123,7 +112,7 @@
                         </Grid>
                     </Grid>
                 </TabItem>
-                <TabItem Name="PesTb" Header="Pesquisa">
+                <TabItem x:Name="PesTb" Header="Pesquisa">
                     <Grid>
                         <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5">
                             <DataGrid.Columns>

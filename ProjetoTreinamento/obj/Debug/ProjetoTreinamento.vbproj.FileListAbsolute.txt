@@ -20,3 +20,11 @@ C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\Projet
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\ProjetoTreinamento.exe
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\ProjetoTreinamento.xml
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\ProjetoTreinamento.pdb
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\cttextbox.dll
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\WPFToolkit.dll
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\cttextbox.pdb
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\cttextbox.xml
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\System.Windows.Controls.Input.Toolkit.pdb
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\WPFToolkit.pdb
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\ProjetoTreinamento.vbprojResolveAssemblyReference.cache
