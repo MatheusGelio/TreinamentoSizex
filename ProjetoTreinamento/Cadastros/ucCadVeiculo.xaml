@@ -1,18 +1,23 @@
-﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox" x:Class="ucCadVeiculo" 
-             d:DesignHeight="600" d:DesignWidth="1000" mc:Ignorable="d">
-    <Grid Background="#FFD6D6D6">
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox" 
+             x:Class="ucCadVeiculo" 
+             d:DesignHeight="600" d:DesignWidth="800" mc:Ignorable="d">
+    <Grid Background="{DynamicResource background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#537a7d">
+        <Grid Grid.Row="0" Background="{DynamicResource title-primary}">
             <Label x:Name="TituloLbl" Content="Cadastro de Veículos" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="22" FontFamily="Calibri" Foreground="White"/>
         </Grid>
         <Grid Grid.Row="1">
             <TabControl x:Name="PrincipalTb" TabStripPlacement="Bottom">
                 <TabItem x:Name="CadTb" Header="Cadastro">
-                    <Grid>
+                    <Grid Background="{DynamicResource background}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"/>
@@ -32,12 +37,12 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <Label x:Name="PlacaLbl" Content="Placa:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="0" BorderBrush="#FF4B4B4B" Mask="###-0000"/>
+                                    <Label x:Name="PlacaLbl" Content="Placa:" Style="{StaticResource Label}"/>
+                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Style="{StaticResource MaskBox}" TabIndex="0" Mask="###-0000"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <Label x:Name="DescricaoLbl" Content="Descrição do Veículo:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <TextBox x:Name="DescricaoTxt" HorizontalAlignment="Stretch" Margin="5,23,5,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="1" CharacterCasing="Upper" BorderBrush="#FF4B4B4B"/>
+                                    <Label x:Name="DescricaoLbl" Content="Descrição do Veículo:" Style="{StaticResource Label}"/>
+                                    <TextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" TabIndex="1" Margin="5,23,5,0"/>
                                 </Grid>
                             </Grid>
                             <Grid Grid.Row="1">
@@ -48,19 +53,19 @@
                                     <ColumnDefinition Width="120"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <Label x:Name="CombustivelLbl" Content="Combustível:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <ctTextBox:ctAutoComplete x:Name="CombustivelTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" FontFamily="Calibri" FontSize="14" TabIndex="2" BorderBrush="#FF4B4B4B" IsTextCompletionEnabled="True"/>
+                                    <Label x:Name="CombustivelLbl" Content="Combustível:" Style="{StaticResource Label}"/>
+                                    <ctTextBox:ctAutoComplete x:Name="CombustivelTxt" Style="{StaticResource AutoBox}" TabIndex="2"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <Label x:Name="KmLbl" Content="Último KM:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <ctTextBox:ctTextInt Name="KmTxt" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="3" BorderBrush="#FF4B4B4B"/>
+                                    <Label x:Name="KmLbl" Content="Último KM:" Style="{StaticResource Label}"/>
+                                    <ctTextBox:ctTextInt Name="KmTxt" Style="{StaticResource IntBox}" TabIndex="3"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
-                                    <Label x:Name="ValorLbl" Content="Valor da Compra:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                    <TextBox x:Name="ValorTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TextAlignment="Right" TabIndex="4" BorderBrush="#FF4B4B4B"/>
+                                    <Label x:Name="ValorLbl" Content="Valor da Compra:" Style="{StaticResource Label}"/>
+                                    <ctTextBox:ctDecimalBox Name="ValorTxt" Style="{StaticResource DecimalBox}" TabIndex="4" NrDecimais="2"/>
                                 </Grid>
                                 <Grid Grid.Column="3">
-                                    <Label x:Name="DataLbl" Content="Data de Aquisição:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
+                                    <Label x:Name="DataLbl" Content="Data de Aquisição:" Style="{StaticResource Label}"/>
                                     <DatePicker x:Name="DataTxt" HorizontalAlignment="Stretch" Margin="5,23,5,0" TabIndex="5" BorderBrush="#FF4B4B4B" Foreground="Black"/>
                                 </Grid>
                             </Grid>
@@ -78,24 +83,24 @@
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
-                                        <Label x:Name="DataAbastLbl" Content="Data:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
+                                        <Label x:Name="DataAbastLbl" Content="Data:" Style="{StaticResource Label}"/>
                                         <DatePicker x:Name="DataAbastTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="6" BorderBrush="#FF4B4B4B" Foreground="Black"/>
                                     </Grid>
                                     <Grid Grid.Column="1">
-                                        <Label x:Name="KmAbastLbl" Content="KM:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                        <TextBox x:Name="KmAbastTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="7" BorderBrush="#FF4B4B4B"/>
+                                        <Label x:Name="KmAbastLbl" Content="KM:" Style="{StaticResource Label}"/>
+                                        <TextBox x:Name="KmAbastTxt" Style="{StaticResource TextBox}" TabIndex="7"/>
                                     </Grid>
                                     <Grid Grid.Column="2">
-                                        <Label x:Name="LitrosLbl" Content="Litros:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                        <TextBox x:Name="LitrosTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TextAlignment="Right" TabIndex="8" BorderBrush="#FF4B4B4B"/>
+                                        <Label x:Name="LitrosLbl" Content="Litros:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox x:Name="LitrosTxt" Style="{StaticResource DecimalBox}" TabIndex="8" NrDecimais="2"/>
                                     </Grid>
                                     <Grid Grid.Column="3">
-                                        <Label x:Name="TotalLbl" Content="Valor Total:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>
-                                        <ctTextBox:ctDecimalBox Name="TotalTxt" Margin="5,23,5,0" TextWrapping="Wrap" FontFamily="Calibri" FontSize="14" TabIndex="9" BorderBrush="#FF4B4B4B" NrDecimais="2"/>
+                                        <Label x:Name="TotalLbl" Content="Valor Total:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="TotalTxt" Style="{StaticResource DecimalBox}" TabIndex="9" Margin="5,23,5,0" NrDecimais="2"/>
                                     </Grid>
                                     <Grid Grid.Column="4">
-                                        <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="0,15,35,0" FontWeight="ExtraBold" FontSize="14" Background="#FF075100" Foreground="White"/>
-                                        <Button x:Name="DeletarBtn" Content="-" Width="25" HorizontalAlignment="Right" Margin="0,15,5,0" FontWeight="ExtraBold" FontSize="14" Background="DarkRed" Foreground="White"/>
+                                        <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="0,25,35,0" FontWeight="ExtraBold" FontSize="14" Background="#FF075100" Foreground="White"/>
+                                        <Button x:Name="DeletarBtn" Content="-" Width="25" HorizontalAlignment="Right" Margin="0,25,5,0" FontWeight="ExtraBold" FontSize="14" Background="DarkRed" Foreground="White"/>
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
@@ -126,7 +131,7 @@
                 </TabItem>
             </TabControl>
         </Grid>
-        <Grid Grid.Row="2" HorizontalAlignment="Stretch" Background="#c5cd39">
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch" Background="{DynamicResource title-secondary}">
             <Grid Grid.Row="0" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="90"/>
@@ -135,16 +140,16 @@
                     <ColumnDefinition Width="90"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <Button x:Name="NovoBtn" Content="Novo [F2]" HorizontalAlignment="Stretch" Margin="0,5,5,5" FontWeight="SemiBold" FontSize="14" Background="White"/>
+                    <Button x:Name="NovoBtn" Content="Novo [F2]" Style="{StaticResource Button}"/>
                 </Grid>
                 <Grid Grid.Column="1">
-                    <Button x:Name="SalvarBtn" Content="Salvar [F3]" HorizontalAlignment="Stretch" Margin="0,5,5,5" FontWeight="SemiBold" FontSize="14" Background="White"/>
+                    <Button x:Name="SalvarBtn" Content="Salvar [F3]" Style="{StaticResource Button}"/>
                 </Grid>
                 <Grid Grid.Column="2">
-                    <Button x:Name="ExcluirBtn" Content="Excluir [F4]" HorizontalAlignment="Stretch" Margin="0,5,5,5" FontWeight="SemiBold" FontSize="14" Background="White"/>
+                    <Button x:Name="ExcluirBtn" Content="Excluir [F4]" Style="{StaticResource Button}"/>
                 </Grid>
                 <Grid Grid.Column="3">
-                    <Button x:Name="SairBtn" Content="Sair [ESC]" HorizontalAlignment="Stretch" Margin="0,5,5,5" FontWeight="SemiBold" FontSize="14" Background="White"/>
+                    <Button x:Name="SairBtn" Content="Sair [ESC]" Style="{StaticResource Button}"/>
                 </Grid>
             </Grid>
         </Grid>

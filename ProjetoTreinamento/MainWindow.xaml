@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Sizex - Porque sua empresa é única!" Height="600" Width="1000" WindowState="Maximized">
+    Title="Sizex - Porque sua empresa é única!" Style="{StaticResource MainWindow}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20*"/>
@@ -13,14 +13,14 @@
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Background="#537a7d">
-                <Label Name="ProductMnu" Content="Cadastro de Produtos" Foreground="White" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Cursor="Hand"/>
+            <Grid Grid.Row="0" Background="{DynamicResource title-primary}">
+                <Label Name="ProductMnu" Content="Cadastro de Produtos" Style="{StaticResource Menu}"/>
             </Grid>
-            <Grid Grid.Row="1" Background="#537a7d">
-                <Label Name="ClienteMnu" Content="Cadastro de Clientes" Foreground="White" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Cursor="Hand"/>
+            <Grid Grid.Row="1" Background="{DynamicResource title-primary}">
+                <Label Name="ClienteMnu" Content="Cadastro de Clientes" Style="{StaticResource Menu}"/>
             </Grid>
-            <Grid Grid.Row="2" Background="#537a7d">
-                <Label Name="VeiculoMnu" Content="Cadastro de Veículos" Foreground="White" FontFamily="Calibri" FontSize="20" FontWeight="Bold" Cursor="Hand"/>
+            <Grid Grid.Row="2" Background="{DynamicResource title-primary}">
+                <Label Name="VeiculoMnu" Content="Cadastro de Veículos" Style="{StaticResource Menu}"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">
