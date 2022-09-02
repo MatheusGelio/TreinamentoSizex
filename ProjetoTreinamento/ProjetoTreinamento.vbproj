@@ -109,6 +109,8 @@
     <Compile Include="Cadastros\ucCadVeiculo.xaml.vb">
       <DependentUpon>ucCadVeiculo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Produto.vb" />
+    <Compile Include="Classes\Veiculo.vb" />
     <Compile Include="Janelas\wdCadCliente.xaml.vb">
       <DependentUpon>wdCadCliente.xaml</DependentUpon>
     </Compile>
@@ -172,7 +174,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Classes\" />
     <Folder Include="Imagens\" />
     <Folder Include="Relatorios\" />
     <Folder Include="Rpts\" />
