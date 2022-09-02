@@ -52,7 +52,7 @@
                                     <DatePicker x:Name="DataTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="2" BorderBrush="#FF4B4B4B" Foreground="Black"/>
                                 </Grid>
                                 <Grid Grid.Column="3">
-                                    <CheckBox Content="INATIVO" Margin="5,25,5,0" FontWeight="Bold" BorderBrush="#FF4B4B4B"/>
+                                    <CheckBox x:Name="InativoChk" Content="INATIVO" Margin="5,25,5,0" FontWeight="Bold" BorderBrush="#FF4B4B4B"/>
                                 </Grid>
                             </Grid>
                             <Grid Grid.Row="1">

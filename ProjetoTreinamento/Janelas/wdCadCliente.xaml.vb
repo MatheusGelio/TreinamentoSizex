@@ -40,4 +40,27 @@
 
         EstadoTxt.ItemsSource = lista.ToList
     End Sub
+
+    Private Sub AdicionarBtn_Click(sender As Object, e As RoutedEventArgs) Handles AdicionarBtn.Click
+        Dim objCliente As New Cliente
+        objCliente.Cpf = CpfTxt.Text
+        objCliente.Rg = RgTxt.Text
+        objCliente.DataCadastro = DataTxt.Text
+        objCliente.Inativo = InativoChk.IsChecked
+        objCliente.Nome = NomeTxt.Text
+        objCliente.Endereco = EnderecoTxt.Text
+        objCliente.Numero = NumeroTxt.Text
+        objCliente.Complemento = ComplementoTxt.Text
+        objCliente.Bairro = BairroTxt.Text
+        objCliente.Cidade = CidadeTxt.Text
+        objCliente.Estado = EstadoTxt.Text
+
+        Dim objClienteContatos As New ClienteContatos
+        objClienteContatos.TipoContato = TipoTxt.Text
+        objClienteContatos.DadosContato = ContatoTxt.Text
+        objClienteContatos.Obs = ObsTxt.Text
+
+        objCliente.Contatos = New List(Of ClienteContatos)
+        objCliente.Contatos.Add(objClienteContatos)
+    End Sub
 End Class
