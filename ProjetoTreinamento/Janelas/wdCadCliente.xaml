@@ -41,11 +41,11 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="CpfLbl" Content="CPF:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctMaskBox Name="CpfTxt" Style="{StaticResource MaskBox}" TabIndex="0" Mask="000.000.000-00"/>
+                                    <TextBox Name="CpfTxt" Style="{StaticResource TextBox}" TabIndex="0" TextAlignment="Right"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="RgLbl" Content="RG:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctMaskBox Name="RgTxt" Style="{StaticResource MaskBox}" TabIndex="1" Mask="00.000.000-0"/>
+                                    <TextBox Name="RgTxt" Style="{StaticResource TextBox}" TabIndex="1" TextAlignment="Right"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Label x:Name="DataLbl" Content="Data Cadastro:" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri"/>

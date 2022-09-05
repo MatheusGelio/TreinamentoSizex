@@ -1,4 +1,5 @@
 ﻿Public Class wdCadCliente
+    Dim objCliente As New Cliente
 
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
         Me.Close()
@@ -42,7 +43,40 @@
     End Sub
 
     Private Sub AdicionarBtn_Click(sender As Object, e As RoutedEventArgs) Handles AdicionarBtn.Click
-        Dim objCliente As New Cliente
+        If objCliente Is Nothing Then
+            MsgBox("Para incluir um contato, o cliente precisa estar salvo, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            Exit Sub
+        End If
+
+        Dim objClienteContatos As New ClienteContatos
+        objClienteContatos.TipoContato = TipoTxt.Text
+        objClienteContatos.DadosContato = ContatoTxt.Text
+        objClienteContatos.Obs = ObsTxt.Text
+
+        objCliente.Contatos = New List(Of ClienteContatos)
+        objCliente.Contatos.Add(objClienteContatos)
+
+        Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.Contatos.Count
+
+        MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
+    End Sub
+
+    Private Sub SalvarBtn_Click(sender As Object, e As RoutedEventArgs) Handles SalvarBtn.Click
+        If CpfTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de CPF, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            CpfTxt.Focus()
+            Exit Sub
+        ElseIf Not IsDate(DataTxt.Text) Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de DATA, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            DataTxt.Focus()
+            Exit Sub
+        ElseIf NomeTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de NOME, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            NomeTxt.Focus()
+            Exit Sub
+        End If
+        objCliente = New Cliente
+
         objCliente.Cpf = CpfTxt.Text
         objCliente.Rg = RgTxt.Text
         objCliente.DataCadastro = DataTxt.Text
@@ -55,12 +89,19 @@
         objCliente.Cidade = CidadeTxt.Text
         objCliente.Estado = EstadoTxt.Text
 
-        Dim objClienteContatos As New ClienteContatos
-        objClienteContatos.TipoContato = TipoTxt.Text
-        objClienteContatos.DadosContato = ContatoTxt.Text
-        objClienteContatos.Obs = ObsTxt.Text
+        MsgBox("Registro salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+        CpfTxt.Clear()
+        RgTxt.Clear()
+        DataTxt.Text = Nothing
+        InativoChk.IsChecked = False
+        NomeTxt.Clear()
+        EnderecoTxt.Clear()
+        NumeroTxt.Clear()
+        ComplementoTxt.Clear()
+        BairroTxt.Clear()
+        CidadeTxt.Clear()
+        EstadoTxt.Text = Nothing
 
-        objCliente.Contatos = New List(Of ClienteContatos)
-        objCliente.Contatos.Add(objClienteContatos)
+        CpfTxt.Focus()
     End Sub
 End Class
