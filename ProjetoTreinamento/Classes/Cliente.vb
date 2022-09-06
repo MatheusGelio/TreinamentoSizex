@@ -1,7 +1,7 @@
 ﻿Public Class Cliente
     Public Property Cpf As String
     Public Property Rg As String
-    Public Property DataCadastro As String
+    Public Property DataCadastro As Date
     Public Property Inativo As Boolean
     Public Property Nome As String
     Public Property Endereco As String

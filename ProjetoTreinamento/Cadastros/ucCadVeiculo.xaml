@@ -91,6 +91,10 @@
                                         <TextBox x:Name="KmAbastTxt" Style="{StaticResource TextBox}" TabIndex="7"/>
                                     </Grid>
                                     <Grid Grid.Column="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="39*"/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
                                         <Label x:Name="LitrosLbl" Content="Litros:" Style="{StaticResource Label}"/>
                                         <ctTextBox:ctDecimalBox x:Name="LitrosTxt" Style="{StaticResource DecimalBox}" TabIndex="8" NrDecimais="2"/>
                                     </Grid>

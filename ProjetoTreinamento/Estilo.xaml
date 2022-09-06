@@ -111,6 +111,12 @@
     </Style>
 
     <!--TEXTBOX-->
+    <ControlTemplate x:Key="TextBoxBaseControlTemplate" TargetType="{x:Type TextBoxBase}">
+        <Border Background="{TemplateBinding Background}" x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="4">
+            <ScrollViewer x:Name="PART_ContentHost"/>
+        </Border>
+    </ControlTemplate>
+    
     <Style x:Key="TextBox" TargetType="{x:Type TextBox}">
         <Setter Property="CaretBrush" Value="{DynamicResource black}"/>
         <Setter Property="CharacterCasing" Value="Upper"/>
