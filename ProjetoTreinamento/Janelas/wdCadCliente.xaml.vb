@@ -99,6 +99,26 @@
             MsgBox("Para salvar um cliente, é necessário preencher o campo de NOME, verifique!", MsgBoxStyle.Exclamation, "Validação")
             NomeTxt.Focus()
             Exit Sub
+        ElseIf EnderecoTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de ENDEREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            EnderecoTxt.Focus()
+            Exit Sub
+        ElseIf NumeroTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de NÚMERO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            NumeroTxt.Focus()
+            Exit Sub
+        ElseIf BairroTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de BAIRRO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            BairroTxt.Focus()
+            Exit Sub
+        ElseIf CidadeTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de CIDADE, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            CidadeTxt.Focus()
+            Exit Sub
+        ElseIf EstadoTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de ESTADO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            EstadoTxt.Focus()
+            Exit Sub
         End If
 
         objCliente = New Cliente

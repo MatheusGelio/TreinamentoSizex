@@ -38,7 +38,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="PlacaLbl" Content="Placa:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Style="{StaticResource MaskBox}" TabIndex="0" Mask="###-0000"/>
+                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Style="{StaticResource MaskBox}" TabIndex="0" Mask="AAA-0000"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="DescricaoLbl" Content="Descrição do Veículo:" Style="{StaticResource Label}"/>

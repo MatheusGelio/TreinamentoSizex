@@ -61,7 +61,15 @@
     End Sub
 
     Private Sub SalvarBtn_Click(sender As Object, e As RoutedEventArgs) Handles SalvarBtn.Click
-        If KmTxt.Text = Nothing Then
+        If PlacaTxt.Text = Nothing Then
+            MsgBox("Para salvar um veículo, é necessário preencher o campo de PLACA, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            PlacaTxt.Focus()
+            Exit Sub
+        ElseIf CombustivelTxt.Text = Nothing Then
+            MsgBox("Para salvar um veículo, é necessário preencher o campo de COMBUSTÍVEL, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            CombustivelTxt.Focus()
+            Exit Sub
+        ElseIf KmTxt.Text = Nothing Then
             MsgBox("Para salvar um veículo, é necessário preencher o campo de ÚLTIMO KM, verifique!", MsgBoxStyle.Exclamation, "Validação")
             KmTxt.Focus()
             Exit Sub
