@@ -2,6 +2,95 @@
     Dim objCliente As Cliente
     Dim passou As Boolean = False
 
+#Region "Métodos"
+    Private Sub LimpaCampos(tipo As String)
+        If tipo = "C" Or tipo = "T" Then
+            CpfTxt.Clear()
+            RgTxt.Clear()
+            DataTxt.Text = Nothing
+            InativoChk.IsChecked = False
+            NomeTxt.Clear()
+            EnderecoTxt.Clear()
+            NumeroTxt.Clear()
+            ComplementoTxt.Clear()
+            BairroTxt.Clear()
+            CidadeTxt.Clear()
+            EstadoTxt.Text = Nothing
+        End If
+        
+        If tipo = "CT" Or tipo = "T" Then
+            TipoTxt.Clear()
+            ContatoTxt.Clear()
+            ObsTxt.Clear()
+        End If
+    End Sub
+
+    Private Function GravaCliente() As Boolean
+        If CpfTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de CPF, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            CpfTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf RgTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de RG, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            RgTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf Not IsDate(DataTxt.Text) Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de DATA, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            DataTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf NomeTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de NOME, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            NomeTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf EnderecoTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de ENDEREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            EnderecoTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf NumeroTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de NÚMERO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            NumeroTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf BairroTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de BAIRRO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            BairroTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf CidadeTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de CIDADE, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            CidadeTxt.Focus()
+            Return False
+            Exit Function
+        ElseIf EstadoTxt.Text = Nothing Then
+            MsgBox("Para salvar um cliente, é necessário preencher o campo de ESTADO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            EstadoTxt.Focus()
+            Return False
+            Exit Function
+        End If
+
+        objCliente = New Cliente
+
+        objCliente.Cpf = CpfTxt.Text
+        objCliente.Rg = RgTxt.Text
+        objCliente.DataCadastro = DataTxt.Text
+        objCliente.Inativo = InativoChk.IsChecked
+        objCliente.Nome = NomeTxt.Text
+        objCliente.Endereco = EnderecoTxt.Text
+        objCliente.Numero = NumeroTxt.Text
+        objCliente.Complemento = ComplementoTxt.Text
+        objCliente.Bairro = BairroTxt.Text
+        objCliente.Cidade = CidadeTxt.Text
+        objCliente.Estado = EstadoTxt.Text
+
+        Return True
+    End Function
+#End Region
+
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
         Me.Close()
     End Sub
@@ -45,8 +134,7 @@
     End Sub
 
     Private Sub AdicionarBtn_Click(sender As Object, e As RoutedEventArgs) Handles AdicionarBtn.Click
-        If objCliente Is Nothing Then
-            MsgBox("Para incluir um contato, o cliente precisa estar salvo, verifique!", MsgBoxStyle.Exclamation, "Validação")
+        If GravaCliente() = False Then
             Exit Sub
         End If
 
@@ -77,77 +165,24 @@
         Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.Contatos.Count
 
         MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
-        TipoTxt.Clear()
-        ContatoTxt.Clear()
-        ObsTxt.Clear()
+        LimpaCampos("CT")
     End Sub
 
     Private Sub SalvarBtn_Click(sender As Object, e As RoutedEventArgs) Handles SalvarBtn.Click
-        If CpfTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de CPF, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            CpfTxt.Focus()
-            Exit Sub
-        ElseIf RgTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de RG, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            RgTxt.Focus()
-            Exit Sub
-        ElseIf Not IsDate(DataTxt.Text) Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de DATA, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            DataTxt.Focus()
-            Exit Sub
-        ElseIf NomeTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de NOME, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            NomeTxt.Focus()
-            Exit Sub
-        ElseIf EnderecoTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de ENDEREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            EnderecoTxt.Focus()
-            Exit Sub
-        ElseIf NumeroTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de NÚMERO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            NumeroTxt.Focus()
-            Exit Sub
-        ElseIf BairroTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de BAIRRO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            BairroTxt.Focus()
-            Exit Sub
-        ElseIf CidadeTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de CIDADE, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            CidadeTxt.Focus()
-            Exit Sub
-        ElseIf EstadoTxt.Text = Nothing Then
-            MsgBox("Para salvar um cliente, é necessário preencher o campo de ESTADO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            EstadoTxt.Focus()
+        If GravaCliente() = False Then
             Exit Sub
         End If
 
-        objCliente = New Cliente
-
-        objCliente.Cpf = CpfTxt.Text
-        objCliente.Rg = RgTxt.Text
-        objCliente.DataCadastro = DataTxt.Text
-        objCliente.Inativo = InativoChk.IsChecked
-        objCliente.Nome = NomeTxt.Text
-        objCliente.Endereco = EnderecoTxt.Text
-        objCliente.Numero = NumeroTxt.Text
-        objCliente.Complemento = ComplementoTxt.Text
-        objCliente.Bairro = BairroTxt.Text
-        objCliente.Cidade = CidadeTxt.Text
-        objCliente.Estado = EstadoTxt.Text
-
         MsgBox("Registro salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
-        CpfTxt.Clear()
-        RgTxt.Clear()
-        DataTxt.Text = Nothing
-        InativoChk.IsChecked = False
-        NomeTxt.Clear()
-        EnderecoTxt.Clear()
-        NumeroTxt.Clear()
-        ComplementoTxt.Clear()
-        BairroTxt.Clear()
-        CidadeTxt.Clear()
-        EstadoTxt.Text = Nothing
-
+        LimpaCampos("T")
         CpfTxt.Focus()
+    End Sub
+
+    Private Sub NovoBtn_Click(sender As Object, e As RoutedEventArgs) Handles NovoBtn.Click
+        LimpaCampos("T")
+    End Sub
+
+    Private Sub ExcluirBtn_Click(sender As Object, e As RoutedEventArgs) Handles ExcluirBtn.Click
+        LimpaCampos("C")
     End Sub
 End Class
