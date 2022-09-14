@@ -3,6 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox"
     Title="Cadastro de Clientes" WindowStartupLocation="CenterScreen" Style="{StaticResource Window}">
+    <Window.Resources>
+        <CollectionViewSource x:Key="ClienteContatosViewSource" Source="{Binding ClienteContatos}"/>
+    </Window.Resources>
     <Grid Background="{DynamicResource background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -127,11 +130,11 @@
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
-                                    <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5">
+                                    <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource ClienteContatosViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Tipo de Contato" Width="*"/>
-                                            <DataGridTextColumn Header="Dados do Contato" Width="*"/>
-                                            <DataGridTextColumn Header="Observações" Width="*"/>
+                                            <DataGridTextColumn Header="Tipo de Contato" Width="*" Binding="{Binding TipoContato}"/>
+                                            <DataGridTextColumn Header="Dados do Contato" Width="*" Binding="{Binding DadosContato}"/>
+                                            <DataGridTextColumn Header="Observações" Width="*" Binding="{Binding Obs}"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>

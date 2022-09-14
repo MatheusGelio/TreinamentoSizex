@@ -1,6 +1,7 @@
 ﻿Public Class wdCadCliente
     Dim objCliente As Cliente
     Dim passou As Boolean = False
+    Dim srcContatos As CollectionViewSource
 
 #Region "Métodos"
     Private Sub LimpaCampos(tipo As String)
@@ -16,6 +17,9 @@
             BairroTxt.Clear()
             CidadeTxt.Clear()
             EstadoTxt.Text = Nothing
+            objCliente = Nothing
+
+            srcContatos.Source = Nothing
         End If
         
         If tipo = "CT" Or tipo = "T" Then
@@ -73,7 +77,10 @@
             Exit Function
         End If
 
-        objCliente = New Cliente
+        If objCliente Is Nothing Then
+            objCliente = New Cliente
+            objCliente.Contatos = New List(Of ClienteContatos)
+        End If
 
         objCliente.Cpf = CpfTxt.Text
         objCliente.Rg = RgTxt.Text
@@ -129,6 +136,8 @@
 
             EstadoTxt.ItemsSource = lista.ToList
 
+            srcContatos = CType(Me.FindResource("ClienteContatosViewSource"), CollectionViewSource)
+
             passou = True
         End If
     End Sub
@@ -157,14 +166,14 @@
         objClienteContatos.DadosContato = ContatoTxt.Text
         objClienteContatos.Obs = ObsTxt.Text
 
-        If objCliente.Contatos Is Nothing Then
-            objCliente.Contatos = New List(Of ClienteContatos)
-        End If
         objCliente.Contatos.Add(objClienteContatos)
 
         Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.Contatos.Count
 
         MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
+
+        srcContatos.Source = objCliente.Contatos.ToList
+
         LimpaCampos("CT")
     End Sub
 
