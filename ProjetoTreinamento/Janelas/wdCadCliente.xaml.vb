@@ -1,7 +1,10 @@
 ﻿Public Class wdCadCliente
     Dim objCliente As Cliente
+    Dim objClienteContatos As ClienteContatos
     Dim passou As Boolean = False
-    Dim srcContatos As CollectionViewSource
+    Dim srcCliente As CollectionViewSource
+    Dim srcClienteContatos As CollectionViewSource
+    Dim lstCliente As List(Of Cliente)
 
 #Region "Métodos"
     Private Sub LimpaCampos(tipo As String)
@@ -19,13 +22,14 @@
             EstadoTxt.Text = Nothing
             objCliente = Nothing
 
-            srcContatos.Source = Nothing
+            srcClienteContatos.Source = Nothing
         End If
         
         If tipo = "CT" Or tipo = "T" Then
             TipoTxt.Clear()
             ContatoTxt.Clear()
             ObsTxt.Clear()
+            objClienteContatos = Nothing
         End If
     End Sub
 
@@ -79,6 +83,7 @@
 
         If objCliente Is Nothing Then
             objCliente = New Cliente
+            lstCliente.Add(objCliente)
             objCliente.Contatos = New List(Of ClienteContatos)
         End If
 
@@ -136,7 +141,10 @@
 
             EstadoTxt.ItemsSource = lista.ToList
 
-            srcContatos = CType(Me.FindResource("ClienteContatosViewSource"), CollectionViewSource)
+            lstCliente = New List(Of Cliente)
+
+            srcCliente = CType(Me.FindResource("ClienteViewSource"), CollectionViewSource)
+            srcClienteContatos = CType(Me.FindResource("ClienteContatosViewSource"), CollectionViewSource)
 
             passou = True
         End If
@@ -155,24 +163,36 @@
             MsgBox("Para incluir um contato, é necessário preencher o campo de DADOS DO CONTATO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             ContatoTxt.Focus()
             Exit Sub
-        ElseIf ObsTxt.Text = Nothing Then
-            MsgBox("Para incluir um contato, é necessário preencher o campo de OBSERVAÇÕES, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            ObsTxt.Focus()
-            Exit Sub
         End If
 
-        Dim objClienteContatos As New ClienteContatos
+        If objClienteContatos Is Nothing Then
+            objClienteContatos = New ClienteContatos
+            objCliente.Contatos.Add(objClienteContatos)
+        End If
+
         objClienteContatos.TipoContato = TipoTxt.Text
         objClienteContatos.DadosContato = ContatoTxt.Text
         objClienteContatos.Obs = ObsTxt.Text
 
-        objCliente.Contatos.Add(objClienteContatos)
+        srcClienteContatos.Source = objCliente.Contatos.ToList
 
         Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.Contatos.Count
 
         MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
 
-        srcContatos.Source = objCliente.Contatos.ToList
+        LimpaCampos("CT")
+    End Sub
+
+    Private Sub DeletarBtn_Click(sender As Object, e As RoutedEventArgs) Handles DeletarBtn.Click
+        If objClienteContatos Is Nothing Then
+            MsgBox("Para deletar um contato, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Deletar Contato")
+            Exit Sub
+        End If
+
+        objCliente.Contatos.Remove(objClienteContatos)
+        srcClienteContatos.Source = objCliente.Contatos.ToList
+
+        MsgBox("Contato deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
         LimpaCampos("CT")
     End Sub
@@ -181,6 +201,8 @@
         If GravaCliente() = False Then
             Exit Sub
         End If
+
+        srcCliente.Source = lstCliente.ToList
 
         MsgBox("Registro salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
         LimpaCampos("T")
@@ -193,5 +215,33 @@
 
     Private Sub ExcluirBtn_Click(sender As Object, e As RoutedEventArgs) Handles ExcluirBtn.Click
         LimpaCampos("C")
+    End Sub
+
+    Private Sub DataGrid_MouseDoubleClick_1(sender As Object, e As MouseButtonEventArgs) Handles ClienteContatosDataGrid.MouseDoubleClick
+        If sender.selectedItem IsNot Nothing Then
+            objClienteContatos = CType(sender.selectedItem, ClienteContatos)
+            TipoTxt.Text = objClienteContatos.TipoContato
+            ContatoTxt.Text = objClienteContatos.DadosContato
+            ObsTxt.Text = objClienteContatos.Obs
+        End If
+    End Sub
+
+    Private Sub ClienteDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles ClienteDataGrid.MouseDoubleClick
+        If sender.selectedItem IsNot Nothing Then
+            objCliente = CType(sender.selectedItem, Cliente)
+            CpfTxt.Text = objCliente.Cpf
+            RgTxt.Text = objCliente.Rg
+            DataTxt.Text = objCliente.DataCadastro
+            InativoChk.IsChecked = objCliente.Inativo
+            NomeTxt.Text = objCliente.Nome
+            EnderecoTxt.Text = objCliente.Endereco
+            NumeroTxt.Text = objCliente.Numero
+            ComplementoTxt.Text = objCliente.Complemento
+            BairroTxt.Text = objCliente.Bairro
+            CidadeTxt.Text = objCliente.Cidade
+            EstadoTxt.Text = objCliente.Estado
+
+            srcClienteContatos.Source = objCliente.Contatos.ToList
+        End If
     End Sub
 End Class

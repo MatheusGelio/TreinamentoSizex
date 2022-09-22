@@ -5,6 +5,7 @@
     Title="Cadastro de Clientes" WindowStartupLocation="CenterScreen" Style="{StaticResource Window}">
     <Window.Resources>
         <CollectionViewSource x:Key="ClienteContatosViewSource" Source="{Binding ClienteContatos}"/>
+        <CollectionViewSource x:Key="ClienteViewSource" Source="{Binding Cliente}"/>
     </Window.Resources>
     <Grid Background="{DynamicResource background}">
         <Grid.RowDefinitions>
@@ -130,7 +131,7 @@
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
-                                    <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource ClienteContatosViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                                    <DataGrid x:Name="ClienteContatosDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource ClienteContatosViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" MouseDoubleClick="DataGrid_MouseDoubleClick_1">
                                         <DataGrid.Columns>
                                             <DataGridTextColumn Header="Tipo de Contato" Width="*" Binding="{Binding TipoContato}"/>
                                             <DataGridTextColumn Header="Dados do Contato" Width="*" Binding="{Binding DadosContato}"/>
@@ -144,13 +145,13 @@
                 </TabItem>
                 <TabItem Name="PesTb" Header="Pesquisa">
                     <Grid>
-                        <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5">
+                        <DataGrid x:Name="ClienteDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource ClienteViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="CPF" Width="100"/>
-                                <DataGridTextColumn Header="Nome do Cliente" Width="*"/>
-                                <DataGridTextColumn Header="Endereço" Width="*"/>
-                                <DataGridTextColumn Header="Número" Width="60"/>
-                                <DataGridTextColumn Header="Bairro" Width="200"/>
+                                <DataGridTextColumn Header="CPF" Width="100" Binding="{Binding Cpf}"/>
+                                <DataGridTextColumn Header="Nome do Cliente" Width="*" Binding="{Binding Nome}"/>
+                                <DataGridTextColumn Header="Endereço" Width="*" Binding="{Binding Endereco}"/>
+                                <DataGridTextColumn Header="Número" Width="60" Binding="{Binding Numero}"/>
+                                <DataGridTextColumn Header="Bairro" Width="200" Binding="{Binding Bairro}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
