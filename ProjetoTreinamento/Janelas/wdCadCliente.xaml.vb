@@ -184,6 +184,11 @@
     End Sub
 
     Private Sub DeletarBtn_Click(sender As Object, e As RoutedEventArgs) Handles DeletarBtn.Click
+        If objCliente Is Nothing Then
+            MsgBox("Para deletar um contato, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Deletar Contato")
+            Exit Sub
+        End If
+
         If objClienteContatos Is Nothing Then
             MsgBox("Para deletar um contato, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Deletar Contato")
             Exit Sub
@@ -214,6 +219,16 @@
     End Sub
 
     Private Sub ExcluirBtn_Click(sender As Object, e As RoutedEventArgs) Handles ExcluirBtn.Click
+        If objCliente Is Nothing Then
+            MsgBox("Para excluir um cliente, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Deletar Contato")
+            Exit Sub
+        End If
+
+        lstCliente.Remove(objCliente)
+        srcCliente.Source = lstCliente.ToList
+
+        MsgBox("Cliente excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+
         LimpaCampos("C")
     End Sub
 
@@ -242,6 +257,9 @@
             EstadoTxt.Text = objCliente.Estado
 
             srcClienteContatos.Source = objCliente.Contatos.ToList
+
+            PrincipalTb.SelectedItem = CadTb
+            e.Handled = True
         End If
     End Sub
 End Class
