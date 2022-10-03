@@ -6,6 +6,21 @@
     Dim srcClienteContatos As CollectionViewSource
     Dim lstCliente As List(Of Cliente)
 
+    Public Sub New()
+        InitializeComponent()
+    End Sub
+
+    Public Sub New(tipo As String)
+        InitializeComponent()
+
+        If tipo = "C" Then
+            TituloLbl.Content = "Cadastro de Clientes"
+        Else
+            TituloLbl.Content = "Cadastro de Fornecedores"
+            FotoCt.Visibility = Windows.Visibility.Collapsed
+        End If
+    End Sub
+
 #Region "Métodos"
     Private Sub LimpaCampos(tipo As String)
         If tipo = "C" Or tipo = "T" Then
@@ -24,7 +39,7 @@
 
             srcClienteContatos.Source = Nothing
         End If
-        
+
         If tipo = "CT" Or tipo = "T" Then
             TipoTxt.Clear()
             ContatoTxt.Clear()
@@ -103,8 +118,17 @@
     End Function
 #End Region
 
-    Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
-        Me.Close()
+    Private Sub wdCadCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Select Case e.Key
+            Case Key.F2
+                NovoBtn_Click(Nothing, Nothing)
+            Case Key.F3
+                SalvarBtn_Click(Nothing, Nothing)
+            Case Key.F4
+                ExcluirBtn_Click(Nothing, Nothing)
+            Case Key.Escape
+                SairBtn_Click(Nothing, Nothing)
+        End Select
     End Sub
 
     Private Sub wdCadCliente_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
@@ -230,6 +254,10 @@
         MsgBox("Cliente excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
         LimpaCampos("C")
+    End Sub
+
+    Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
+        Me.Close()
     End Sub
 
     Private Sub DataGrid_MouseDoubleClick_1(sender As Object, e As MouseButtonEventArgs) Handles ClienteContatosDataGrid.MouseDoubleClick

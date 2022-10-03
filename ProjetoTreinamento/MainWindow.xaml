@@ -12,6 +12,7 @@
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="{DynamicResource title-primary}">
                 <Label Name="ProductMnu" Content="Cadastro de Produtos" Style="{StaticResource Menu}"/>
@@ -21,6 +22,9 @@
             </Grid>
             <Grid Grid.Row="2" Background="{DynamicResource title-primary}">
                 <Label Name="VeiculoMnu" Content="Cadastro de Veículos" Style="{StaticResource Menu}"/>
+            </Grid>
+            <Grid Grid.Row="3" Background="{DynamicResource title-primary}">
+                <Label Name="FornecedorMnu" Content="Cadastro de Fornecedores" Style="{StaticResource Menu}"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="1">

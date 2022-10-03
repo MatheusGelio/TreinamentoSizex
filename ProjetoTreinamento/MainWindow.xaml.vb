@@ -6,7 +6,12 @@
     End Sub
 
     Private Sub ClienteMnu_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles ClienteMnu.MouseLeftButtonDown
-        Dim wd As New wdCadCliente
+        Dim wd As New wdCadCliente("C")
+        wd.ShowDialog()
+    End Sub
+
+    Private Sub FornecedorMnu_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles FornecedorMnu.MouseLeftButtonDown
+        Dim wd As New wdCadCliente("F")
         wd.ShowDialog()
     End Sub
 
