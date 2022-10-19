@@ -10,5 +10,7 @@
     Public Property Bairro As String
     Public Property Cidade As String
     Public Property Estado As String
+    Public Property Usuario As String
+    Public Property DataGravacao As DateTime
     Public Property Contatos As List(Of ClienteContatos)
 End Class

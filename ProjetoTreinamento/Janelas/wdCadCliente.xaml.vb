@@ -48,7 +48,7 @@
         End If
     End Sub
 
-    Private Function GravaCliente(ByRef retorno As String) As Boolean
+    Private Function GravaCliente(Optional ByRef retorno As String = "") As Boolean
         retorno = "1 - Validando Campos."
         If CpfTxt.Text = Nothing Then
             MsgBox("Para salvar um cliente, é necessário preencher o campo de CPF, verifique!", MsgBoxStyle.Exclamation, "Validação")
@@ -117,6 +117,9 @@
         objCliente.Cidade = CidadeTxt.Text
         objCliente.Estado = EstadoTxt.Text
 
+        objCliente.Usuario = InputBox("Informe o seu nome para gravar um cliente", "Auditoria", "")
+        objCliente.DataGravacao = Date.Now
+
         retorno = "4 - Gravação Concluída."
         Return True
     End Function
@@ -173,6 +176,8 @@
 
             srcCliente = CType(Me.FindResource("ClienteViewSource"), CollectionViewSource)
             srcClienteContatos = CType(Me.FindResource("ClienteContatosViewSource"), CollectionViewSource)
+
+            DataTxt.Text = Date.Today
 
             passou = True
         End If
