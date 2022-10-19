@@ -48,7 +48,8 @@
         End If
     End Sub
 
-    Private Function GravaCliente() As Boolean
+    Private Function GravaCliente(ByRef retorno As String) As Boolean
+        retorno = "1 - Validando Campos."
         If CpfTxt.Text = Nothing Then
             MsgBox("Para salvar um cliente, é necessário preencher o campo de CPF, verifique!", MsgBoxStyle.Exclamation, "Validação")
             CpfTxt.Focus()
@@ -96,12 +97,14 @@
             Exit Function
         End If
 
+        retorno = "2 - Inserindo Objeto."
         If objCliente Is Nothing Then
             objCliente = New Cliente
             lstCliente.Add(objCliente)
             objCliente.Contatos = New List(Of ClienteContatos)
         End If
 
+        retorno = "3 - Gravando Campos do Cliente."
         objCliente.Cpf = CpfTxt.Text
         objCliente.Rg = RgTxt.Text
         objCliente.DataCadastro = DataTxt.Text
@@ -114,6 +117,7 @@
         objCliente.Cidade = CidadeTxt.Text
         objCliente.Estado = EstadoTxt.Text
 
+        retorno = "4 - Gravação Concluída."
         Return True
     End Function
 #End Region
@@ -175,36 +179,41 @@
     End Sub
 
     Private Sub AdicionarBtn_Click(sender As Object, e As RoutedEventArgs) Handles AdicionarBtn.Click
-        If GravaCliente() = False Then
-            Exit Sub
-        End If
+        Dim retorno As String = ""
+        Try
+            If GravaCliente(retorno) = False Then
+                Exit Sub
+            End If
 
-        If TipoTxt.Text = Nothing Then
-            MsgBox("Para incluir um contato, é necessário preencher o campo de TIPO DE CONTATO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            TipoTxt.Focus()
-            Exit Sub
-        ElseIf ContatoTxt.Text = Nothing Then
-            MsgBox("Para incluir um contato, é necessário preencher o campo de DADOS DO CONTATO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            ContatoTxt.Focus()
-            Exit Sub
-        End If
+            If TipoTxt.Text = Nothing Then
+                MsgBox("Para incluir um contato, é necessário preencher o campo de TIPO DE CONTATO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+                TipoTxt.Focus()
+                Exit Sub
+            ElseIf ContatoTxt.Text = Nothing Then
+                MsgBox("Para incluir um contato, é necessário preencher o campo de DADOS DO CONTATO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+                ContatoTxt.Focus()
+                Exit Sub
+            End If
 
-        If objClienteContatos Is Nothing Then
-            objClienteContatos = New ClienteContatos
-            objCliente.Contatos.Add(objClienteContatos)
-        End If
+            If objClienteContatos Is Nothing Then
+                objClienteContatos = New ClienteContatos
+                objCliente.Contatos.Add(objClienteContatos)
+            End If
 
-        objClienteContatos.TipoContato = TipoTxt.Text
-        objClienteContatos.DadosContato = ContatoTxt.Text
-        objClienteContatos.Obs = ObsTxt.Text
+            objClienteContatos.TipoContato = TipoTxt.Text
+            objClienteContatos.DadosContato = ContatoTxt.Text
+            objClienteContatos.Obs = ObsTxt.Text
 
-        srcClienteContatos.Source = objCliente.Contatos.ToList
+            srcClienteContatos.Source = objCliente.Contatos.ToList
 
-        Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.Contatos.Count
+            Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.Contatos.Count
 
-        MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
+            MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
 
-        LimpaCampos("CT")
+            LimpaCampos("CT")
+        Catch ex As Exception
+            MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Adicionar Contato")
+        End Try
     End Sub
 
     Private Sub DeletarBtn_Click(sender As Object, e As RoutedEventArgs) Handles DeletarBtn.Click
@@ -227,15 +236,20 @@
     End Sub
 
     Private Sub SalvarBtn_Click(sender As Object, e As RoutedEventArgs) Handles SalvarBtn.Click
-        If GravaCliente() = False Then
-            Exit Sub
-        End If
+        Dim retorno As String = ""
+        Try
+            If GravaCliente(retorno) = False Then
+                Exit Sub
+            End If
 
-        srcCliente.Source = lstCliente.ToList
+            srcCliente.Source = lstCliente.ToList
 
-        MsgBox("Registro salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
-        LimpaCampos("T")
-        CpfTxt.Focus()
+            MsgBox("Registro salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+            LimpaCampos("T")
+            CpfTxt.Focus()
+        Catch ex As Exception
+            MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Adicionar Contato")
+        End Try
     End Sub
 
     Private Sub NovoBtn_Click(sender As Object, e As RoutedEventArgs) Handles NovoBtn.Click
