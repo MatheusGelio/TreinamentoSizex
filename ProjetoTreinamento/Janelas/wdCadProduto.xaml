@@ -3,6 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox"
     Title="Cadastro de Produtos" WindowStartupLocation="CenterScreen" Style="{StaticResource Window}">
+    <Window.Resources>
+        <CollectionViewSource x:Key="ProdutoViewSource" Source="{Binding Produto}"/>
+    </Window.Resources>
     <Grid Background="{DynamicResource background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -23,7 +26,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="CodigoLbl" Content="Código:" Style="{StaticResource Label}"/>
-                <TextBox x:Name="CodigoTxt" Style="{StaticResource TextBox}" TabIndex="0"/>
+                <TextBox x:Name="CodigoTxt" Style="{StaticResource TextBox}" TabIndex="0" TextAlignment="Right"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="DescricaoLbl" Content="Descrição do Produto:" Style="{StaticResource Label}"/>
@@ -72,17 +75,17 @@
                 <ctTextBox:ctDecimalBox Name="PrecoTxt" Style="{StaticResource DecimalBox}" TabIndex="9" NrDecimais="2"/>
             </Grid>
             <Grid Grid.Column="5">
-                <CheckBox Content="INATIVO" Margin="5,25,5,0" FontWeight="Bold" BorderBrush="#FF4B4B4B"/>
+                <CheckBox x:Name="InativoChk" Content="INATIVO" Margin="5,25,5,0" FontWeight="Bold" BorderBrush="#FF4B4B4B"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="3">
-            <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5">
+            <DataGrid x:Name="ProdutoDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource ProdutoViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Código" Width="60"/>
-                    <DataGridTextColumn Header="Descrição do Produto" Width="*"/>
-                    <DataGridTextColumn Header="Grupo" Width="150"/>
-                    <DataGridTextColumn Header="Custo R$" Width="80"/>
-                    <DataGridTextColumn Header="Preço R$" Width="80"/>
+                    <DataGridTextColumn Header="Código" Width="60" Binding="{Binding Codigo}"/>
+                    <DataGridTextColumn Header="Descrição do Produto" Width="*" Binding="{Binding Descricao}"/>
+                    <DataGridTextColumn Header="Grupo" Width="150" Binding="{Binding Grupo}"/>
+                    <DataGridTextColumn Header="Custo R$" Width="80" Binding="{Binding Custo}"/>
+                    <DataGridTextColumn Header="Preço R$" Width="80" Binding="{Binding Preco}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

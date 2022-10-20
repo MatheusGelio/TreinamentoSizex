@@ -253,7 +253,7 @@
             LimpaCampos("T")
             CpfTxt.Focus()
         Catch ex As Exception
-            MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Adicionar Contato")
+            MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Salvar Cliente")
         End Try
     End Sub
 
@@ -263,7 +263,7 @@
 
     Private Sub ExcluirBtn_Click(sender As Object, e As RoutedEventArgs) Handles ExcluirBtn.Click
         If objCliente Is Nothing Then
-            MsgBox("Para excluir um cliente, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Deletar Contato")
+            MsgBox("Para excluir um cliente, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Excluir Cliente")
             Exit Sub
         End If
 
