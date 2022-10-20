@@ -8,10 +8,10 @@
     Private Sub LimparCampos()
         CodigoTxt.Clear()
         DescricaoTxt.Clear()
-        DataTxt.Text = Nothing
+        DataTxt.Text = Date.Today
         SimRdb.IsChecked = True
         GrupoTxt.Clear()
-        TipoTxt.Text = Nothing
+        TipoCmb.Text = Nothing
         CustoTxt.Clear()
         MargemTxt.Clear()
         PrecoTxt.Clear()
@@ -36,9 +36,9 @@
             DataTxt.Focus()
             Return False
             Exit Function
-        ElseIf TipoTxt.Text = Nothing Then
+        ElseIf TipoCmb.Text = Nothing Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de TIPO DE PRODUTO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            TipoTxt.Focus()
+            TipoCmb.Focus()
             Return False
             Exit Function
         ElseIf PrecoTxt.Text = Nothing Then
@@ -64,7 +64,7 @@
             objProduto.Estoque = False
         End If
         objProduto.Grupo = GrupoTxt.Text
-        objProduto.TipoProduto = TipoTxt.Text
+        objProduto.TipoProduto = TipoCmb.Text
         objProduto.Custo = CustoTxt.Text
         objProduto.Margem = MargemTxt.Text
         objProduto.Preco = PrecoTxt.Text
@@ -133,13 +133,6 @@
     Private Sub wdCadProduto_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
             Me.Show()
-            Dim lista As New List(Of String)
-            lista.Add("ACABADO")
-            lista.Add("EMBALAGEM")
-            lista.Add("INSUMO")
-            lista.Add("MATERIA PRIMA")
-
-            TipoTxt.ItemsSource = lista.ToList
 
             lstProduto = New List(Of Produto)
 
@@ -163,7 +156,7 @@
                 NaoRdb.IsChecked = True
             End If
             GrupoTxt.Text = objProduto.Grupo
-            TipoTxt.Text = objProduto.TipoProduto
+            TipoCmb.Text = objProduto.TipoProduto
             CustoTxt.Text = objProduto.Custo
             MargemTxt.Text = objProduto.Margem
             PrecoTxt.Text = objProduto.Preco

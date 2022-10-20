@@ -60,7 +60,12 @@
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="TipoLbl" Content="Tipo de Produto:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctAutoComplete x:Name="TipoTxt" Style="{StaticResource AutoBox}" TabIndex="6"/>
+                <ComboBox x:Name="TipoCmb" HorizontalAlignment="Stretch" Margin="5,23,0,0" FontFamily="Calibri" FontSize="14" BorderBrush="Black" TabIndex="6">
+                    <ComboBoxItem Content="ACABADO"/>
+                    <ComboBoxItem Content="EMBALAGEM"/>
+                    <ComboBoxItem Content="INSUMO"/>
+                    <ComboBoxItem Content="MATERIA PRIMA"/>
+                </ComboBox>
             </Grid>
             <Grid Grid.Column="2">
                 <Label x:Name="CustoLbl" Content="Custo R$:" Style="{StaticResource Label}"/>

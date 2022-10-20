@@ -1,5 +1,5 @@
 ﻿Public Class Produto
-    Public Property Codigo As String
+    Public Property Codigo As Integer
     Public Property Descricao As String
     Public Property DataCadastro As Date
     Public Property Estoque As Boolean
