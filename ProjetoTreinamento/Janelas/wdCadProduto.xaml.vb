@@ -6,17 +6,37 @@
 
 #Region "Métodos"
     Private Sub LimparCampos()
-        CodigoTxt.Clear()
-        DescricaoTxt.Clear()
+        CodigoTxt.Text = ""
+        DescricaoTxt.Text = ""
         DataTxt.Text = Date.Today
         SimRdb.IsChecked = True
-        GrupoTxt.Clear()
-        TipoCmb.Text = Nothing
-        CustoTxt.Clear()
-        MargemTxt.Clear()
-        PrecoTxt.Clear()
+        GrupoTxt.Text = ""
+        TipoCmb.SelectedIndex = -1
+        CustoTxt.Text = "0,00"
+        MargemTxt.Text = "0,00"
+        PrecoTxt.Text = "0,00"
         InativoChk.IsChecked = False
         objProduto = Nothing
+    End Sub
+
+    Private Sub PreencherCampos(sender As Object)
+        objProduto = CType(sender.selectedItem, Produto)
+        CodigoTxt.Text = objProduto.Codigo
+        DescricaoTxt.Text = objProduto.Descricao
+        DataTxt.Text = objProduto.DataCadastro
+        If objProduto.Estoque = True Then
+            SimRdb.IsChecked = True
+        Else
+            NaoRdb.IsChecked = True
+        End If
+        GrupoTxt.Text = objProduto.Grupo
+        TipoCmb.Text = objProduto.TipoProduto
+        CustoTxt.Text = objProduto.Custo
+        MargemTxt.Text = objProduto.Margem
+        PrecoTxt.Text = objProduto.Preco
+        InativoChk.IsChecked = objProduto.Inativo
+
+        srcProduto.Source = lstProduto.ToList
     End Sub
 
     Private Function SalvarProduto(Optional ByRef retorno As String = "") As Boolean
@@ -25,27 +45,22 @@
             MsgBox("Para salvar um produto, é necessário preencher o campo de CÓDIGO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             CodigoTxt.Focus()
             Return False
-            Exit Function
         ElseIf DescricaoTxt.Text = Nothing Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de DESCRIÇÃO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             DescricaoTxt.Focus()
             Return False
-            Exit Function
         ElseIf Not IsDate(DataTxt.Text) Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de DATA DE CADASTRO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             DataTxt.Focus()
             Return False
-            Exit Function
         ElseIf TipoCmb.Text = Nothing Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de TIPO DE PRODUTO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             TipoCmb.Focus()
             Return False
-            Exit Function
         ElseIf PrecoTxt.Text = Nothing Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de PREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             PrecoTxt.Focus()
             Return False
-            Exit Function
         End If
 
         retorno = "2 - Inserindo Objeto."
@@ -58,11 +73,7 @@
         objProduto.Codigo = CodigoTxt.Text
         objProduto.Descricao = DescricaoTxt.Text
         objProduto.DataCadastro = DataTxt.Text
-        If SimRdb.IsChecked Then
-            objProduto.Estoque = True
-        Else
-            objProduto.Estoque = False
-        End If
+        objProduto.Estoque = SimRdb.IsChecked
         objProduto.Grupo = GrupoTxt.Text
         objProduto.TipoProduto = TipoCmb.Text
         objProduto.Custo = CustoTxt.Text
@@ -100,24 +111,29 @@
     End Sub
 
     Private Sub ExcluirBtn_Click(sender As Object, e As RoutedEventArgs) Handles ExcluirBtn.Click
-        If objProduto Is Nothing Then
-            MsgBox("Para excluir um produto, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Excluir Produto")
-            Exit Sub
-        End If
+        Dim retorno As String = ""
+        Try
+            If objProduto Is Nothing Then
+                MsgBox("Para excluir um produto, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Excluir Produto")
+                Exit Sub
+            End If
 
-        lstProduto.Remove(objProduto)
-        srcProduto.Source = lstProduto.ToList
+            lstProduto.Remove(objProduto)
+            srcProduto.Source = lstProduto.ToList
 
-        MsgBox("Produto excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+            MsgBox("Produto excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
-        LimparCampos()
+            LimparCampos()
+        Catch ex As Exception
+            MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Excluir Produto")
+        End Try
     End Sub
 
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
         Me.Close()
     End Sub
 
-    Private Sub wdCadProduto_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+    Private Sub wdCadProduto_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
         Select Case e.Key
             Case Key.F2
                 NovoBtn_Click(Nothing, Nothing)
@@ -128,6 +144,13 @@
             Case Key.Escape
                 SairBtn_Click(Nothing, Nothing)
         End Select
+    End Sub
+
+    Private Sub DataTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DataTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            GrupoTxt.Focus()
+            e.Handled = True
+        End If
     End Sub
 
     Private Sub wdCadProduto_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
@@ -146,23 +169,7 @@
 
     Private Sub ProdutoDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles ProdutoDataGrid.MouseDoubleClick
         If sender.selectedItem IsNot Nothing Then
-            objProduto = CType(sender.selectedItem, Produto)
-            CodigoTxt.Text = objProduto.Codigo
-            DescricaoTxt.Text = objProduto.Descricao
-            DataTxt.Text = objProduto.DataCadastro
-            If objProduto.Estoque = True Then
-                SimRdb.IsChecked = True
-            Else
-                NaoRdb.IsChecked = True
-            End If
-            GrupoTxt.Text = objProduto.Grupo
-            TipoCmb.Text = objProduto.TipoProduto
-            CustoTxt.Text = objProduto.Custo
-            MargemTxt.Text = objProduto.Margem
-            PrecoTxt.Text = objProduto.Preco
-            InativoChk.IsChecked = objProduto.Inativo
-
-            srcProduto.Source = lstProduto.ToList
+            PreencherCampos(sender)
         End If
     End Sub
 End Class

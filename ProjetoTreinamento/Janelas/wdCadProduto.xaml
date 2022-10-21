@@ -26,11 +26,11 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="CodigoLbl" Content="Código:" Style="{StaticResource Label}"/>
-                <TextBox x:Name="CodigoTxt" Style="{StaticResource TextBox}" TabIndex="0" TextAlignment="Right"/>
+                <ctTextBox:ctTextInt x:Name="CodigoTxt" Style="{StaticResource TextBox}" TabIndex="0" TextAlignment="Right"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="DescricaoLbl" Content="Descrição do Produto:" Style="{StaticResource Label}"/>
-                <TextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" TabIndex="1"/>
+                <ctTextBox:ctTextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" TabIndex="1"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Label x:Name="DataLbl" Content="Data Cadastro:" Style="{StaticResource Label}"/>
@@ -56,16 +56,16 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="GrupoLbl" Content="Grupo:" Style="{StaticResource Label}"/>
-                <TextBox x:Name="GrupoTxt" Style="{StaticResource TextBox}" TabIndex="5"/>
+                <ctTextBox:ctTextBox x:Name="GrupoTxt" Style="{StaticResource TextBox}" TabIndex="5"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="TipoLbl" Content="Tipo de Produto:" Style="{StaticResource Label}"/>
-                <ComboBox x:Name="TipoCmb" HorizontalAlignment="Stretch" Margin="5,23,0,0" FontFamily="Calibri" FontSize="14" BorderBrush="Black" TabIndex="6">
+                <ctTextBox:ctComboBox x:Name="TipoCmb" Margin="5,23,0,0" TabIndex="6">
                     <ComboBoxItem Content="ACABADO"/>
                     <ComboBoxItem Content="EMBALAGEM"/>
                     <ComboBoxItem Content="INSUMO"/>
                     <ComboBoxItem Content="MATERIA PRIMA"/>
-                </ComboBox>
+                </ctTextBox:ctComboBox>
             </Grid>
             <Grid Grid.Column="2">
                 <Label x:Name="CustoLbl" Content="Custo R$:" Style="{StaticResource Label}"/>
