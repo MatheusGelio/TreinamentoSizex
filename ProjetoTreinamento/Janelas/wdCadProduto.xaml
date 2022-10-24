@@ -26,11 +26,11 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="CodigoLbl" Content="Código:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctTextInt x:Name="CodigoTxt" Style="{StaticResource TextBox}" TabIndex="0" TextAlignment="Right"/>
+                <ctTextBox:ctTextInt x:Name="CodigoTxt" Style="{StaticResource TextBox}" TabIndex="0" TextAlignment="Right" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="DescricaoLbl" Content="Descrição do Produto:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctTextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" TabIndex="1"/>
+                <ctTextBox:ctTextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" TabIndex="1" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Label x:Name="DataLbl" Content="Data Cadastro:" Style="{StaticResource Label}"/>
@@ -56,7 +56,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="GrupoLbl" Content="Grupo:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctTextBox x:Name="GrupoTxt" Style="{StaticResource TextBox}" TabIndex="5"/>
+                <ctTextBox:ctTextBox x:Name="GrupoTxt" Style="{StaticResource TextBox}" TabIndex="5" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="TipoLbl" Content="Tipo de Produto:" Style="{StaticResource Label}"/>
@@ -69,15 +69,15 @@
             </Grid>
             <Grid Grid.Column="2">
                 <Label x:Name="CustoLbl" Content="Custo R$:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctDecimalBox Name="CustoTxt" Style="{StaticResource DecimalBox}" TabIndex="7" NrDecimais="2"/>
+                <ctTextBox:ctDecimalBox Name="CustoTxt" Style="{StaticResource DecimalBox}" TabIndex="7" NrDecimais="2" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="3">
                 <Label x:Name="MargemLbl" Content="Margem %:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctDecimalBox Name="MargemTxt" Style="{StaticResource DecimalBox}" TabIndex="8" NrDecimais="2"/>
+                <ctTextBox:ctDecimalBox Name="MargemTxt" Style="{StaticResource DecimalBox}" TabIndex="8" NrDecimais="2" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="4">
                 <Label x:Name="PrecoLbl" Content="Preço R$:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctDecimalBox Name="PrecoTxt" Style="{StaticResource DecimalBox}" TabIndex="9" NrDecimais="2"/>
+                <ctTextBox:ctDecimalBox Name="PrecoTxt" Style="{StaticResource DecimalBox}" TabIndex="9" NrDecimais="2" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="5">
                 <CheckBox x:Name="InativoChk" Content="INATIVO" Margin="5,25,5,0" FontWeight="Bold" BorderBrush="#FF4B4B4B"/>

@@ -6,7 +6,11 @@
 
 #Region "Métodos"
     Private Sub LimparCampos()
-        CodigoTxt.Text = ""
+        If lstProduto.Count > 0 Then
+            CodigoTxt.Text = lstProduto.Select(Function(p) p.Codigo).Max + 1
+        Else
+            CodigoTxt.Text = 1
+        End If
         DescricaoTxt.Text = ""
         DataTxt.Text = Date.Today
         SimRdb.IsChecked = True
@@ -41,7 +45,11 @@
 
     Private Function SalvarProduto(Optional ByRef retorno As String = "") As Boolean
         retorno = "1 - Validando Campos."
-        If CodigoTxt.Text = Nothing Then
+        If IsNumeric(CodigoTxt.Text) = False Then
+            MsgBox("Para salvar um produto, é necessário preencher o campo de CÓDIGO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            CodigoTxt.Focus()
+            Return False
+        ElseIf CInt(CodigoTxt.Text) = 0 Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de CÓDIGO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             CodigoTxt.Focus()
             Return False
@@ -53,11 +61,15 @@
             MsgBox("Para salvar um produto, é necessário preencher o campo de DATA DE CADASTRO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             DataTxt.Focus()
             Return False
-        ElseIf TipoCmb.Text = Nothing Then
+        ElseIf TipoCmb.SelectedIndex < 0 Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de TIPO DE PRODUTO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             TipoCmb.Focus()
             Return False
-        ElseIf PrecoTxt.Text = Nothing Then
+        ElseIf IsNumeric(PrecoTxt.Text) = False Then
+            MsgBox("Para salvar um produto, é necessário preencher o campo de PREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            PrecoTxt.Focus()
+            Return False
+        ElseIf CDbl(PrecoTxt.Text) = 0 Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de PREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             PrecoTxt.Focus()
             Return False
@@ -70,15 +82,15 @@
         End If
 
         retorno = "3 - Salvando Campos do Produto."
-        objProduto.Codigo = CodigoTxt.Text
-        objProduto.Descricao = DescricaoTxt.Text
+        objProduto.Codigo = CInt(CodigoTxt.Text)
+        objProduto.Descricao = UCase(DescricaoTxt.Text)
         objProduto.DataCadastro = DataTxt.Text
         objProduto.Estoque = SimRdb.IsChecked
-        objProduto.Grupo = GrupoTxt.Text
+        objProduto.Grupo = UCase(GrupoTxt.Text)
         objProduto.TipoProduto = TipoCmb.Text
-        objProduto.Custo = CustoTxt.Text
-        objProduto.Margem = MargemTxt.Text
-        objProduto.Preco = PrecoTxt.Text
+        objProduto.Custo = CDbl(CustoTxt.Text)
+        objProduto.Margem = CDbl(MargemTxt.Text)
+        objProduto.Preco = CDbl(PrecoTxt.Text)
         objProduto.Inativo = InativoChk.IsChecked
 
         objProduto.Usuario = InputBox("Informe o seu nome para salvar um produto", "Auditoria", "")
@@ -158,10 +170,9 @@
             Me.Show()
 
             lstProduto = New List(Of Produto)
-
             srcProduto = CType(Me.FindResource("ProdutoViewSource"), CollectionViewSource)
-
-            DataTxt.Text = Date.Today
+            LimparCampos()
+            CodigoTxt.Focus()
 
             passou = True
         End If
