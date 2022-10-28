@@ -43,13 +43,24 @@
         srcProduto.Source = lstProduto.ToList
     End Sub
 
+    Private Sub CalcularValores(tipo As String)
+        Dim valor As Double = 0
+        If tipo = "C" Or tipo = "M" Then
+            If Cfg.RetornarValorPadrao(CustoTxt.Text) > 0 And Cfg.RetornarValorPadrao(MargemTxt.Text) > 0 Then
+                valor = CDbl(CustoTxt.Text) + (CDbl(CustoTxt.Text) * (CDbl(MargemTxt.Text) / 100))
+                PrecoTxt.Text = valor
+            End If
+        ElseIf tipo = "P" Then
+            If Cfg.RetornarValorPadrao(CustoTxt.Text) > 0 And Cfg.RetornarValorPadrao(PrecoTxt.Text) > 0 Then
+                valor = ((CDbl(PrecoTxt.Text) * 100) / CDbl(CustoTxt.Text)) - 100
+                MargemTxt.Text = valor
+            End If
+        End If
+    End Sub
+
     Private Function SalvarProduto(Optional ByRef retorno As String = "") As Boolean
         retorno = "1 - Validando Campos."
-        If IsNumeric(CodigoTxt.Text) = False Then
-            MsgBox("Para salvar um produto, é necessário preencher o campo de CÓDIGO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            CodigoTxt.Focus()
-            Return False
-        ElseIf CInt(CodigoTxt.Text) = 0 Then
+        If Cfg.RetornarValorPadrao(CodigoTxt.Text) = 0 Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de CÓDIGO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             CodigoTxt.Focus()
             Return False
@@ -65,11 +76,7 @@
             MsgBox("Para salvar um produto, é necessário preencher o campo de TIPO DE PRODUTO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             TipoCmb.Focus()
             Return False
-        ElseIf IsNumeric(PrecoTxt.Text) = False Then
-            MsgBox("Para salvar um produto, é necessário preencher o campo de PREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            PrecoTxt.Focus()
-            Return False
-        ElseIf CDbl(PrecoTxt.Text) = 0 Then
+        ElseIf Cfg.RetornarValorPadrao(PrecoTxt.Text) = False Then
             MsgBox("Para salvar um produto, é necessário preencher o campo de PREÇO, verifique!", MsgBoxStyle.Exclamation, "Validação")
             PrecoTxt.Focus()
             Return False
@@ -88,8 +95,8 @@
         objProduto.Estoque = SimRdb.IsChecked
         objProduto.Grupo = UCase(GrupoTxt.Text)
         objProduto.TipoProduto = TipoCmb.Text
-        objProduto.Custo = CDbl(CustoTxt.Text)
-        objProduto.Margem = CDbl(MargemTxt.Text)
+        objProduto.Custo = Cfg.RetornarValorPadrao(CustoTxt.Text)
+        objProduto.Margem = Cfg.RetornarValorPadrao(MargemTxt.Text)
         objProduto.Preco = CDbl(PrecoTxt.Text)
         objProduto.Inativo = InativoChk.IsChecked
 
@@ -182,5 +189,19 @@
         If sender.selectedItem IsNot Nothing Then
             PreencherCampos(sender)
         End If
+    End Sub
+
+    Private Sub CustoTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles CustoTxt.LostFocus
+        CalcularValores("C")
+    End Sub
+
+
+    Private Sub MargemTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles MargemTxt.LostFocus
+        CalcularValores("M")
+    End Sub
+
+    
+    Private Sub PrecoTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles PrecoTxt.LostFocus
+        CalcularValores("P")
     End Sub
 End Class

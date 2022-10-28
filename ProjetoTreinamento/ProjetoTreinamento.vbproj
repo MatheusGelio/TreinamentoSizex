@@ -109,6 +109,7 @@
     <Compile Include="Cadastros\ucCadVeiculo.xaml.vb">
       <DependentUpon>ucCadVeiculo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Cfg.vb" />
     <Compile Include="Classes\VeiculoRegistros.vb" />
     <Compile Include="Classes\Cliente.vb" />
     <Compile Include="Classes\ClienteContatos.vb" />

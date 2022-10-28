@@ -309,4 +309,8 @@
             e.Handled = True
         End If
     End Sub
+
+    Private Sub wdCadCliente_LostFocus(sender As Object, e As RoutedEventArgs) Handles Me.LostFocus
+        CpfTxt.Text = Cfg.FormatarCpf(CpfTxt.Text)
+    End Sub
 End Class
