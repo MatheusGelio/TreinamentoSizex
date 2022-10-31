@@ -48,12 +48,14 @@
         If tipo = "C" Or tipo = "M" Then
             If Cfg.RetornarValorPadrao(CustoTxt.Text) > 0 And Cfg.RetornarValorPadrao(MargemTxt.Text) > 0 Then
                 valor = CDbl(CustoTxt.Text) + (CDbl(CustoTxt.Text) * (CDbl(MargemTxt.Text) / 100))
-                PrecoTxt.Text = valor
+                valor = Math.Round(valor, 2)
+                PrecoTxt.Text = valor.ToString("##0.00")
             End If
         ElseIf tipo = "P" Then
             If Cfg.RetornarValorPadrao(CustoTxt.Text) > 0 And Cfg.RetornarValorPadrao(PrecoTxt.Text) > 0 Then
                 valor = ((CDbl(PrecoTxt.Text) * 100) / CDbl(CustoTxt.Text)) - 100
-                MargemTxt.Text = valor
+                valor = Math.Round(valor, 2)
+                MargemTxt.Text = valor.ToString("##0.00")
             End If
         End If
     End Sub
