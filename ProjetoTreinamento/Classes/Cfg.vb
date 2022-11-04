@@ -18,4 +18,15 @@
         End If
         Return "CPF INVÁLIDO!"
     End Function
+
+    Public Shared Function FormatarRg(valor As String) As String
+        Dim valorAux As String = valor
+        valorAux = Replace(Replace(valorAux, ".", ""), "-", "")
+        If IsNumeric(valorAux) = True Then
+            If Len(valorAux) = 9 Then
+                Return Left(valorAux, 2) & "." & Mid(valorAux, 3, 3) & "." & Mid(valorAux, 6, 3) & "-" & Right(valorAux, 1)
+            End If
+        End If
+        Return "RG INVÁLIDO!"
+    End Function
 End Class
