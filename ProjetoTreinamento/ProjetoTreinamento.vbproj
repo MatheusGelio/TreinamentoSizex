@@ -87,6 +87,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Janelas\wdAcesso.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Janelas\wdCadCliente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,6 +119,9 @@
     <Compile Include="Classes\ClienteContatos.vb" />
     <Compile Include="Classes\Produto.vb" />
     <Compile Include="Classes\Veiculo.vb" />
+    <Compile Include="Janelas\wdAcesso.xaml.vb">
+      <DependentUpon>wdAcesso.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Janelas\wdCadCliente.xaml.vb">
       <DependentUpon>wdCadCliente.xaml</DependentUpon>
     </Compile>
@@ -178,9 +185,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Imagens\" />
     <Folder Include="Relatorios\" />
     <Folder Include="Rpts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagens\Acesso.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

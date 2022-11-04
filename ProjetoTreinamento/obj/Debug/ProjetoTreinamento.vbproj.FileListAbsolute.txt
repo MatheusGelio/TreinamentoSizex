@@ -30,3 +30,5 @@ C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\Projet
 C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\ProjetoTreinamento.vbprojResolveAssemblyReference.cache
 C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Application.baml
 C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Estilo.baml
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdAcesso.baml
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdAcesso.g.vb

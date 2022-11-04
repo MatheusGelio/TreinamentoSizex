@@ -1,0 +1,30 @@
+﻿<Window x:Class="wdAcesso"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox"
+    Title="Acesso" WindowStartupLocation="CenterScreen" Style="{StaticResource Window}">
+    <Grid>
+        <Rectangle x:Name="AcessoRtg" Fill="#FF1D3F6F"/>
+        <Image x:Name="AcessoImg"  Source="/ProjetoTreinamento;component/Imagens/Acesso.png"/>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="220"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                <Label x:Name="UsuarioLbl" Content="Usuário:" HorizontalAlignment="Stretch" Margin="245,0,0,25" FontWeight="Bold" FontSize="16" FontFamily="Calibri" Foreground="#FF1D3F6F"/>
+                <ctTextBox:ctTextBox x:Name="UsuarioTxt" CharacterCasing="Upper" CaretBrush="#FF1D3F6F" SelectionBrush="#FF1D3F6F" TextAlignment="Left" HorizontalAlignment="Stretch" Margin="250,25,250,0" FontWeight="Bold" FontSize="14" FontFamily="Calibri" BorderBrush="#FF4B4B4B" Foreground="#FF1D3F6F" TabIndex="0" ExibirBorda="False"/>
+            </Grid>
+            <Grid Grid.Row="2" VerticalAlignment="Top">
+                <Label x:Name="SenhaLbl" Content="Senha:" HorizontalAlignment="Stretch" Margin="245,0,0,25" FontWeight="Bold" FontSize="16" FontFamily="Calibri" Foreground="#FF1D3F6F"/>
+                <PasswordBox x:Name="SenhaTxt" CaretBrush="#FF1D3F6F" SelectionBrush="#FF1D3F6F" HorizontalAlignment="Stretch" Margin="250,25,250,0" BorderBrush="#FF4B4B4B" Foreground="#FF1D3F6F" TabIndex="1"/>
+            </Grid>
+            <Grid Grid.Row="3" VerticalAlignment="Top">
+                <Button x:Name="EntrarBtn" Content="Entrar" Width="140" Height="25" HorizontalAlignment="Left" Margin="250,10,0,0" FontWeight="ExtraBold" FontSize="14" Background="#FF1D3F6F" Foreground="White"/>
+                <Button x:Name="SairBtn" Content="Sair [ESC]" Width="140" Height="25" HorizontalAlignment="Right" Margin="0,10,250,0" FontWeight="ExtraBold" FontSize="14" Background="#FF4F69B3" Foreground="White"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -58,6 +58,14 @@ InitializeComponent
 	<summary>
 MainWindow
 </summary>
+</member><member name="M:ProjetoTreinamento.wdAcesso.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.wdAcesso">
+	<summary>
+wdAcesso
+</summary>
 </member><member name="P:ProjetoTreinamento.My.MyWpfExtension.Application">
 	<summary>
  Returns the application object for the running application
