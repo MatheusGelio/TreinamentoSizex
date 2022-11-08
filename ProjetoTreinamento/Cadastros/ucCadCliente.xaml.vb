@@ -340,4 +340,10 @@
             e.Handled = True
         End If
     End Sub
+
+    Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
+        If lstCliente.Count > 0 Then
+            srcCliente.Source = lstCliente.Where(Function(p) p.Nome.Contains(PesquisarTxt.Text)).ToList
+        End If
+    End Sub
 End Class

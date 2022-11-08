@@ -154,7 +154,7 @@
 
     End Sub
 
-    Private Sub wdCadProduto_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
+    Private Sub ucCadProduto_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         Select Case e.Key
             Case Key.F2
                 NovoBtn_Click(Nothing, Nothing)
@@ -210,6 +210,12 @@
         If e.Key = Key.Return Or e.Key = Key.Tab Then
             PesquisarTxt.Focus()
             e.Handled = True
+        End If
+    End Sub
+
+    Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
+        If lstProduto.Count > 0 Then
+            srcProduto.Source = lstProduto.Where(Function(p) p.Descricao.Contains(PesquisarTxt.Text)).ToList
         End If
     End Sub
 End Class

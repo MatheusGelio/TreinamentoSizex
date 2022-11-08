@@ -276,4 +276,10 @@
             e.Handled = True
         End If
     End Sub
+
+    Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
+        If lstVeiculo.Count > 0 Then
+            srcVeiculo.Source = lstVeiculo.Where(Function(p) p.DescricaoVeiculo.Contains(PesquisarTxt.Text)).ToList
+        End If
+    End Sub
 End Class
