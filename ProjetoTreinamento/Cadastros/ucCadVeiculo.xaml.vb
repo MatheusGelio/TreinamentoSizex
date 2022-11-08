@@ -1,6 +1,112 @@
 ﻿Public Class ucCadVeiculo
     Dim objVeiculo As Veiculo
+    Dim objVeiculoRegistros As VeiculoRegistros
     Dim passou As Boolean = False
+    Dim srcVeiculo As CollectionViewSource
+    Dim srcVeiculoRegistros As CollectionViewSource
+    Dim lstVeiculo As List(Of Veiculo)
+
+#Region "Métodos"
+    Private Sub LimparCampos(tipo As String)
+        If tipo = "V" Or tipo = "T" Then
+            PlacaTxt.Text = ""
+            DescricaoTxt.Text = ""
+            CombustivelTxt.SelectedItem = ""
+            KmTxt.Text = "0"
+            ValorTxt.Text = "0,00"
+            DataTxt.Text = Date.Today
+            objVeiculo = Nothing
+
+            srcVeiculoRegistros.Source = Nothing
+        End If
+
+        If tipo = "RT" Or tipo = "T" Then
+            DataAbastTxt.Text = Nothing
+            KmAbastTxt.Text = "0"
+            LitrosTxt.Text = "0,00"
+            TotalTxt.Text = "0,00"
+            objVeiculoRegistros = Nothing
+        End If
+    End Sub
+
+    Private Sub PreencherCamposVeiculo(sender As Object, e As MouseButtonEventArgs)
+        objVeiculo = CType(sender.selectedItem, Veiculo)
+        PlacaTxt.Text = objVeiculo.Placa
+        DescricaoTxt.Text = objVeiculo.DescricaoVeiculo
+        CombustivelTxt.Text = objVeiculo.Combustivel
+        KmTxt.Text = objVeiculo.UltimoKm
+        ValorTxt.Text = objVeiculo.ValorCompra
+        DataTxt.Text = objVeiculo.DataAquisicao
+
+        srcVeiculoRegistros.Source = objVeiculo.Registros.ToList
+
+        PrincipalTb.SelectedItem = CadTb
+        e.Handled = True
+    End Sub
+
+    Private Sub PreencherCamposVeiculoRegistros(sender As Object, e As MouseButtonEventArgs)
+        objVeiculoRegistros = CType(sender.selectedItem, VeiculoRegistros)
+        DataAbastTxt.Text = objVeiculoRegistros.DataAbast
+        KmAbastTxt.Text = objVeiculoRegistros.KmAbast
+        LitrosTxt.Text = objVeiculoRegistros.Litros
+        TotalTxt.Text = objVeiculoRegistros.ValorTotal
+    End Sub
+
+    Private Function SalvarVeiculo(Optional ByRef retorno As String = "") As Boolean
+        retorno = "1 - Validando Campos."
+        If PlacaTxt.Text = Nothing Then
+            MsgBox("Para salvar um veículo, é necessário preencher o campo de PLACA, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            PlacaTxt.Focus()
+            Return False
+        ElseIf DescricaoTxt.Text = Nothing Then
+            MsgBox("Para salvar um veículo, é necessário preencher o campo de DESCRIÇÃO, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            DescricaoTxt.Focus()
+            Return False
+        ElseIf CombustivelTxt.Text = Nothing Then
+            MsgBox("Para salvar um veículo, é necessário preencher o campo de COMBUSTÍVEL, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            CombustivelTxt.Focus()
+            Return False
+        ElseIf KmTxt.Text = Nothing Then
+            MsgBox("Para salvar um veículo, é necessário preencher o campo de ÚLTIMO KM, verifique!", MsgBoxStyle.Exclamation, "Validação")
+            KmTxt.Focus()
+            Return False
+        End If
+
+        retorno = "2 - Inserindo Objeto."
+        If objVeiculo Is Nothing Then
+            objVeiculo = New Veiculo
+            lstVeiculo.Add(objVeiculo)
+            objVeiculo.Registros = New List(Of VeiculoRegistros)
+        End If
+
+        retorno = "3 - Salvando Campos do Veículo."
+        objVeiculo.Placa = PlacaTxt.Text
+        objVeiculo.DescricaoVeiculo = UCase(DescricaoTxt.Text)
+        objVeiculo.Combustivel = UCase(CombustivelTxt.Text)
+        objVeiculo.UltimoKm = CInt(KmTxt.Text)
+        objVeiculo.ValorCompra = CDbl(ValorTxt.Text)
+        objVeiculo.DataAquisicao = DataTxt.Text
+
+        objVeiculo.Usuario = InputBox("Informe o seu nome para gravar um veículo", "Auditoria", "")
+        objVeiculo.DataGravacao = Date.Now
+
+        retorno = "4 - Salvamento Concluído."
+        Return True
+    End Function
+#End Region
+
+    Private Sub ucCadVeiculo_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Select Case e.Key
+            Case Key.F2
+                NovoBtn_Click(Nothing, Nothing)
+            Case Key.F3
+                SalvarBtn_Click(Nothing, Nothing)
+            Case Key.F4
+                ExcluirBtn_Click(Nothing, Nothing)
+            Case Key.Escape
+                SairBtn_Click(Nothing, Nothing)
+        End Select
+    End Sub
 
     Private Sub ucCadVeiculo_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
@@ -12,94 +118,162 @@
 
             CombustivelTxt.ItemsSource = lista.ToList
 
+            lstVeiculo = New List(Of Veiculo)
+
+            srcVeiculo = CType(Me.FindResource("VeiculoViewSource"), CollectionViewSource)
+            srcVeiculoRegistros = CType(Me.FindResource("VeiculoRegistrosViewSource"), CollectionViewSource)
+
+            LimparCampos("T")
+
             passou = True
         End If
     End Sub
 
     Private Sub AdicionarBtn_Click(sender As Object, e As RoutedEventArgs) Handles AdicionarBtn.Click
-        If objVeiculo Is Nothing Then
-            MsgBox("Para incluir um registro, o veículo precisa estar salvo, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            Exit Sub
-        End If
+        Dim retorno As String = ""
+        Try
+            If SalvarVeiculo(retorno) = False Then
+                Exit Sub
+            End If
 
-        If Not IsDate(DataAbastTxt.Text) Then
-            MsgBox("Para incluir um registro, é necessário preencher o campo de DATA, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            DataTxt.Focus()
-            Exit Sub
-        ElseIf KmAbastTxt.Text = Nothing Then
-            MsgBox("Para incluir um registro, é necessário preencher o campo de KM, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            KmAbastTxt.Focus()
-            Exit Sub
-        ElseIf LitrosTxt.Text = Nothing Then
-            MsgBox("Para incluir um registro, é necessário preencher o campo de LITROS, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            LitrosTxt.Focus()
-            Exit Sub
-        ElseIf TotalTxt.Text = Nothing Then
-            MsgBox("Para incluir um registro, é necessário preencher o campo de VALOR TOTAL, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            TotalTxt.Focus()
-            Exit Sub
-        End If
+            If Not IsDate(DataAbastTxt.Text) Then
+                MsgBox("Para incluir um registro, é necessário preencher o campo de DATA, verifique!", MsgBoxStyle.Exclamation, "Validação")
+                DataTxt.Focus()
+                Exit Sub
+            ElseIf KmAbastTxt.Text = Nothing Then
+                MsgBox("Para incluir um registro, é necessário preencher o campo de KM, verifique!", MsgBoxStyle.Exclamation, "Validação")
+                KmAbastTxt.Focus()
+                Exit Sub
+            ElseIf LitrosTxt.Text = Nothing Then
+                MsgBox("Para incluir um registro, é necessário preencher o campo de LITROS, verifique!", MsgBoxStyle.Exclamation, "Validação")
+                LitrosTxt.Focus()
+                Exit Sub
+            ElseIf TotalTxt.Text = Nothing Then
+                MsgBox("Para incluir um registro, é necessário preencher o campo de VALOR TOTAL, verifique!", MsgBoxStyle.Exclamation, "Validação")
+                TotalTxt.Focus()
+                Exit Sub
+            End If
 
-        Dim objVeiculoRegistros As New VeiculoRegistros
-        objVeiculoRegistros.DataAbast = DataAbastTxt.Text
-        objVeiculoRegistros.KmAbast = KmAbastTxt.Text
-        objVeiculoRegistros.Litros = LitrosTxt.Text
-        objVeiculoRegistros.ValorTotal = TotalTxt.Text
+            If objVeiculoRegistros Is Nothing Then
+                objVeiculoRegistros = New VeiculoRegistros
+                objVeiculo.Registros.Add(objVeiculoRegistros)
+            End If
 
-        If objVeiculo.Registros Is Nothing Then
-            objVeiculo.Registros = New List(Of VeiculoRegistros)
-        End If
-        objVeiculo.Registros.Add(objVeiculoRegistros)
+            objVeiculoRegistros.DataAbast = DataAbastTxt.Text
+            objVeiculoRegistros.KmAbast = KmAbastTxt.Text
+            objVeiculoRegistros.Litros = LitrosTxt.Text
+            objVeiculoRegistros.ValorTotal = TotalTxt.Text
 
-        Dim mensagem As String = "Veículo salvo com sucesso!" & vbNewLine & "Total de Registros: " & objVeiculo.Registros.Count
+            srcVeiculoRegistros.Source = objVeiculo.Registros.ToList
 
-        MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
-        DataAbastTxt.Text = Nothing
-        KmAbastTxt.Clear()
-        LitrosTxt.Clear()
-        TotalTxt.Clear()
+            Dim mensagem As String = "Veículo salvo com sucesso!" & vbNewLine & "Total de Registros: " & objVeiculo.Registros.Count
+
+            MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
+
+            LimparCampos("RT")
+        Catch ex As Exception
+            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Adicionar Registro")
+        End Try
+    End Sub
+
+    Private Sub DeletarBtn_Click(sender As Object, e As RoutedEventArgs) Handles DeletarBtn.Click
+        Dim retorno As String = ""
+        Try
+            If objVeiculo Is Nothing Then
+                MsgBox("Para deletar um registro, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Deletar Registro")
+                Exit Sub
+            End If
+
+            If objVeiculoRegistros Is Nothing Then
+                MsgBox("Para deletar um registro, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Deletar Registro")
+                Exit Sub
+            End If
+
+            objVeiculo.Registros.Remove(objVeiculoRegistros)
+            srcVeiculoRegistros.Source = objVeiculo.Registros.ToList
+
+            MsgBox("Registro deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+
+            LimparCampos("RT")
+        Catch ex As Exception
+            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Deletar Registro")
+        End Try
     End Sub
 
     Private Sub SalvarBtn_Click(sender As Object, e As RoutedEventArgs) Handles SalvarBtn.Click
-        If PlacaTxt.Text = Nothing Then
-            MsgBox("Para salvar um veículo, é necessário preencher o campo de PLACA, verifique!", MsgBoxStyle.Exclamation, "Validação")
+        Dim retorno As String = ""
+        Try
+            If SalvarVeiculo(retorno) = False Then
+                Exit Sub
+            End If
+
+            srcVeiculo.Source = lstVeiculo.ToList
+
+            MsgBox("Veículo salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+            LimparCampos("T")
             PlacaTxt.Focus()
-            Exit Sub
-        ElseIf CombustivelTxt.Text = Nothing Then
-            MsgBox("Para salvar um veículo, é necessário preencher o campo de COMBUSTÍVEL, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            CombustivelTxt.Focus()
-            Exit Sub
-        ElseIf KmTxt.Text = Nothing Then
-            MsgBox("Para salvar um veículo, é necessário preencher o campo de ÚLTIMO KM, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            KmTxt.Focus()
-            Exit Sub
-        ElseIf ValorTxt.Text = Nothing Then
-            MsgBox("Para salvar um veículo, é necessário preencher o campo de VALOR DE COMPRA, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            ValorTxt.Focus()
-            Exit Sub
-        ElseIf Not IsDate(DataTxt.Text) Then
-            MsgBox("Para salvar um veículo, é necessário preencher o campo de DATA DE AQUISIÇÃO, verifique!", MsgBoxStyle.Exclamation, "Validação")
-            DataTxt.Focus()
-            Exit Sub
+        Catch ex As Exception
+            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Salvar Veículo")
+        End Try
+    End Sub
+
+    Private Sub NovoBtn_Click(sender As Object, e As RoutedEventArgs) Handles NovoBtn.Click
+        LimparCampos("T")
+    End Sub
+
+    Private Sub ExcluirBtn_Click(sender As Object, e As RoutedEventArgs) Handles ExcluirBtn.Click
+        Dim retorno As String = ""
+        Try
+            If objVeiculo Is Nothing Then
+                MsgBox("Para excluir um veículo, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Excluir Veículo")
+                Exit Sub
+            End If
+
+            lstVeiculo.Remove(objVeiculo)
+            srcVeiculo.Source = lstVeiculo.ToList
+
+            MsgBox("Veículo excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+
+            LimparCampos("V")
+        Catch ex As Exception
+            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Excluir Veículo")
+        End Try
+    End Sub
+
+    Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
+
+    End Sub
+
+    Private Sub VeiculoDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles VeiculoDataGrid.MouseDoubleClick
+        If sender.selectedItem IsNot Nothing Then
+            PreencherCamposVeiculo(sender, e)
         End If
+    End Sub
 
-        objVeiculo = New Veiculo
+    Private Sub VeiculoRegistrosDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles VeiculoRegistrosDataGrid.MouseDoubleClick
+        If sender.selectedItem IsNot Nothing Then
+            PreencherCamposVeiculoRegistros(sender, e)
+        End If
+    End Sub
 
-        objVeiculo.Placa = PlacaTxt.Text
-        objVeiculo.DescricaoVeiculo = DescricaoTxt.Text
-        objVeiculo.Combustivel = CombustivelTxt.Text
-        objVeiculo.UltimoKm = KmTxt.Text
-        objVeiculo.ValorCompra = ValorTxt.Text
-        objVeiculo.DataAquisicao = DataTxt.Text
+    Private Sub DescricaoTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DescricaoTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            CombustivelTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
 
-        MsgBox("Veículo salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
-        PlacaTxt.Clear()
-        DescricaoTxt.Clear()
-        CombustivelTxt.Text = Nothing
-        KmTxt.Clear()
-        ValorTxt.Clear()
-        DataTxt.Text = Nothing
+    Private Sub DataTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DataTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            DataAbastTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
 
-        PlacaTxt.Focus()
+    Private Sub DataAbastTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DataAbastTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            KmAbastTxt.Focus()
+            e.Handled = True
+        End If
     End Sub
 End Class

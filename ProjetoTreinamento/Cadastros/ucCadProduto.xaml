@@ -1,14 +1,18 @@
-﻿<Window x:Class="wdCadProduto"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox"
-    Title="Cadastro de Produtos" WindowStartupLocation="CenterScreen" Style="{StaticResource Window}">
-    <Window.Resources>
+﻿<UserControl x:Class="ucCadProduto"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
         <CollectionViewSource x:Key="ProdutoViewSource" Source="{Binding Produto}"/>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid Background="{DynamicResource background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -26,11 +30,11 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="CodigoLbl" Content="Código:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctTextInt x:Name="CodigoTxt" Style="{StaticResource TextBox}" TabIndex="0" TextAlignment="Right" ExibirBorda="False"/>
+                <ctTextBox:ctTextInt x:Name="CodigoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="0" TextAlignment="Right" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="DescricaoLbl" Content="Descrição do Produto:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctTextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" TabIndex="1" ExibirBorda="False"/>
+                <ctTextBox:ctTextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="1" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Label x:Name="DataLbl" Content="Data Cadastro:" Style="{StaticResource Label}"/>
@@ -56,7 +60,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="GrupoLbl" Content="Grupo:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctTextBox x:Name="GrupoTxt" Style="{StaticResource TextBox}" TabIndex="5" ExibirBorda="False"/>
+                <ctTextBox:ctTextBox x:Name="GrupoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="TipoLbl" Content="Tipo de Produto:" Style="{StaticResource Label}"/>
@@ -69,21 +73,25 @@
             </Grid>
             <Grid Grid.Column="2">
                 <Label x:Name="CustoLbl" Content="Custo R$:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctDecimalBox Name="CustoTxt" Style="{StaticResource DecimalBox}" TabIndex="7" NrDecimais="2" ExibirBorda="False"/>
+                <ctTextBox:ctDecimalBox Name="CustoTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="7" NrDecimais="2" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="3">
                 <Label x:Name="MargemLbl" Content="Margem %:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctDecimalBox Name="MargemTxt" Style="{StaticResource DecimalBox}" TabIndex="8" NrDecimais="2" ExibirBorda="False"/>
+                <ctTextBox:ctDecimalBox Name="MargemTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" NrDecimais="2" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="4">
                 <Label x:Name="PrecoLbl" Content="Preço R$:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctDecimalBox Name="PrecoTxt" Style="{StaticResource DecimalBox}" TabIndex="9" NrDecimais="2" ExibirBorda="False"/>
+                <ctTextBox:ctDecimalBox Name="PrecoTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="9" NrDecimais="2" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="5">
                 <CheckBox x:Name="InativoChk" Content="INATIVO" Margin="5,25,5,0" FontWeight="Bold" BorderBrush="#FF4B4B4B"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="3">
+            <Label x:Name="PesquisarLbl" Content="Pesquisar por Descrição do Produto:" Style="{StaticResource Label}"/>
+            <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="10" Margin="5,23,5,5" ExibirBorda="False"/>
+        </Grid>
+        <Grid Grid.Row="4">
             <DataGrid x:Name="ProdutoDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource ProdutoViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Código" Width="60" Binding="{Binding Codigo}"/>
@@ -94,7 +102,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Grid Grid.Row="4" HorizontalAlignment="Stretch" Background="{DynamicResource title-secondary}">
+        <Grid Grid.Row="5" HorizontalAlignment="Stretch" Background="{DynamicResource title-secondary}">
             <Grid Grid.Row="0" HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="90"/>
@@ -117,4 +125,4 @@
             </Grid>
         </Grid>
     </Grid>
-</Window>
+</UserControl>

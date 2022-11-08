@@ -1,4 +1,4 @@
-﻿Public Class wdCadCliente
+﻿Public Class ucCadCliente
     Dim objCliente As Cliente
     Dim objClienteContatos As ClienteContatos
     Dim passou As Boolean = False
@@ -299,12 +299,12 @@
 
             LimpaCampos("C")
         Catch ex As Exception
-            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Excluir Contato")
+            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Excluir Cliente")
         End Try
     End Sub
 
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
-        Me.Close()
+
     End Sub
 
     Private Sub DataGrid_MouseDoubleClick_1(sender As Object, e As MouseButtonEventArgs) Handles ClienteContatosDataGrid.MouseDoubleClick
@@ -325,5 +325,19 @@
 
     Private Sub RgTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles RgTxt.LostFocus
         RgTxt.Text = Cfg.FormatarRg(RgTxt.Text)
+    End Sub
+
+    Private Sub DataTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DataTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            NomeTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub CidadeTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles CidadeTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            EstadoTxt.Focus()
+            e.Handled = True
+        End If
     End Sub
 End Class

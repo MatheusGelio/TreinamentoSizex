@@ -75,7 +75,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Cadastros\ucCadCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Cadastros\ucCadFoto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Cadastros\ucCadProduto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -91,14 +99,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Janelas\wdCadCliente.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Janelas\wdCadProduto.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -107,8 +107,14 @@
       <DependentUpon>Application.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Cadastros\ucCadCliente.xaml.vb">
+      <DependentUpon>ucCadCliente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cadastros\ucCadFoto.xaml.vb">
       <DependentUpon>ucCadFoto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Cadastros\ucCadProduto.xaml.vb">
+      <DependentUpon>ucCadProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Cadastros\ucCadVeiculo.xaml.vb">
       <DependentUpon>ucCadVeiculo.xaml</DependentUpon>
@@ -121,12 +127,6 @@
     <Compile Include="Classes\Veiculo.vb" />
     <Compile Include="Janelas\wdAcesso.xaml.vb">
       <DependentUpon>wdAcesso.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Janelas\wdCadCliente.xaml.vb">
-      <DependentUpon>wdCadCliente.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Janelas\wdCadProduto.xaml.vb">
-      <DependentUpon>wdCadProduto.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>

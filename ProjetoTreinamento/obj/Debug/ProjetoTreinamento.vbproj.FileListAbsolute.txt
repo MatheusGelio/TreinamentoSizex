@@ -1,13 +1,9 @@
 c:\users\usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\bin\Debug\ProjetoTreinamento.exe.config
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadFoto.baml
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadVeiculo.baml
-C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdCadCliente.baml
-C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdCadProduto.baml
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\MainWindow.baml
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadFoto.g.vb
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadVeiculo.g.vb
-C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdCadCliente.g.vb
-C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdCadProduto.g.vb
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\MainWindow.g.vb
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Application.g.vb
 C:\Users\Usuario\Documents\Visual Studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\ProjetoTreinamento_MarkupCompile.cache
@@ -32,3 +28,7 @@ C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\Projet
 C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Estilo.baml
 C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdAcesso.baml
 C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Janelas\wdAcesso.g.vb
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadProduto.baml
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadProduto.g.vb
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadCliente.baml
+C:\Users\Usuario\documents\visual studio 2012\Projects\ProjetoTreinamento\ProjetoTreinamento\obj\Debug\Cadastros\ucCadCliente.g.vb

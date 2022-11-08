@@ -5,6 +5,10 @@
              xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox" 
              x:Class="ucCadVeiculo" 
              d:DesignHeight="600" d:DesignWidth="800" mc:Ignorable="d">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="VeiculoViewSource" Source="{Binding Veiculo}"/>
+        <CollectionViewSource x:Key="VeiculoRegistrosViewSource" Source="{Binding VeiculoRegistros}"/>
+    </UserControl.Resources>
     <Grid Background="{DynamicResource background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -38,11 +42,11 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="PlacaLbl" Content="Placa:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Style="{StaticResource MaskBox}" TabIndex="0" Mask="AAA-0000"/>
+                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Style="{StaticResource MaskBox}" SelectionBrush="{DynamicResource title-primary}" CharacterCasing="Upper" TabIndex="0" Mask="AAA-0000" ExibirBorda="False"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="DescricaoLbl" Content="Descrição do Veículo:" Style="{StaticResource Label}"/>
-                                    <TextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" TabIndex="1" Margin="5,23,5,0"/>
+                                    <ctTextBox:ctTextBox x:Name="DescricaoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="1" Margin="5,23,5,0" ExibirBorda="False"/>
                                 </Grid>
                             </Grid>
                             <Grid Grid.Row="1">
@@ -54,15 +58,15 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="CombustivelLbl" Content="Combustível:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctAutoComplete x:Name="CombustivelTxt" Style="{StaticResource AutoBox}" TabIndex="2"/>
+                                    <ctTextBox:ctAutoComplete x:Name="CombustivelTxt" Style="{StaticResource AutoBox}" TabIndex="2" ExibirBorda="False"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="KmLbl" Content="Último KM:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctTextInt Name="KmTxt" Style="{StaticResource IntBox}" TabIndex="3"/>
+                                    <ctTextBox:ctTextInt Name="KmTxt" Style="{StaticResource IntBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="3" ExibirBorda="False"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Label x:Name="ValorLbl" Content="Valor da Compra:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctDecimalBox Name="ValorTxt" Style="{StaticResource DecimalBox}" TabIndex="4" NrDecimais="2"/>
+                                    <ctTextBox:ctDecimalBox Name="ValorTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="4" NrDecimais="2" ExibirBorda="False"/>
                                 </Grid>
                                 <Grid Grid.Column="3">
                                     <Label x:Name="DataLbl" Content="Data de Aquisição:" Style="{StaticResource Label}"/>
@@ -88,7 +92,7 @@
                                     </Grid>
                                     <Grid Grid.Column="1">
                                         <Label x:Name="KmAbastLbl" Content="KM:" Style="{StaticResource Label}"/>
-                                        <TextBox x:Name="KmAbastTxt" Style="{StaticResource TextBox}" TabIndex="7"/>
+                                        <ctTextBox:ctTextBox x:Name="KmAbastTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="7" ExibirBorda="False"/>
                                     </Grid>
                                     <Grid Grid.Column="2">
                                         <Grid.ColumnDefinitions>
@@ -96,24 +100,24 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Label x:Name="LitrosLbl" Content="Litros:" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctDecimalBox x:Name="LitrosTxt" Style="{StaticResource DecimalBox}" TabIndex="8" NrDecimais="2"/>
+                                        <ctTextBox:ctDecimalBox x:Name="LitrosTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" NrDecimais="2" ExibirBorda="False"/>
                                     </Grid>
                                     <Grid Grid.Column="3">
                                         <Label x:Name="TotalLbl" Content="Valor Total:" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctDecimalBox Name="TotalTxt" Style="{StaticResource DecimalBox}" TabIndex="9" Margin="5,23,5,0" NrDecimais="2"/>
+                                        <ctTextBox:ctDecimalBox Name="TotalTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="9" Margin="5,23,5,0" NrDecimais="2" ExibirBorda="False"/>
                                     </Grid>
                                     <Grid Grid.Column="4">
-                                        <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="0,25,35,0" FontWeight="ExtraBold" FontSize="14" Background="#FF075100" Foreground="White"/>
-                                        <Button x:Name="DeletarBtn" Content="-" Width="25" HorizontalAlignment="Right" Margin="0,25,5,0" FontWeight="ExtraBold" FontSize="14" Background="DarkRed" Foreground="White"/>
+                                        <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="0,25,35,0" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-primary}" Foreground="White"/>
+                                        <Button x:Name="DeletarBtn" Content="-" Width="25" HorizontalAlignment="Right" Margin="0,25,5,0" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-secondary}" Foreground="White"/>
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">
-                                    <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5">
+                                    <DataGrid x:Name="VeiculoRegistrosDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource VeiculoRegistrosViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Data" Width="100"/>
-                                            <DataGridTextColumn Header="KM" Width="*"/>
-                                            <DataGridTextColumn Header="Litros" Width="120"/>
-                                            <DataGridTextColumn Header="Valor Total" Width="120"/>
+                                            <DataGridTextColumn Header="Data" Width="100" Binding="{Binding DataAbast}"/>
+                                            <DataGridTextColumn Header="KM" Width="*" Binding="{Binding KmAbast}"/>
+                                            <DataGridTextColumn Header="Litros" Width="120" Binding="{Binding Litros}"/>
+                                            <DataGridTextColumn Header="Valor Total" Width="120" Binding="{Binding ValorTotal}"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </Grid>
@@ -123,14 +127,24 @@
                 </TabItem>
                 <TabItem x:Name="PesTb" Header="Pesquisa">
                     <Grid>
-                        <DataGrid HorizontalAlignment="Stretch" Margin="5,5,5,5">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Placa" Width="100"/>
-                                <DataGridTextColumn Header="Descrição do Veículo" Width="*"/>
-                                <DataGridTextColumn Header="Combustível" Width="100"/>
-                                <DataGridTextColumn Header="Último KM" Width="100"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Label x:Name="PesquisarLbl" Content="Pesquisar por Descrição do Veículo:" Style="{StaticResource Label}"/>
+                            <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" Margin="5,23,5,5" ExibirBorda="False"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <DataGrid x:Name="VeiculoDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource VeiculoViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Placa" Width="100" Binding="{Binding Placa}"/>
+                                    <DataGridTextColumn Header="Descrição do Veículo" Width="*" Binding="{Binding DescricaoVeiculo}"/>
+                                    <DataGridTextColumn Header="Combustível" Width="100" Binding="{Binding Combustivel}"/>
+                                    <DataGridTextColumn Header="Último KM" Width="100" Binding="{Binding UltimoKm}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Grid>
                     </Grid>
                 </TabItem>
             </TabControl>

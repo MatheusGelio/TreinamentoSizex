@@ -1,4 +1,4 @@
-﻿Public Class wdCadProduto
+﻿Public Class ucCadProduto
     Dim objProduto As Produto
     Dim srcProduto As CollectionViewSource
     Dim lstProduto As List(Of Produto)
@@ -151,7 +151,7 @@
     End Sub
 
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
-        Me.Close()
+
     End Sub
 
     Private Sub wdCadProduto_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
@@ -167,16 +167,8 @@
         End Select
     End Sub
 
-    Private Sub DataTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DataTxt.PreviewKeyDown
-        If e.Key = Key.Return Or e.Key = Key.Tab Then
-            GrupoTxt.Focus()
-            e.Handled = True
-        End If
-    End Sub
-
     Private Sub wdCadProduto_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
-            Me.Show()
 
             lstProduto = New List(Of Produto)
             srcProduto = CType(Me.FindResource("ProdutoViewSource"), CollectionViewSource)
@@ -202,8 +194,22 @@
         CalcularValores("M")
     End Sub
 
-    
+
     Private Sub PrecoTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles PrecoTxt.LostFocus
         CalcularValores("P")
+    End Sub
+
+    Private Sub DataTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DataTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            GrupoTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub PrecoTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles PrecoTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            PesquisarTxt.Focus()
+            e.Handled = True
+        End If
     End Sub
 End Class

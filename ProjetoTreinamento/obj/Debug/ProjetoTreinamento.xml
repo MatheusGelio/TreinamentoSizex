@@ -6,15 +6,7 @@ ProjetoTreinamento
 </name>
 </assembly>
 <members>
-<member name="M:ProjetoTreinamento.wdCadCliente.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:ProjetoTreinamento.wdCadCliente">
-	<summary>
-wdCadCliente
-</summary>
-</member><member name="M:ProjetoTreinamento.ucCadFoto.InitializeComponent">
+<member name="M:ProjetoTreinamento.ucCadFoto.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
@@ -42,13 +34,13 @@ Application Entry Point.
 	<summary>
 Application
 </summary>
-</member><member name="M:ProjetoTreinamento.wdCadProduto.InitializeComponent">
+</member><member name="M:ProjetoTreinamento.ucCadProduto.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:ProjetoTreinamento.wdCadProduto">
+</member><member name="T:ProjetoTreinamento.ucCadProduto">
 	<summary>
-wdCadProduto
+ucCadProduto
 </summary>
 </member><member name="M:ProjetoTreinamento.MainWindow.InitializeComponent">
 	<summary>
@@ -65,6 +57,14 @@ InitializeComponent
 </member><member name="T:ProjetoTreinamento.wdAcesso">
 	<summary>
 wdAcesso
+</summary>
+</member><member name="M:ProjetoTreinamento.ucCadCliente.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.ucCadCliente">
+	<summary>
+ucCadCliente
 </summary>
 </member><member name="P:ProjetoTreinamento.My.MyWpfExtension.Application">
 	<summary>

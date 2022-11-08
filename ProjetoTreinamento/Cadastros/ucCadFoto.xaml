@@ -23,8 +23,8 @@
                 <Button x:Name="AdicionarBtn" Content="Adicionar Foto [F3]" HorizontalAlignment="Stretch" Height="30" Margin="5,5,5,5" FontWeight="SemiBold" FontSize="14">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF0D4D11" Offset="0"/>
-                            <GradientStop Color="#FF21B628" Offset="1"/>
+                            <GradientStop Color="#FF1D3F6F" Offset="0"/>
+                            <GradientStop Color="#FF1D3F6F" Offset="1"/>
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
@@ -33,8 +33,8 @@
                 <Button x:Name="DeletarBtn" Content="Deletar Foto [F4]" HorizontalAlignment="Stretch" Height="30" Margin="0,5,5,5" FontWeight="SemiBold" FontSize="14">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FF360404" Offset="0"/>
-                            <GradientStop Color="#FFDC1919" Offset="1"/>
+                            <GradientStop Color="#FF4F69B3" Offset="0"/>
+                            <GradientStop Color="#FF4F69B3" Offset="1"/>
                         </LinearGradientBrush>
                     </Button.Background>
                 </Button>
