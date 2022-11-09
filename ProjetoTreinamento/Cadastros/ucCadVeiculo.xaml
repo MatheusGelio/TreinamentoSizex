@@ -42,7 +42,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
                                     <Label x:Name="PlacaLbl" Content="Placa:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Style="{StaticResource MaskBox}" SelectionBrush="{DynamicResource title-primary}" CharacterCasing="Upper" TabIndex="0" Mask="AAA-0000" ExibirBorda="False"/>
+                                    <ctTextBox:ctMaskBox Name="PlacaTxt" Style="{StaticResource MaskBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="0" Mask="AAA-0000" ExibirBorda="False"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="DescricaoLbl" Content="Descrição do Veículo:" Style="{StaticResource Label}"/>
@@ -132,7 +132,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <Label x:Name="PesquisarLbl" Content="Pesquisar por Descrição do Veículo:" Style="{StaticResource Label}"/>
+                            <Label x:Name="PesquisarLbl" Content="[F6] Pesquisar por: Descrição do Veículo" Style="{StaticResource Label}"/>
                             <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" Margin="5,23,5,5" ExibirBorda="False"/>
                         </Grid>
                         <Grid Grid.Row="1">

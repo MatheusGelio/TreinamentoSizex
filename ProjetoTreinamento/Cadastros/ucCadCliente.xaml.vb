@@ -5,6 +5,7 @@
     Dim srcCliente As CollectionViewSource
     Dim srcClienteContatos As CollectionViewSource
     Dim lstCliente As List(Of Cliente)
+    Dim tipoPesquisa As String
 
     Public Sub New()
         InitializeComponent()
@@ -22,7 +23,7 @@
     End Sub
 
 #Region "Métodos"
-    Private Sub LimpaCampos(tipo As String)
+    Private Sub LimparCampos(tipo As String)
         If tipo = "C" Or tipo = "T" Then
             CpfTxt.Text = ""
             RgTxt.Text = ""
@@ -143,7 +144,7 @@
     End Function
 #End Region
 
-    Private Sub wdCadCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+    Private Sub ucCadCliente_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
         Select Case e.Key
             Case Key.F2
                 NovoBtn_Click(Nothing, Nothing)
@@ -195,7 +196,9 @@
             srcCliente = CType(Me.FindResource("ClienteViewSource"), CollectionViewSource)
             srcClienteContatos = CType(Me.FindResource("ClienteContatosViewSource"), CollectionViewSource)
 
-            DataTxt.Text = Date.Today
+            LimparCampos("T")
+
+            tipoPesquisa = "N"
 
             passou = True
         End If
@@ -233,7 +236,7 @@
 
             MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
 
-            LimpaCampos("CT")
+            LimparCampos("CT")
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Adicionar Contato")
         End Try
@@ -257,7 +260,7 @@
 
             MsgBox("Contato deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
-            LimpaCampos("CT")
+            LimparCampos("CT")
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Deletar Contato")
         End Try
@@ -273,7 +276,7 @@
             srcCliente.Source = lstCliente.ToList
 
             MsgBox("Registro salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
-            LimpaCampos("T")
+            LimparCampos("T")
             CpfTxt.Focus()
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Salvar Cliente")
@@ -281,7 +284,7 @@
     End Sub
 
     Private Sub NovoBtn_Click(sender As Object, e As RoutedEventArgs) Handles NovoBtn.Click
-        LimpaCampos("T")
+        LimparCampos("T")
     End Sub
 
     Private Sub ExcluirBtn_Click(sender As Object, e As RoutedEventArgs) Handles ExcluirBtn.Click
@@ -297,7 +300,7 @@
 
             MsgBox("Cliente excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
-            LimpaCampos("C")
+            LimparCampos("C")
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Excluir Cliente")
         End Try
@@ -341,9 +344,30 @@
         End If
     End Sub
 
+    Private Sub PesquisarTxt_KeyDown(sender As Object, e As KeyEventArgs) Handles PesquisarTxt.KeyDown
+        If e.Key = Key.F6 Then
+            If tipoPesquisa = "N" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: CPF"
+                tipoPesquisa = "C"
+            ElseIf tipoPesquisa = "C" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Endereço"
+                tipoPesquisa = "E"
+            ElseIf tipoPesquisa = "E" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Nome do Cliente"
+                tipoPesquisa = "N"
+            End If
+        End If
+    End Sub
+
     Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
         If lstCliente.Count > 0 Then
-            srcCliente.Source = lstCliente.Where(Function(p) p.Nome.Contains(PesquisarTxt.Text)).ToList
+            If tipoPesquisa = "N" Then
+                srcCliente.Source = lstCliente.Where(Function(p) p.Nome.Contains(PesquisarTxt.Text)).ToList
+            ElseIf tipoPesquisa = "C" Then
+                srcCliente.Source = lstCliente.Where(Function(p) p.Cpf.Contains(PesquisarTxt.Text)).ToList
+            ElseIf tipoPesquisa = "E" Then
+                srcCliente.Source = lstCliente.Where(Function(p) p.Endereco.Contains(PesquisarTxt.Text)).ToList
+            End If
         End If
     End Sub
 End Class

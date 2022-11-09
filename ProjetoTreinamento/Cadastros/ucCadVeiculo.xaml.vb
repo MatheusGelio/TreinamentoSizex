@@ -5,6 +5,7 @@
     Dim srcVeiculo As CollectionViewSource
     Dim srcVeiculoRegistros As CollectionViewSource
     Dim lstVeiculo As List(Of Veiculo)
+    Dim tipoPesquisa As String
 
 #Region "Métodos"
     Private Sub LimparCampos(tipo As String)
@@ -80,7 +81,7 @@
         End If
 
         retorno = "3 - Salvando Campos do Veículo."
-        objVeiculo.Placa = PlacaTxt.Text
+        objVeiculo.Placa = UCase(PlacaTxt.Text)
         objVeiculo.DescricaoVeiculo = UCase(DescricaoTxt.Text)
         objVeiculo.Combustivel = UCase(CombustivelTxt.Text)
         objVeiculo.UltimoKm = CInt(KmTxt.Text)
@@ -95,7 +96,7 @@
     End Function
 #End Region
 
-    Private Sub ucCadVeiculo_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+    Private Sub ucCadVeiculo_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
         Select Case e.Key
             Case Key.F2
                 NovoBtn_Click(Nothing, Nothing)
@@ -124,6 +125,8 @@
             srcVeiculoRegistros = CType(Me.FindResource("VeiculoRegistrosViewSource"), CollectionViewSource)
 
             LimparCampos("T")
+
+            tipoPesquisa = "D"
 
             passou = True
         End If
@@ -277,9 +280,30 @@
         End If
     End Sub
 
+    Private Sub PesquisarTxt_KeyDown(sender As Object, e As KeyEventArgs) Handles PesquisarTxt.KeyDown
+        If e.Key = Key.F6 Then
+            If tipoPesquisa = "D" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Placa"
+                tipoPesquisa = "P"
+            ElseIf tipoPesquisa = "P" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Combustível"
+                tipoPesquisa = "C"
+            ElseIf tipoPesquisa = "C" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Descrição do Veículo"
+                tipoPesquisa = "D"
+            End If
+        End If
+    End Sub
+
     Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
         If lstVeiculo.Count > 0 Then
-            srcVeiculo.Source = lstVeiculo.Where(Function(p) p.DescricaoVeiculo.Contains(PesquisarTxt.Text)).ToList
+            If tipoPesquisa = "D" Then
+                srcVeiculo.Source = lstVeiculo.Where(Function(p) p.DescricaoVeiculo.Contains(PesquisarTxt.Text)).ToList
+            ElseIf tipoPesquisa = "P" Then
+                srcVeiculo.Source = lstVeiculo.Where(Function(p) p.Placa.Contains(PesquisarTxt.Text)).ToList
+            ElseIf tipoPesquisa = "C" Then
+                srcVeiculo.Source = lstVeiculo.Where(Function(p) p.Combustivel.Contains(PesquisarTxt.Text)).ToList
+            End If
         End If
     End Sub
 End Class

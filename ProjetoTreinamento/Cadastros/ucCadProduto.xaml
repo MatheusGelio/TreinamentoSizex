@@ -88,7 +88,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="3">
-            <Label x:Name="PesquisarLbl" Content="Pesquisar por Descrição do Produto:" Style="{StaticResource Label}"/>
+            <Label x:Name="PesquisarLbl" Content="[F6] Pesquisar por: Descrição do Produto" Style="{StaticResource Label}"/>
             <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="10" Margin="5,23,5,5" ExibirBorda="False"/>
         </Grid>
         <Grid Grid.Row="4">

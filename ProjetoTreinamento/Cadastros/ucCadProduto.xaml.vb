@@ -3,6 +3,7 @@
     Dim srcProduto As CollectionViewSource
     Dim lstProduto As List(Of Produto)
     Dim passou As Boolean = False
+    Dim tipoPesquisa As String
 
 #Region "Métodos"
     Private Sub LimparCampos()
@@ -154,7 +155,7 @@
 
     End Sub
 
-    Private Sub ucCadProduto_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+    Private Sub ucCadProduto_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
         Select Case e.Key
             Case Key.F2
                 NovoBtn_Click(Nothing, Nothing)
@@ -173,7 +174,9 @@
             lstProduto = New List(Of Produto)
             srcProduto = CType(Me.FindResource("ProdutoViewSource"), CollectionViewSource)
             LimparCampos()
-            CodigoTxt.Focus()
+            DescricaoTxt.Focus()
+
+            tipoPesquisa = "D"
 
             passou = True
         End If
@@ -213,9 +216,30 @@
         End If
     End Sub
 
+    Private Sub PesquisarTxt_KeyDown(sender As Object, e As KeyEventArgs) Handles PesquisarTxt.KeyDown
+        If e.Key = Key.F6 Then
+            If tipoPesquisa = "D" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Código"
+                tipoPesquisa = "C"
+            ElseIf tipoPesquisa = "C" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Grupo"
+                tipoPesquisa = "G"
+            ElseIf tipoPesquisa = "G" Then
+                PesquisarLbl.Content = "[F6] Pesquisar por: Descrição do Produto"
+                tipoPesquisa = "D"
+            End If
+        End If
+    End Sub
+
     Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
         If lstProduto.Count > 0 Then
-            srcProduto.Source = lstProduto.Where(Function(p) p.Descricao.Contains(PesquisarTxt.Text)).ToList
+            If tipoPesquisa = "D" Then
+                srcProduto.Source = lstProduto.Where(Function(p) p.Descricao.Contains(PesquisarTxt.Text)).ToList
+            ElseIf tipoPesquisa = "C" Then
+                srcProduto.Source = lstProduto.Where(Function(p) p.Codigo.ToString.Contains(PesquisarTxt.Text)).ToList
+            ElseIf tipoPesquisa = "G" Then
+                srcProduto.Source = lstProduto.Where(Function(p) p.Grupo.Contains(PesquisarTxt.Text)).ToList
+            End If
         End If
     End Sub
 End Class

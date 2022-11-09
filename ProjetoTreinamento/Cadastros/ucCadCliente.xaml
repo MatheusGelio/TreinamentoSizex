@@ -153,7 +153,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
-                            <Label x:Name="PesquisarLbl" Content="Pesquisar por Nome do Cliente:" Style="{StaticResource Label}"/>
+                            <Label x:Name="PesquisarLbl" Content="[F6] Pesquisar por: Nome do Cliente" Style="{StaticResource Label}"/>
                             <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" Margin="5,23,5,5" ExibirBorda="False"/>
                         </Grid>
                         <Grid Grid.Row="1">
