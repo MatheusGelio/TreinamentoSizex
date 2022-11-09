@@ -18,6 +18,7 @@
             TituloLbl.Content = "Cadastro de Clientes"
         Else
             TituloLbl.Content = "Cadastro de Fornecedores"
+            Tag = "Fornecedores"
             FotoCt.Visibility = Windows.Visibility.Collapsed
         End If
     End Sub
@@ -275,7 +276,7 @@
     End Sub
 
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
-
+        Cfg.DestruirTela(Me)
     End Sub
 
     Private Sub DataGrid_MouseDoubleClick_1(sender As Object, e As MouseButtonEventArgs) Handles ClienteContatosDataGrid.MouseDoubleClick

@@ -234,7 +234,7 @@
     End Sub
 
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
-
+        Cfg.DestruirTela(Me)
     End Sub
 
     Private Sub VeiculoDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles VeiculoDataGrid.MouseDoubleClick

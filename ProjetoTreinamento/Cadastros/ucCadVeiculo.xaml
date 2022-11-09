@@ -4,7 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox" 
              x:Class="ucCadVeiculo" 
-             d:DesignHeight="600" d:DesignWidth="800" mc:Ignorable="d">
+             d:DesignHeight="600" d:DesignWidth="800" mc:Ignorable="d" Tag="Veículos">
     <UserControl.Resources>
         <CollectionViewSource x:Key="VeiculoViewSource" Source="{Binding Veiculo}"/>
         <CollectionViewSource x:Key="VeiculoRegistrosViewSource" Source="{Binding VeiculoRegistros}"/>

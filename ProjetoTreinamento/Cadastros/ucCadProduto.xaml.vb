@@ -154,7 +154,7 @@
     End Sub
 
     Private Sub SairBtn_Click(sender As Object, e As RoutedEventArgs) Handles SairBtn.Click
-
+        Cfg.DestruirTela(Me)
     End Sub
 
     Private Sub ucCadProduto_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
@@ -191,11 +191,9 @@
         CalcularValores("C")
     End Sub
 
-
     Private Sub MargemTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles MargemTxt.LostFocus
         CalcularValores("M")
     End Sub
-
 
     Private Sub PrecoTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles PrecoTxt.LostFocus
         CalcularValores("P")
