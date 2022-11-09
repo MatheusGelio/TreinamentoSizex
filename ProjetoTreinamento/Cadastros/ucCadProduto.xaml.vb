@@ -107,6 +107,8 @@
         objProduto.DataSalvamento = Date.Now
 
         retorno = "4 - Salvamento Concluído."
+
+        GrupoTxt.ItemsSource = lstProduto.Select(Function(p) p.Grupo).Distinct.ToList
         Return True
     End Function
 #End Region
@@ -170,14 +172,11 @@
 
     Private Sub wdCadProduto_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
-
             lstProduto = New List(Of Produto)
             srcProduto = CType(Me.FindResource("ProdutoViewSource"), CollectionViewSource)
             LimparCampos()
             DescricaoTxt.Focus()
-
             tipoPesquisa = "D"
-
             passou = True
         End If
     End Sub

@@ -92,6 +92,8 @@
         objVeiculo.DataGravacao = Date.Now
 
         retorno = "4 - Salvamento Concluído."
+
+        CombustivelTxt.ItemsSource = lstVeiculo.Select(Function(p) p.Combustivel).Distinct.ToList
         Return True
     End Function
 #End Region
@@ -111,23 +113,11 @@
 
     Private Sub ucCadVeiculo_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
-            Dim lista As New List(Of String)
-            lista.Add("DIESEL")
-            lista.Add("ETANOL")
-            lista.Add("FLEX")
-            lista.Add("GASOLINA")
-
-            CombustivelTxt.ItemsSource = lista.ToList
-
             lstVeiculo = New List(Of Veiculo)
-
             srcVeiculo = CType(Me.FindResource("VeiculoViewSource"), CollectionViewSource)
             srcVeiculoRegistros = CType(Me.FindResource("VeiculoRegistrosViewSource"), CollectionViewSource)
-
             LimparCampos("T")
-
             tipoPesquisa = "D"
-
             passou = True
         End If
     End Sub

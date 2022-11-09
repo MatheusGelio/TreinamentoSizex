@@ -60,7 +60,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Label x:Name="GrupoLbl" Content="Grupo:" Style="{StaticResource Label}"/>
-                <ctTextBox:ctTextBox x:Name="GrupoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" ExibirBorda="False"/>
+                <ctTextBox:ctAutoComplete x:Name="GrupoTxt" Style="{StaticResource AutoBox}" TabIndex="5" ExibirBorda="False"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Label x:Name="TipoLbl" Content="Tipo de Produto:" Style="{StaticResource Label}"/>

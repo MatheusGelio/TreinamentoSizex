@@ -97,7 +97,7 @@
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Label x:Name="CidadeLbl" Content="Cidade:" Style="{StaticResource Label}"/>
-                                    <ctTextBox:ctTextBox x:Name="CidadeTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" ExibirBorda="False"/>
+                                    <ctTextBox:ctAutoComplete x:Name="CidadeTxt" Style="{StaticResource AutoBox}" TabIndex="8" ExibirBorda="False"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Label x:Name="EstadoLbl" Content="Estado:" Style="{StaticResource Label}"/>

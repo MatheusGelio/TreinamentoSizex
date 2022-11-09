@@ -140,6 +140,9 @@
         objCliente.DataGravacao = Date.Now
 
         retorno = "4 - Gravação Concluída."
+
+        CidadeTxt.ItemsSource = lstCliente.Select(Function(p) p.Cidade).Distinct.ToList
+        EstadoTxt.ItemsSource = lstCliente.Select(Function(p) p.Estado).Distinct.ToList
         Return True
     End Function
 #End Region
@@ -160,46 +163,11 @@
     Private Sub wdCadCliente_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
             FotoCt.Content = New ucCadFoto
-            Dim lista As New List(Of String)
-            lista.Add("ACRE (AC)")
-            lista.Add("ALAGOAS (AL)")
-            lista.Add("AMAPÁ (AP)")
-            lista.Add("AMAZONAS (AM)")
-            lista.Add("BAHIA (BA)")
-            lista.Add("CEARÁ (CE)")
-            lista.Add("DISTRITO FEDERAL (DF)")
-            lista.Add("ESPÍRITO SANTO (ES)")
-            lista.Add("GOIÁS (GO)")
-            lista.Add("MARANHÃO (MA)")
-            lista.Add("MATO GROSSO (MT)")
-            lista.Add("MATO GROSSO DO SUL (MS)")
-            lista.Add("MINAS GERAIS (MG)")
-            lista.Add("PARÁ (PA)")
-            lista.Add("PARAÍBA (PB)")
-            lista.Add("PARANÁ (PR)")
-            lista.Add("PERNAMBUCO (PE)")
-            lista.Add("PIAUÍ (PI)")
-            lista.Add("RIO DE JANEIRO (RJ)")
-            lista.Add("RIO GRANDE DO NORTE (RN)")
-            lista.Add("RIO GRANDE DO SUL (RS)")
-            lista.Add("RONDÔNIA (RO)")
-            lista.Add("RORAIMA (RR)")
-            lista.Add("SANTA CATARINA (SC)")
-            lista.Add("SÃO PAULO (SP)")
-            lista.Add("SERGIPE (SE)")
-            lista.Add("TOCANTINS (TO)")
-
-            EstadoTxt.ItemsSource = lista.ToList
-
             lstCliente = New List(Of Cliente)
-
             srcCliente = CType(Me.FindResource("ClienteViewSource"), CollectionViewSource)
             srcClienteContatos = CType(Me.FindResource("ClienteContatosViewSource"), CollectionViewSource)
-
             LimparCampos("T")
-
             tipoPesquisa = "N"
-
             passou = True
         End If
     End Sub
@@ -333,6 +301,13 @@
     Private Sub DataTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles DataTxt.PreviewKeyDown
         If e.Key = Key.Return Or e.Key = Key.Tab Then
             NomeTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub BairroTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles BairroTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            CidadeTxt.Focus()
             e.Handled = True
         End If
     End Sub
