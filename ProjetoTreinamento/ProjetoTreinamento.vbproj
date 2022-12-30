@@ -87,6 +87,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Cadastros\ucCadTitulo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Cadastros\ucCadVeiculo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,10 +120,14 @@
     <Compile Include="Cadastros\ucCadProduto.xaml.vb">
       <DependentUpon>ucCadProduto.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cadastros\ucCadTitulo.xaml.vb">
+      <DependentUpon>ucCadTitulo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Cadastros\ucCadVeiculo.xaml.vb">
       <DependentUpon>ucCadVeiculo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Cfg.vb" />
+    <Compile Include="Classes\Titulo.vb" />
     <Compile Include="Classes\VeiculoRegistros.vb" />
     <Compile Include="Classes\Cliente.vb" />
     <Compile Include="Classes\ClienteContatos.vb" />

@@ -15,4 +15,8 @@
     Private Sub VeiculoMnu_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles VeiculoMnu.MouseLeftButtonDown
         Cfg.CarregarTela(MenuTb, New ucCadVeiculo)
     End Sub
+
+    Private Sub TituloMnu_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles TituloMnu.MouseLeftButtonDown
+        Cfg.CarregarTela(MenuTb, new ucCadTitulo)
+    End Sub
 End Class

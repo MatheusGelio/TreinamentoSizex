@@ -1,0 +1,171 @@
+﻿<UserControl x:Class="ucCadTitulo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ctTextBox="clr-namespace:ctTextBox;assembly=ctTextBox"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" Tag="Títulos">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="TituloViewSource" Source="{Binding Titulo}"/>
+    </UserControl.Resources>
+    <Grid Background="{DynamicResource background}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="{DynamicResource title-primary}">
+            <Label x:Name="TituloLbl" Content="Cadastro de Títulos" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="22" FontFamily="Calibri" Foreground="White"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label x:Name="TipoLbl" Content="Tipo:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctComboBox x:Name="TipoCmb" Margin="5,23,0,0" TabIndex="0">
+                        <ComboBoxItem Content="PAGAR"/>
+                        <ComboBoxItem Content="RECEBER"/>
+                    </ctTextBox:ctComboBox>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label x:Name="PessoaLbl" Content="Pessoa (Responsável ou Fornecedor):" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctAutoComplete x:Name="PessoaTxt" Style="{StaticResource AutoBox}" TabIndex="1" ExibirBorda="False"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Label x:Name="ResultadoLbl" Content="Centro de Resultados:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctAutoComplete x:Name="ResultadoTxt" Style="{StaticResource AutoBox}" Margin="5,23,5,0" TabIndex="2" ExibirBorda="False"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label x:Name="VencimentoParcLbl" Content="Venc. 1º Parc.:" Style="{StaticResource Label}"/>
+                    <DatePicker x:Name="VencimentoParcTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="4" BorderBrush="#FF4B4B4B" Foreground="Black"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label x:Name="ParcelasLbl" Content="Parcelas:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctTextInt Name="ParcelasTxt" Style="{StaticResource IntBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" ExibirBorda="False"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Label x:Name="DiaProxParcLbl" Content="Dia Próx. Parc.:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctTextInt Name="DiaProxParcTxt" Style="{StaticResource IntBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="6" ExibirBorda="False"/>
+                </Grid>
+                <Grid Grid.Column="3">
+                    <Label x:Name="ValorLbl" Content="Valor:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctDecimalBox Name="ValorTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="7" NrDecimais="2" ExibirBorda="False"/>
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Label x:Name="DescontoLbl" Content="Desconto:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctDecimalBox Name="DescontoTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" NrDecimais="2" ExibirBorda="False"/>
+                </Grid>
+                <Grid Grid.Column="5">
+                    <Label x:Name="JurosLbl" Content="Juros:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctDecimalBox Name="JurosTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="9" NrDecimais="2" ExibirBorda="False"/>
+                </Grid>
+                <Grid Grid.Column="6">
+                    <Label x:Name="MultaLbl" Content="Multa:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctDecimalBox Name="MultaTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" Margin="5,23,5,0" TabIndex="10" NrDecimais="2" ExibirBorda="False"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label x:Name="DocumentoLbl" Content="Documento:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctTextBox Name="DocumentoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="11" ExibirBorda="False"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label x:Name="FormaPgmtLbl" Content="Forma de Pagamento:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctComboBox x:Name="FormaPgmtCmb" Margin="5,23,0,0" TabIndex="12">
+                        <ComboBoxItem Content="..."/>
+                    </ctTextBox:ctComboBox>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Label x:Name="ObsLbl" Content="Observações:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctTextBox Name="ObsTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" Margin="5,23,5,0" TabIndex="13" ExibirBorda="False"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button x:Name="CalcularBtn" Content="Calcular [F5]" Margin="5,5,0,0" Style="{StaticResource Button}"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button x:Name="GerarBtn" Content="Gerar [F6]" Margin="5,5,0,0" Style="{StaticResource Button}"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Button x:Name="DesfazerBtn" Content="Desfazer [F7]" Margin="5,5,0,0" Style="{StaticResource Button}"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250*"/>
+                    <ColumnDefinition Width="200*"/>
+                    <ColumnDefinition Width="200*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Label x:Name="FormaDePgmtLbl" Content="Forma de Pagamento:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctComboBox x:Name="FormaDePgmtCmb" Margin="5,23,0,0" TabIndex="14">
+                        <ComboBoxItem Content="..."/>
+                    </ctTextBox:ctComboBox>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label x:Name="VencimentoLbl" Content="Vencimento:" Style="{StaticResource Label}"/>
+                    <DatePicker x:Name="VencimentoTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="15" BorderBrush="#FF4B4B4B" Foreground="Black"/>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Label x:Name="ValorParcLbl" Content="Valor da Parcela:" Style="{StaticResource Label}"/>
+                    <ctTextBox:ctDecimalBox Name="ValorParcTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" Margin="5,23,5,0" TabIndex="16" NrDecimais="2" ExibirBorda="False"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="5">
+                <DataGrid x:Name="TituloDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource TituloViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Parcela" Width="90*" Binding="{Binding Parcela}"/>
+                        <DataGridTextColumn Header="Forma de Pagamento" Width="180*" Binding="{Binding FormaPgmt}"/>
+                        <DataGridTextColumn Header="Vencimento" Width="120*" Binding="{Binding VencimentoParc}"/>
+                        <DataGridTextColumn Header="Valor da Parcela" Width="150*" Binding="{Binding Valor}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" HorizontalAlignment="Stretch" Background="{DynamicResource title-secondary}">
+            <Grid Grid.Row="0" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button x:Name="SairBtn" Content="Sair [ESC]" Style="{StaticResource Button}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

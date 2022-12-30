@@ -6,13 +6,29 @@ ProjetoTreinamento
 </name>
 </assembly>
 <members>
-<member name="M:ProjetoTreinamento.ucCadFoto.InitializeComponent">
+<member name="M:ProjetoTreinamento.ucCadCliente.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:ProjetoTreinamento.ucCadFoto">
+</member><member name="T:ProjetoTreinamento.ucCadCliente">
 	<summary>
-ucCadFoto
+ucCadCliente
+</summary>
+</member><member name="M:ProjetoTreinamento.ucCadTitulo.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.ucCadTitulo">
+	<summary>
+ucCadTitulo
+</summary>
+</member><member name="M:ProjetoTreinamento.ucCadProduto.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.ucCadProduto">
+	<summary>
+ucCadProduto
 </summary>
 </member><member name="M:ProjetoTreinamento.ucCadVeiculo.InitializeComponent">
 	<summary>
@@ -34,21 +50,13 @@ Application Entry Point.
 	<summary>
 Application
 </summary>
-</member><member name="M:ProjetoTreinamento.ucCadProduto.InitializeComponent">
+</member><member name="M:ProjetoTreinamento.ucCadFoto.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:ProjetoTreinamento.ucCadProduto">
+</member><member name="T:ProjetoTreinamento.ucCadFoto">
 	<summary>
-ucCadProduto
-</summary>
-</member><member name="M:ProjetoTreinamento.MainWindow.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:ProjetoTreinamento.MainWindow">
-	<summary>
-MainWindow
+ucCadFoto
 </summary>
 </member><member name="M:ProjetoTreinamento.wdAcesso.InitializeComponent">
 	<summary>
@@ -58,13 +66,26 @@ InitializeComponent
 	<summary>
 wdAcesso
 </summary>
-</member><member name="M:ProjetoTreinamento.ucCadCliente.InitializeComponent">
+</member><member name="M:ProjetoTreinamento.MainWindow.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:ProjetoTreinamento.ucCadCliente">
+</member><member name="T:ProjetoTreinamento.MainWindow">
 	<summary>
-ucCadCliente
+MainWindow
+</summary>
+</member><member name="P:ProjetoTreinamento.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:ProjetoTreinamento.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:ProjetoTreinamento.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
 </summary>
 </member><member name="P:ProjetoTreinamento.My.MyWpfExtension.Application">
 	<summary>
@@ -92,19 +113,6 @@ ucCadCliente
  Module used to define the properties that are available in the My Namespace for WPF
  </summary>
 	<remarks></remarks>
-</member><member name="P:ProjetoTreinamento.My.Resources.Resources.ResourceManager">
-	<summary>
-  Returns the cached ResourceManager instance used by this class.
-</summary>
-</member><member name="P:ProjetoTreinamento.My.Resources.Resources.Culture">
-	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
-</summary>
-</member><member name="T:ProjetoTreinamento.My.Resources.Resources">
-	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
-</summary>
 </member>
 </members>
 </doc>

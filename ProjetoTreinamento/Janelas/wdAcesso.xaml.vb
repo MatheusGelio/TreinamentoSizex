@@ -4,13 +4,13 @@
         Me.Close()
     End Sub
 
-
     Private Sub wdAcesso_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.Key = Key.Escape Then
             Me.Close()
+        ElseIf e.Key = Key.Enter Then
+            EntrarBtn_Click(Nothing, Nothing)
         End If
     End Sub
-
 
     Private Sub EntrarBtn_Click(sender As Object, e As RoutedEventArgs) Handles EntrarBtn.Click
         If UsuarioTxt.Text = "" Then
@@ -44,5 +44,9 @@
         Else
             MsgBox("A senha digitada é inválida, verifique!", MsgBoxStyle.Exclamation, "Atenção")
         End If
+    End Sub
+
+    Private Sub wdAcesso_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
+        UsuarioTxt.Focus()
     End Sub
 End Class
