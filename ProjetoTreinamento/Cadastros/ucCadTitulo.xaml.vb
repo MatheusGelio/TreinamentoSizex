@@ -44,7 +44,7 @@
         srcTitulo.Source = lstTitulo.ToList
     End Sub
 
-    Private Function SalvarProduto(Optional ByRef retorno As String = "") As Boolean
+    Private Function SalvarProduto(Optional ByRef retorno As String = "", Optional ByRef tipo As String = "") As Boolean
         retorno = "1 - Validando Campos."
         If TipoCmb.SelectedItem Is Nothing Then
             MsgBox("Para salvar um título, é necessário preencher o campo de TIPO, verifique!", MsgBoxStyle.Exclamation, "Validação")
@@ -73,7 +73,7 @@
         End If
 
         retorno = "2 - Inserindo Objeto."
-        If objTitulo Is Nothing Then
+        If objTitulo Is Nothing Or tipo = "C" Then
             objTitulo = New Titulo
             lstTitulo.Add(objTitulo)
         End If
@@ -104,35 +104,37 @@
     Private Sub CalcularBtn_Click(sender As Object, e As RoutedEventArgs) Handles CalcularBtn.Click
         Dim retorno As String = ""
         Try
-            If SalvarProduto(retorno) = False Then
-                Exit Sub
-            End If
+            For i As Integer = 1 To ParcelasTxt.Text
+                If SalvarProduto(retorno, "C") = False Then
+                    Exit Sub
+                End If
+                objTitulo.Parcelas = i
+                srcTitulo.Source = lstTitulo.ToList
+            Next
 
-            srcTitulo.Source = lstTitulo.ToList
+            CalcularBtn.Visibility = Windows.Visibility.Hidden
 
             MsgBox("Título salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
             LimparCampos()
             TipoCmb.Focus()
         Catch ex As Exception
-            MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Calcular Título")
+            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Calcular Título")
         End Try
     End Sub
 
     Private Sub GerarBtn_Click(sender As Object, e As RoutedEventArgs) Handles GerarBtn.Click
         Dim retorno As String = ""
         Try
-            If objTitulo Is Nothing Then
-                MsgBox("Para gerar um título, é necessário selecioná-lo antes, verifique!", MsgBoxStyle.Exclamation, "Gerar Título")
-                Exit Sub
-            End If
-
-            lstTitulo.Remove(objTitulo)
+            lstTitulo.Clear()
             srcTitulo.Source = lstTitulo.ToList
+
             MsgBox("Título gerado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+
+            CalcularBtn.Visibility = Windows.Visibility.Visible
 
             LimparCampos()
         Catch ex As Exception
-            MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Gerar Título")
+            MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Gerar Título")
         End Try
     End Sub
 
@@ -157,6 +159,7 @@
             srcTitulo = CType(Me.FindResource("TituloViewSource"), CollectionViewSource)
             LimparCampos()
             TipoCmb.Focus()
+
             passou = True
         End If
     End Sub
