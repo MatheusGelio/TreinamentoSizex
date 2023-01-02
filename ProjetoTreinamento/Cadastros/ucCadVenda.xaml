@@ -68,6 +68,7 @@
                                 <ColumnDefinition Width="200*"/>
                                 <ColumnDefinition Width="150*"/>
                                 <ColumnDefinition Width="150*"/>
+                                <ColumnDefinition Width="75*"/>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0">
                                 <Label x:Name="PesquisarLbl" Content="Pesquisar por Produto" Style="{StaticResource Label}"/>
@@ -88,6 +89,10 @@
                             <Grid Grid.Column="4">
                                 <Label x:Name="ValorTotalLbl" Content="Valor Total:" Style="{StaticResource Label}"/>
                                 <ctTextBox:ctDecimalBox Name="ValorTotalTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="9" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                            </Grid>
+                            <Grid Grid.Column="5">
+                                <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="5,23,35,5" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-primary}" Foreground="White"/>
+                                <Button x:Name="DeletarBtn" Content="-" Width="25" HorizontalAlignment="Right" Margin="5,23,5,5" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-secondary}" Foreground="White"/>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2">

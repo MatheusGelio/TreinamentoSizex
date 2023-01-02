@@ -129,6 +129,10 @@
     Private Sub GerarBtn_Click(sender As Object, e As RoutedEventArgs) Handles GerarBtn.Click
         Dim retorno As String = ""
         Try
+            If lstTitulo.Count < 1 Then
+                Exit Sub
+            End If
+
             lstTitulo.Clear()
             srcTitulo.Source = lstTitulo.ToList
 

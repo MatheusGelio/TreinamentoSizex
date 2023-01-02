@@ -73,4 +73,12 @@
             e.Handled = True
         End If
     End Sub
+
+    Private Sub AdicionarBtn_Click(sender As Object, e As RoutedEventArgs) Handles AdicionarBtn.Click
+
+    End Sub
+
+    Private Sub DeletarBtn_Click(sender As Object, e As RoutedEventArgs) Handles DeletarBtn.Click
+
+    End Sub
 End Class
