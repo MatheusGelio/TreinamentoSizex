@@ -95,6 +95,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Cadastros\ucCadVenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Estilo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +130,9 @@
     <Compile Include="Cadastros\ucCadVeiculo.xaml.vb">
       <DependentUpon>ucCadVeiculo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cadastros\ucCadVenda.xaml.vb">
+      <DependentUpon>ucCadVenda.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Cfg.vb" />
     <Compile Include="Classes\Titulo.vb" />
     <Compile Include="Classes\VeiculoRegistros.vb" />
@@ -133,6 +140,7 @@
     <Compile Include="Classes\ClienteContatos.vb" />
     <Compile Include="Classes\Produto.vb" />
     <Compile Include="Classes\Veiculo.vb" />
+    <Compile Include="Classes\Venda.vb" />
     <Compile Include="Janelas\wdAcesso.xaml.vb">
       <DependentUpon>wdAcesso.xaml</DependentUpon>
     </Compile>

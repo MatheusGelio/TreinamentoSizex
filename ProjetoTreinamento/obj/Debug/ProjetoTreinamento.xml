@@ -6,49 +6,13 @@ ProjetoTreinamento
 </name>
 </assembly>
 <members>
-<member name="M:ProjetoTreinamento.ucCadCliente.InitializeComponent">
+<member name="M:ProjetoTreinamento.ucCadVenda.InitializeComponent">
 	<summary>
 InitializeComponent
 </summary>
-</member><member name="T:ProjetoTreinamento.ucCadCliente">
+</member><member name="T:ProjetoTreinamento.ucCadVenda">
 	<summary>
-ucCadCliente
-</summary>
-</member><member name="M:ProjetoTreinamento.ucCadTitulo.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:ProjetoTreinamento.ucCadTitulo">
-	<summary>
-ucCadTitulo
-</summary>
-</member><member name="M:ProjetoTreinamento.ucCadProduto.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:ProjetoTreinamento.ucCadProduto">
-	<summary>
-ucCadProduto
-</summary>
-</member><member name="M:ProjetoTreinamento.ucCadVeiculo.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="T:ProjetoTreinamento.ucCadVeiculo">
-	<summary>
-ucCadVeiculo
-</summary>
-</member><member name="M:ProjetoTreinamento.Application.InitializeComponent">
-	<summary>
-InitializeComponent
-</summary>
-</member><member name="M:ProjetoTreinamento.Application.Main">
-	<summary>
-Application Entry Point.
-</summary>
-</member><member name="T:ProjetoTreinamento.Application">
-	<summary>
-Application
+ucCadVenda
 </summary>
 </member><member name="M:ProjetoTreinamento.ucCadFoto.InitializeComponent">
 	<summary>
@@ -66,6 +30,38 @@ InitializeComponent
 	<summary>
 wdAcesso
 </summary>
+</member><member name="M:ProjetoTreinamento.ucCadTitulo.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.ucCadTitulo">
+	<summary>
+ucCadTitulo
+</summary>
+</member><member name="M:ProjetoTreinamento.ucCadCliente.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.ucCadCliente">
+	<summary>
+ucCadCliente
+</summary>
+</member><member name="M:ProjetoTreinamento.ucCadVeiculo.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.ucCadVeiculo">
+	<summary>
+ucCadVeiculo
+</summary>
+</member><member name="M:ProjetoTreinamento.ucCadProduto.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:ProjetoTreinamento.ucCadProduto">
+	<summary>
+ucCadProduto
+</summary>
 </member><member name="M:ProjetoTreinamento.MainWindow.InitializeComponent">
 	<summary>
 InitializeComponent
@@ -74,18 +70,17 @@ InitializeComponent
 	<summary>
 MainWindow
 </summary>
-</member><member name="P:ProjetoTreinamento.My.Resources.Resources.ResourceManager">
+</member><member name="M:ProjetoTreinamento.Application.InitializeComponent">
 	<summary>
-  Returns the cached ResourceManager instance used by this class.
+InitializeComponent
 </summary>
-</member><member name="P:ProjetoTreinamento.My.Resources.Resources.Culture">
+</member><member name="M:ProjetoTreinamento.Application.Main">
 	<summary>
-  Overrides the current thread's CurrentUICulture property for all
-  resource lookups using this strongly typed resource class.
+Application Entry Point.
 </summary>
-</member><member name="T:ProjetoTreinamento.My.Resources.Resources">
+</member><member name="T:ProjetoTreinamento.Application">
 	<summary>
-  A strongly-typed resource class, for looking up localized strings, etc.
+Application
 </summary>
 </member><member name="P:ProjetoTreinamento.My.MyWpfExtension.Application">
 	<summary>
@@ -113,6 +108,19 @@ MainWindow
  Module used to define the properties that are available in the My Namespace for WPF
  </summary>
 	<remarks></remarks>
+</member><member name="P:ProjetoTreinamento.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:ProjetoTreinamento.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:ProjetoTreinamento.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
 </member>
 </members>
 </doc>

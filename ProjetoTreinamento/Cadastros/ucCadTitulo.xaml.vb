@@ -40,6 +40,9 @@
         DocumentoTxt.Text = objTitulo.Documento
         FormaPgmtCmb.Text = objTitulo.FormaPgmt
         ObsTxt.Text = objTitulo.Obs
+        FormaDePgmtCmb.Text = objTitulo.FormaPgmt
+        VencimentoTxt.Text = objTitulo.VencimentoParc
+        ValorParcTxt.Text = objTitulo.Valor
 
         srcTitulo.Source = lstTitulo.ToList
     End Sub
@@ -113,6 +116,7 @@
             Next
 
             CalcularBtn.Visibility = Windows.Visibility.Hidden
+            GerarBtn.Visibility = Windows.Visibility.Visible
 
             MsgBox("Título salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
             LimparCampos()
@@ -131,6 +135,7 @@
             MsgBox("Título gerado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
             CalcularBtn.Visibility = Windows.Visibility.Visible
+            GerarBtn.Visibility = Windows.Visibility.Hidden
 
             LimparCampos()
         Catch ex As Exception
@@ -150,6 +155,12 @@
         Select Case e.Key
             Case Key.Escape
                 SairBtn_Click(Nothing, Nothing)
+            Case Key.F5
+                CalcularBtn_Click(Nothing, Nothing)
+            Case Key.F6
+                GerarBtn_Click(Nothing, Nothing)
+            Case Key.F7
+                DesfazerBtn_Click(Nothing, Nothing)
         End Select
     End Sub
 
@@ -159,7 +170,7 @@
             srcTitulo = CType(Me.FindResource("TituloViewSource"), CollectionViewSource)
             LimparCampos()
             TipoCmb.Focus()
-
+            GerarBtn.Visibility = Windows.Visibility.Hidden
             passou = True
         End If
     End Sub
@@ -167,6 +178,34 @@
     Private Sub TituloDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles TituloDataGrid.MouseDoubleClick
         If sender.selectedItem IsNot Nothing Then
             PreencherCampos(sender)
+        End If
+    End Sub
+
+    Private Sub ResultadoTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles ResultadoTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            VencimentoParcTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub VencimentoParcTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles VencimentoParcTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            ParcelasTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub FormaPgmtCmb_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles FormaPgmtCmb.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            ObsTxt.Focus()
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub VencimentoTxt_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles VencimentoTxt.PreviewKeyDown
+        If e.Key = Key.Return Or e.Key = Key.Tab Then
+            ValorParcTxt.Focus()
+            e.Handled = True
         End If
     End Sub
 End Class

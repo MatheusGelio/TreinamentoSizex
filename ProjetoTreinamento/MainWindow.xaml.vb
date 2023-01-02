@@ -19,4 +19,8 @@
     Private Sub TituloMnu_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles TituloMnu.MouseLeftButtonDown
         Cfg.CarregarTela(MenuTb, new ucCadTitulo)
     End Sub
+
+    Private Sub VendaMnu_MouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs) Handles VendaMnu.MouseLeftButtonDown
+        Cfg.CarregarTela(MenuTb, New ucCadVenda)
+    End Sub
 End Class
