@@ -47,7 +47,7 @@
         ImpostosTxt.Text = objVenda.Impostos
         TotalVendaTxt.Text = objVenda.TotalVenda
 
-        'srcVendaRegistros.Source = objVenda.Registros.ToList'
+        srcVendaRegistros.Source = objVenda.Registros.ToList
 
         BottomTb.SelectedItem = VendaTb
         e.Handled = True
@@ -89,6 +89,7 @@
         If objVenda Is Nothing Then
             objVenda = New Venda
             lstVenda.Add(objVenda)
+            objVenda.Registros = New List(Of VendaRegistros)
         End If
 
         retorno = "3 - Salvando Campos da Venda."
