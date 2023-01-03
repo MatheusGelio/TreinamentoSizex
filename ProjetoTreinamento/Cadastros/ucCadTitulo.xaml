@@ -164,7 +164,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Parcela" Width="90*" Binding="{Binding Parcelas}"/>
                         <DataGridTextColumn Header="Forma de Pagamento" Width="180*" Binding="{Binding FormaPgmt}"/>
-                        <DataGridTextColumn Header="Vencimento" Width="120*" Binding="{Binding VencimentoParc}"/>
+                        <DataGridTextColumn Header="Vencimento" Width="120*" Binding="{Binding VencimentoParc, StringFormat=\{0:dd/MM/yyyy\}}"/>
                         <DataGridTextColumn Header="Valor da Parcela" Width="150*" Binding="{Binding Valor}"/>
                     </DataGrid.Columns>
                 </DataGrid>

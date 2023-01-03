@@ -8,6 +8,7 @@
              d:DesignHeight="600" d:DesignWidth="800" Tag="Vendas">
     <UserControl.Resources>
         <CollectionViewSource x:Key="VendaViewSource" Source="{Binding Venda}"/>
+        <CollectionViewSource x:Key="VendaRegistrosViewSource" Source="{Binding VendaRegistros}"/>
     </UserControl.Resources>
     <Grid Background="{DynamicResource background}">
         <Grid.RowDefinitions>
@@ -19,133 +20,196 @@
             <Label x:Name="TituloLbl" Content="Cadastro de Vendas" HorizontalAlignment="Stretch" Margin="0,0,0,0" FontWeight="Bold" FontSize="22" FontFamily="Calibri" Foreground="White"/>
         </Grid>
         <Grid Grid.Row="1">
-            <TabControl x:Name="PrincipalTb" TabStripPlacement="Bottom">
+            <TabControl x:Name="ToplTb" TabStripPlacement="Top">
                 <TabItem x:Name="InfVenTb" Header="Informações de Venda">
-                    <Grid Background="{DynamicResource background}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="200*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Label x:Name="TipoLbl" Content="Tipo de Venda:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctComboBox x:Name="TipoCmb" Margin="5,23,0,0" TabIndex="0">
-                                    <ComboBoxItem Content="PEDIDO"/>
-                                </ctTextBox:ctComboBox>
+                    <TabControl x:Name="BottomTb" TabStripPlacement="Bottom">
+                        <TabItem x:Name="VendaTb" Header="Venda">
+                            <Grid Background="{DynamicResource background}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="200*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Label x:Name="TipoLbl" Content="Tipo de Venda:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctComboBox x:Name="TipoCmb" Margin="5,23,0,0" TabIndex="0">
+                                            <ComboBoxItem Content="..."/>
+                                        </ctTextBox:ctComboBox>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Label x:Name="DataLbl" Content="Data da Venda:" Style="{StaticResource Label}"/>
+                                        <DatePicker x:Name="DataTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="1" BorderBrush="#FF4B4B4B" Foreground="Black"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Label x:Name="ClienteLbl" Content="Cliente:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctAutoComplete x:Name="ClienteTxt" Style="{StaticResource AutoBox}" TabIndex="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <Label x:Name="VendedorLbl" Content="Vendedor:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctAutoComplete x:Name="VendedorTxt" Style="{StaticResource AutoBox}" TabIndex="3" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <Label x:Name="CenarioFiscalLbl" Content="Cenário Fiscal:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctComboBox x:Name="CenarioFiscalCmb" Margin="5,23,0,0" TabIndex="4">
+                                            <ComboBoxItem Content="..."/>
+                                        </ctTextBox:ctComboBox>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="200*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Label x:Name="PesquisarLbl" Content="Pesquisar por Produto" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" Margin="5,23,0,5" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Label x:Name="ProdutoLbl" Content="Produto:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextBox x:Name="ProdutoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="6" Margin="5,23,0,5" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Label x:Name="QuantidadeLbl" Content="Quantidade:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextInt x:Name="QuantidadeTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="7" Margin="5,23,0,5" TextAlignment="Right" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <Label x:Name="ValorUniLbl" Content="Valor Unitário:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="ValorUniTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <Label x:Name="ValorTotalLbl" Content="Valor Total:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="ValorTotalTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="9" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="5">
+                                        <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="5,23,35,5" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-primary}" Foreground="White"/>
+                                        <Button x:Name="DeletarBtn" Content="-" Width="25" HorizontalAlignment="Right" Margin="5,23,5,5" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-secondary}" Foreground="White"/>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <DataGrid x:Name="VendaRegistrosDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource VendaRegistrosViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Produto" Width="180*" Binding="{Binding Produto}"/>
+                                            <DataGridTextColumn Header="Quantidade" Width="120*" Binding="{Binding Quantidade}"/>
+                                            <DataGridTextColumn Header="Valor Unitário" Width="150*" Binding="{Binding ValorUni}"/>
+                                            <DataGridTextColumn Header="Valor Total" Width="150*" Binding="{Binding ValorTotal}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Label x:Name="TotalItensLbl" Content="Total de Itens:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextInt x:Name="TotalItensTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="10" Margin="5,23,0,5" TextAlignment="Right" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Label x:Name="TotalProdutoslLbl" Content="Total de Produtos:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="TotalProdutosTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="11" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Label x:Name="DescontoLbl" Content="Desconto R$:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="DescontoTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="12" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <Label x:Name="FreteLbl" Content="Frete:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="FreteTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="13" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <Label x:Name="OutrasDesLbl" Content="Outras Despesas:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="OutrasDesTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="14" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="5">
+                                        <Label x:Name="ImpostosLbl" Content="Impostos:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="ImpostosTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="15" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="6">
+                                        <Label x:Name="TotalVendaLbl" Content="Total da Venda:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox Name="TotalVendaTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="16" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Column="1">
-                                <Label x:Name="DataLbl" Content="Data da Venda:" Style="{StaticResource Label}"/>
-                                <DatePicker x:Name="DataTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="1" BorderBrush="#FF4B4B4B" Foreground="Black"/>
+                        </TabItem>
+                        <TabItem x:Name="PesquisaTb" Header="Pesquisa">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                        <ColumnDefinition Width="150*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Label x:Name="DataIniLbl" Content="Data Inicial:" Style="{StaticResource Label}"/>
+                                        <DatePicker x:Name="DataIniTxt" HorizontalAlignment="Stretch" Margin="0,23,0,0" TabIndex="0" BorderBrush="#FF4B4B4B" Foreground="Black"/>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Label x:Name="DataFinLbl" Content="Data Final:" Style="{StaticResource Label}"/>
+                                        <DatePicker x:Name="DataFinTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="1" BorderBrush="#FF4B4B4B" Foreground="Black"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Label x:Name="TipoVendaLbl" Content="Tipo de Venda:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctComboBox x:Name="TipoVendaCmb" Margin="5,23,0,0" TabIndex="2">
+                                            <ComboBoxItem Content="..."/>
+                                        </ctTextBox:ctComboBox>
+                                    </Grid>
+                                    <Grid Grid.Column="3">
+                                        <Label x:Name="NomeClienteLbl" Content="Nome do Cliente:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextBox x:Name="NomeClienteTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="4" Margin="5,23,0,0" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="4">
+                                        <Label x:Name="NomeVendedorLbl" Content="Nome do Vendedor:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextBox x:Name="NomeVendedorTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" Margin="5,23,0,0" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="5">
+                                        <Label x:Name="VendaLbl" Content="Venda:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextInt Name="VendaTxt" Style="{StaticResource IntBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="7" ExibirBorda="False"/>
+                                    </Grid>
+                                    <Grid Grid.Column="6">
+                                        <Label x:Name="TotalLbl" Content="Total de Vendas:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctDecimalBox x:Name="TotalTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" NrDecimais="2" ExibirBorda="False"/>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <DataGrid x:Name="VendaDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource VendaViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Tipo Venda" Width="150*" Binding="{Binding TipoVenda}"/>
+                                            <DataGridTextColumn Header="Data" Width="150*" Binding="{Binding Data, StringFormat=\{0:dd/MM/yyyy\}}"/>
+                                            <DataGridTextColumn Header="Cliente" Width="150*" Binding="{Binding Cliente}"/>
+                                            <DataGridTextColumn Header="Vendedor" Width="150*" Binding="{Binding Vendedor}"/>
+                                            <DataGridTextColumn Header="Total de Venda" Width="150*" Binding="{Binding TotalVenda}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Column="2">
-                                <Label x:Name="ClienteLbl" Content="Cliente:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctAutoComplete x:Name="ClienteTxt" Style="{StaticResource AutoBox}" TabIndex="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="3">
-                                <Label x:Name="VendedorLbl" Content="Vendedor:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctAutoComplete x:Name="VendedorTxt" Style="{StaticResource AutoBox}" TabIndex="3" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="4">
-                                <Label x:Name="CenarioFiscalLbl" Content="Cenário Fiscal:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctComboBox x:Name="CenarioFiscalCmb" Margin="5,23,0,0" TabIndex="4">
-                                    <ComboBoxItem Content="VENDA"/>
-                                </ctTextBox:ctComboBox>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="200*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="75*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Label x:Name="PesquisarLbl" Content="Pesquisar por Produto" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" Margin="5,23,0,5" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <Label x:Name="ProdutoLbl" Content="Produto:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctTextBox x:Name="ProdutoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="6" Margin="5,23,0,5" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="2">
-                                <Label x:Name="QuantidadeLbl" Content="Quantidade:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctTextInt x:Name="QuantidadeTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="7" Margin="5,23,0,5" TextAlignment="Right" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="3">
-                                <Label x:Name="ValorUniLbl" Content="Valor Unitário:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="ValorUniTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="4">
-                                <Label x:Name="ValorTotalLbl" Content="Valor Total:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="ValorTotalTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="9" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="5">
-                                <Button x:Name="AdicionarBtn" Content="+" Width="25" HorizontalAlignment="Right" Margin="5,23,35,5" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-primary}" Foreground="White"/>
-                                <Button x:Name="DeletarBtn" Content="-" Width="25" HorizontalAlignment="Right" Margin="5,23,5,5" FontWeight="ExtraBold" FontSize="14" Background="{DynamicResource title-secondary}" Foreground="White"/>
-                            </Grid>
-                        </Grid>
-                        <Grid Grid.Row="2">
-                            <DataGrid x:Name="TituloDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource VendaViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Código" Width="90*"/>
-                                    <DataGridTextColumn Header="Produto" Width="180*"/>
-                                    <DataGridTextColumn Header="Quantidade" Width="120*"/>
-                                    <DataGridTextColumn Header="Valor Unitário" Width="150*"/>
-                                    <DataGridTextColumn Header="Valor Total" Width="150*"/>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Grid>
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                                <ColumnDefinition Width="150*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Label x:Name="TotalItensLbl" Content="Total de Itens:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctTextInt x:Name="TotalItensTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="10" Margin="5,23,0,5" TextAlignment="Right" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="1">
-                                <Label x:Name="TotalProdutoslLbl" Content="Total de Produtos:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="TotalProdutosTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="11" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="2">
-                                <Label x:Name="DescontoLbl" Content="Desconto R$:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="DescontoTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="12" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="3">
-                                <Label x:Name="FreteLbl" Content="Frete:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="FreteTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="13" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="4">
-                                <Label x:Name="OutrasDesLbl" Content="Outras Despesas:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="OutrasDesTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="14" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="5">
-                                <Label x:Name="ImpostosLbl" Content="Impostos:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="ImpostosTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="15" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                            <Grid Grid.Column="6">
-                                <Label x:Name="TotalVendaLbl" Content="Total da Venda:" Style="{StaticResource Label}"/>
-                                <ctTextBox:ctDecimalBox Name="TotalVendaTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="16" Margin="5,23,0,5" NrDecimais="2" ExibirBorda="False"/>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                        </TabItem>
+                    </TabControl>
                 </TabItem>
             </TabControl>
         </Grid>

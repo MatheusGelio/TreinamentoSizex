@@ -141,6 +141,7 @@
     <Compile Include="Classes\Produto.vb" />
     <Compile Include="Classes\Veiculo.vb" />
     <Compile Include="Classes\Venda.vb" />
+    <Compile Include="Classes\VendaRegistros.vb" />
     <Compile Include="Janelas\wdAcesso.xaml.vb">
       <DependentUpon>wdAcesso.xaml</DependentUpon>
     </Compile>

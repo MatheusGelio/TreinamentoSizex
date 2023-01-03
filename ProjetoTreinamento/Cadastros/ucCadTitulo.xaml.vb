@@ -112,6 +112,7 @@
                     Exit Sub
                 End If
                 objTitulo.Parcelas = i
+                objTitulo.VencimentoParc = objTitulo.VencimentoParc.AddMonths(i - 1)
                 srcTitulo.Source = lstTitulo.ToList
             Next
 
