@@ -42,7 +42,9 @@
                                     <Grid Grid.Column="0">
                                         <Label x:Name="TipoLbl" Content="Tipo de Venda:" Style="{StaticResource Label}"/>
                                         <ctTextBox:ctComboBox x:Name="TipoCmb" Margin="5,23,0,0" TabIndex="0">
-                                            <ComboBoxItem Content="..."/>
+                                            <ComboBoxItem Content="A"/>
+                                            <ComboBoxItem Content="B"/>
+                                            <ComboBoxItem Content="C"/>
                                         </ctTextBox:ctComboBox>
                                     </Grid>
                                     <Grid Grid.Column="1">
@@ -60,7 +62,9 @@
                                     <Grid Grid.Column="4">
                                         <Label x:Name="CenarioFiscalLbl" Content="Cenário Fiscal:" Style="{StaticResource Label}"/>
                                         <ctTextBox:ctComboBox x:Name="CenarioFiscalCmb" Margin="5,23,0,0" TabIndex="4">
-                                            <ComboBoxItem Content="..."/>
+                                            <ComboBoxItem Content="A"/>
+                                            <ComboBoxItem Content="B"/>
+                                            <ComboBoxItem Content="C"/>
                                         </ctTextBox:ctComboBox>
                                     </Grid>
                                 </Grid>
@@ -74,8 +78,8 @@
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
-                                        <Label x:Name="PesquisarLbl" Content="Pesquisar por Produto" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctTextBox x:Name="PesquisarTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" Margin="5,23,0,5" ExibirBorda="False"/>
+                                        <Label x:Name="PesquisarProdutoLbl" Content="Pesquisar Produto:" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextBox x:Name="PesquisarProdutoTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" Margin="5,23,0,5" ExibirBorda="False"/>
                                     </Grid>
                                     <Grid Grid.Column="1">
                                         <Label x:Name="ProdutoLbl" Content="Produto:" Style="{StaticResource Label}"/>
@@ -158,42 +162,10 @@
                                 <Grid Grid.Row="0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="150*"/>
-                                        <ColumnDefinition Width="150*"/>
-                                        <ColumnDefinition Width="150*"/>
-                                        <ColumnDefinition Width="150*"/>
-                                        <ColumnDefinition Width="150*"/>
-                                        <ColumnDefinition Width="150*"/>
-                                        <ColumnDefinition Width="150*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
-                                        <Label x:Name="DataIniLbl" Content="Data Inicial:" Style="{StaticResource Label}"/>
-                                        <DatePicker x:Name="DataIniTxt" HorizontalAlignment="Stretch" Margin="0,23,0,0" TabIndex="0" BorderBrush="#FF4B4B4B" Foreground="Black"/>
-                                    </Grid>
-                                    <Grid Grid.Column="1">
-                                        <Label x:Name="DataFinLbl" Content="Data Final:" Style="{StaticResource Label}"/>
-                                        <DatePicker x:Name="DataFinTxt" HorizontalAlignment="Stretch" Margin="5,23,0,0" TabIndex="1" BorderBrush="#FF4B4B4B" Foreground="Black"/>
-                                    </Grid>
-                                    <Grid Grid.Column="2">
-                                        <Label x:Name="TipoVendaLbl" Content="Tipo de Venda:" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctComboBox x:Name="TipoVendaCmb" Margin="5,23,0,0" TabIndex="2">
-                                            <ComboBoxItem Content="..."/>
-                                        </ctTextBox:ctComboBox>
-                                    </Grid>
-                                    <Grid Grid.Column="3">
-                                        <Label x:Name="NomeClienteLbl" Content="Nome do Cliente:" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctTextBox x:Name="NomeClienteTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="4" Margin="5,23,0,0" ExibirBorda="False"/>
-                                    </Grid>
-                                    <Grid Grid.Column="4">
-                                        <Label x:Name="NomeVendedorLbl" Content="Nome do Vendedor:" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctTextBox x:Name="NomeVendedorTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="5" Margin="5,23,0,0" ExibirBorda="False"/>
-                                    </Grid>
-                                    <Grid Grid.Column="5">
-                                        <Label x:Name="VendaLbl" Content="Venda:" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctTextInt Name="VendaTxt" Style="{StaticResource IntBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="7" ExibirBorda="False"/>
-                                    </Grid>
-                                    <Grid Grid.Column="6">
-                                        <Label x:Name="TotalLbl" Content="Total de Vendas:" Style="{StaticResource Label}"/>
-                                        <ctTextBox:ctDecimalBox x:Name="TotalTxt" Style="{StaticResource DecimalBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="8" NrDecimais="2" ExibirBorda="False"/>
+                                        <Label x:Name="PesquisarVendaLbl" Content="[F6] Pesquisar por: Cliente" Style="{StaticResource Label}"/>
+                                        <ctTextBox:ctTextBox x:Name="PesquisarVendaTxt" Style="{StaticResource TextBox}" SelectionBrush="{DynamicResource title-primary}" TabIndex="4" Margin="5,23,5,0" ExibirBorda="False"/>
                                     </Grid>
                                 </Grid>
                                 <Grid Grid.Row="1">

@@ -5,6 +5,8 @@
     Dim srcVendaRegistros As CollectionViewSource
     Dim lstVenda As List(Of Venda)
     Dim passou As Boolean = False
+    Dim totalProdutos As Double = 0
+    Dim tipoPesquisa As String
 
 #Region "Métodos"
     Private Sub LimparCampos(tipo As String)
@@ -22,6 +24,8 @@
             ImpostosTxt.Text = "0,00"
             TotalVendaTxt.Text = "0,00"
             objVenda = Nothing
+
+            srcVendaRegistros.Source = Nothing
         End If
 
         If tipo = "R" Or tipo = "T" Then
@@ -29,6 +33,7 @@
             QuantidadeTxt.Text = 0
             ValorUniTxt.Text = "0,00"
             ValorTotalTxt.Text = "0,00"
+            objVendaRegistros = Nothing
         End If
     End Sub
 
@@ -59,6 +64,27 @@
         QuantidadeTxt.Text = objVendaRegistros.Quantidade
         ValorUniTxt.Text = objVendaRegistros.ValorUni
         ValorTotalTxt.Text = objVendaRegistros.ValorTotal
+    End Sub
+
+    Private Sub CalcularValores(tipo As String)
+        Dim valor As Double = 0
+        If tipo = "Q" Or tipo = "U" Then
+            If Cfg.RetornarValorPadrao(QuantidadeTxt.Text) > 0 And Cfg.RetornarValorPadrao(ValorUniTxt.Text) > 0 Then
+                valor = CInt(QuantidadeTxt.Text) * CDbl(ValorUniTxt.Text)
+                valor = Math.Round(valor, 2)
+                ValorTotalTxt.Text = valor.ToString("##0.00")
+            End If
+        ElseIf tipo = "T" Then
+            If Cfg.RetornarValorPadrao(QuantidadeTxt.Text) > 0 And Cfg.RetornarValorPadrao(ValorTotalTxt.Text) > 0 Then
+                valor = CDbl(ValorTotalTxt.Text) / CInt(QuantidadeTxt.Text)
+                valor = Math.Round(valor, 2)
+                ValorUniTxt.Text = valor.ToString("##0.00")
+            End If
+        ElseIf tipo = "TV" Then
+            valor = CDbl(TotalProdutosTxt.Text) - CDbl(DescontoTxt.Text) + CDbl(FreteTxt.Text) + CDbl(OutrasDesTxt.Text) + CDbl(ImpostosTxt.Text)
+            valor = Math.Round(valor, 2)
+            TotalVendaTxt.Text = valor.ToString("##0.00")
+        End If
     End Sub
 
     Private Function SalvarVenda(Optional ByRef retorno As String = "") As Boolean
@@ -111,6 +137,10 @@
     End Function
 #End Region
 
+    Private Sub ucCadVenda_LostFocus(sender As Object, e As RoutedEventArgs) Handles Me.LostFocus
+        CalcularValores("TV")
+    End Sub
+
     Private Sub ucCadVenda_PreviewKeyDown(sender As Object, e As KeyEventArgs) Handles Me.PreviewKeyDown
         Select Case e.Key
             Case Key.F2
@@ -129,6 +159,7 @@
             lstVenda = New List(Of Venda)
             srcVenda = CType(Me.FindResource("VendaViewSource"), CollectionViewSource)
             srcVendaRegistros = CType(Me.FindResource("VendaRegistrosViewSource"), CollectionViewSource)
+            tipoPesquisa = "C"
             LimparCampos("T")
             passou = True
         End If
@@ -217,6 +248,10 @@
 
             Dim mensagem As String = "Venda salva com sucesso!" & vbNewLine & "Total de Registros: " & objVenda.Registros.Count
 
+            TotalItensTxt.Text = objVenda.Registros.Count
+            totalProdutos = totalProdutos + ValorTotalTxt.Text
+            TotalProdutosTxt.Text = totalProdutos
+
             MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
 
             LimparCampos("R")
@@ -238,8 +273,13 @@
                 Exit Sub
             End If
 
+            totalProdutos = totalProdutos - ValorTotalTxt.Text
+
             objVenda.Registros.Remove(objVendaRegistros)
             srcVendaRegistros.Source = objVenda.Registros.ToList
+
+            TotalItensTxt.Text = objVenda.Registros.Count
+            TotalProdutosTxt.Text = totalProdutos
 
             MsgBox("Registro deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
@@ -268,11 +308,41 @@
         End If
     End Sub
 
-    Private Sub NomeClienteTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles NomeClienteTxt.TextChanged
-        srcVenda.Source = lstVenda.Where(Function(p) p.Cliente.Contains(NomeClienteTxt.Text)).ToList
+    Private Sub QuantidadeTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles QuantidadeTxt.LostFocus
+        CalcularValores("Q")
     End Sub
 
-    Private Sub NomeVendedorTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles NomeVendedorTxt.TextChanged
-        srcVenda.Source = lstVenda.Where(Function(p) p.Vendedor.Contains(NomeVendedorTxt.Text)).ToList
+    Private Sub ValorUniTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles ValorUniTxt.LostFocus
+        CalcularValores("U")
+    End Sub
+
+    Private Sub ValorTotalTxt_LostFocus(sender As Object, e As RoutedEventArgs) Handles ValorTotalTxt.LostFocus
+        CalcularValores("T")
+    End Sub
+    
+    Private Sub PesquisarProdutoTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarProdutoTxt.TextChanged
+        srcVendaRegistros.Source = objVenda.Registros.Where(Function(p) p.Produto.Contains(PesquisarProdutoTxt.Text)).ToList
+    End Sub
+
+    Private Sub PesquisarVendaTxt_KeyDown(sender As Object, e As KeyEventArgs) Handles PesquisarVendaTxt.KeyDown
+        If e.Key = Key.F6 Then
+            If tipoPesquisa = "C" Then
+                PesquisarVendaLbl.Content = "[F6] Pesquisar por: Vendedor"
+                tipoPesquisa = "V"
+            ElseIf tipoPesquisa = "V" Then
+                PesquisarVendaLbl.Content = "[F6] Pesquisar por: Cliente"
+                tipoPesquisa = "C"
+            End If
+        End If
+    End Sub
+
+    Private Sub PesquisarVendaTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarVendaTxt.TextChanged
+        If lstVenda.Count > 0 Then
+            If tipoPesquisa = "C" Then
+                srcVenda.Source = lstVenda.Where(Function(p) p.Cliente.Contains(PesquisarVendaTxt.Text)).ToList
+            ElseIf tipoPesquisa = "V" Then
+                srcVenda.Source = lstVenda.Where(Function(p) p.Vendedor.Contains(PesquisarVendaTxt.Text)).ToList
+            End If
+        End If
     End Sub
 End Class
