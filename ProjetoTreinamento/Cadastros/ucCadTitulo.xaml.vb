@@ -27,7 +27,7 @@
 
     Private Sub PreencherCampos(sender As Object)
         objTitulo = CType(sender.selectedItem, Titulo)
-        TipoCmb.Text = objTitulo.Tipo
+        TipoCmb.Text = objTitulo.Tipo.ToString
         PessoaTxt.Text = objTitulo.Pessoa
         ResultadoTxt.Text = objTitulo.Resultado
         VencimentoParcTxt.Text = objTitulo.VencimentoParc
@@ -82,7 +82,7 @@
         End If
 
         retorno = "3 - Salvando Campos do Produto."
-        objTitulo.Tipo = TipoCmb.Text
+        'objTitulo.Tipo = TipoCmb.Text'
         objTitulo.Pessoa = UCase(PessoaTxt.Text)
         objTitulo.Resultado = UCase(ResultadoTxt.Text)
         objTitulo.VencimentoParc = VencimentoParcTxt.Text
@@ -112,7 +112,7 @@
                     Exit Sub
                 End If
                 objTitulo.Parcelas = i
-                objTitulo.VencimentoParc = objTitulo.VencimentoParc.AddMonths(i - 1)
+                'objTitulo.VencimentoParc = objTitulo.VencimentoParc.AddMonths(i - 1)'
                 srcTitulo.Source = lstTitulo.ToList
             Next
 

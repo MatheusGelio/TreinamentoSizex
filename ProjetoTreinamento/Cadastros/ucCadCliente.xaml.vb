@@ -64,7 +64,7 @@
         CidadeTxt.Text = objCliente.Cidade
         EstadoTxt.Text = objCliente.Estado
 
-        srcClienteContatos.Source = objCliente.Contatos.ToList
+        srcClienteContatos.Source = objCliente.ClienteContatos.ToList
 
         PrincipalTb.SelectedItem = CadTb
         e.Handled = True
@@ -72,8 +72,8 @@
 
     Private Sub PreencherCamposClienteContatos(sender As Object)
         objClienteContatos = CType(sender.selectedItem, ClienteContatos)
-        TipoTxt.Text = objClienteContatos.TipoContato
-        ContatoTxt.Text = objClienteContatos.DadosContato
+        TipoTxt.Text = objClienteContatos.Tipo
+        ContatoTxt.Text = objClienteContatos.Dados
         ObsTxt.Text = objClienteContatos.Obs
     End Sub
 
@@ -121,7 +121,7 @@
         If objCliente Is Nothing Then
             objCliente = New Cliente
             lstCliente.Add(objCliente)
-            objCliente.Contatos = New List(Of ClienteContatos)
+            objCliente.ClienteContatos = New List(Of ClienteContatos)
         End If
 
         retorno = "3 - Gravando Campos do Cliente."
@@ -138,7 +138,7 @@
         objCliente.Estado = UCase(EstadoTxt.Text)
 
         objCliente.Usuario = InputBox("Informe o seu nome para gravar um cliente", "Auditoria", "")
-        objCliente.DataGravacao = Date.Now
+        objCliente.Data = Date.Now
 
         retorno = "4 - Gravação Concluída."
 
@@ -192,16 +192,16 @@
 
             If objClienteContatos Is Nothing Then
                 objClienteContatos = New ClienteContatos
-                objCliente.Contatos.Add(objClienteContatos)
+                objCliente.ClienteContatos.Add(objClienteContatos)
             End If
 
-            objClienteContatos.TipoContato = UCase(TipoTxt.Text)
-            objClienteContatos.DadosContato = UCase(ContatoTxt.Text)
+            objClienteContatos.Tipo = UCase(TipoTxt.Text)
+            objClienteContatos.Dados = UCase(ContatoTxt.Text)
             objClienteContatos.Obs = UCase(ObsTxt.Text)
 
-            srcClienteContatos.Source = objCliente.Contatos.ToList
+            srcClienteContatos.Source = objCliente.ClienteContatos.ToList
 
-            Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.Contatos.Count
+            Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.ClienteContatos.Count
 
             MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
 
@@ -224,8 +224,8 @@
                 Exit Sub
             End If
 
-            objCliente.Contatos.Remove(objClienteContatos)
-            srcClienteContatos.Source = objCliente.Contatos.ToList
+            objCliente.ClienteContatos.Remove(objClienteContatos)
+            srcClienteContatos.Source = objCliente.ClienteContatos.ToList
 
             MsgBox("Contato deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 

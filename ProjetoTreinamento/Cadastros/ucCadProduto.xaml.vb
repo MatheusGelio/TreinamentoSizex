@@ -4,44 +4,50 @@
     Dim lstProduto As List(Of Produto)
     Dim passou As Boolean = False
     Dim tipoPesquisa As String
+    Dim ctx As SizexConnectionEntities
 
 #Region "Métodos"
     Private Sub LimparCampos()
-        If lstProduto.Count > 0 Then
-            CodigoTxt.Text = lstProduto.Select(Function(p) p.Codigo).Max + 1
-        Else
-            CodigoTxt.Text = 1
-        End If
-        DescricaoTxt.Text = ""
-        DataTxt.Text = Date.Today
-        SimRdb.IsChecked = True
-        GrupoTxt.Text = ""
-        TipoCmb.SelectedIndex = -1
-        CustoTxt.Text = "0,00"
-        MargemTxt.Text = "0,00"
-        PrecoTxt.Text = "0,00"
-        InativoChk.IsChecked = False
-        objProduto = Nothing
+        Try
+            CodigoTxt.Text = ctx.Produto.Select(Function(p) p.Codigo).Max.GetValueOrDefault + 1
+            DescricaoTxt.Text = ""
+            DataTxt.Text = Date.Today
+            SimRdb.IsChecked = True
+            GrupoTxt.Text = ""
+            TipoCmb.SelectedIndex = -1
+            CustoTxt.Text = "0,00"
+            MargemTxt.Text = "0,00"
+            PrecoTxt.Text = "0,00"
+            InativoChk.IsChecked = False
+            objProduto = Nothing
+        Catch ex As Exception
+            MsgBox("Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Limpar Campos")
+        End Try
     End Sub
 
-    Private Sub PreencherCampos(sender As Object)
-        objProduto = CType(sender.selectedItem, Produto)
-        CodigoTxt.Text = objProduto.Codigo
-        DescricaoTxt.Text = objProduto.Descricao
-        DataTxt.Text = objProduto.DataCadastro
-        If objProduto.Estoque = True Then
-            SimRdb.IsChecked = True
-        Else
-            NaoRdb.IsChecked = True
-        End If
-        GrupoTxt.Text = objProduto.Grupo
-        TipoCmb.Text = objProduto.TipoProduto
-        CustoTxt.Text = objProduto.Custo
-        MargemTxt.Text = objProduto.Margem
-        PrecoTxt.Text = objProduto.Preco
-        InativoChk.IsChecked = objProduto.Inativo
-
-        srcProduto.Source = lstProduto.ToList
+    Private Sub PreencherCampos()
+        Try
+            If objProduto IsNot Nothing Then
+                CodigoTxt.Text = objProduto.Codigo
+                DescricaoTxt.Text = objProduto.Descricao
+                DataTxt.Text = objProduto.Data
+                If objProduto.Estoque = True Then
+                    SimRdb.IsChecked = True
+                Else
+                    NaoRdb.IsChecked = True
+                End If
+                GrupoTxt.Text = objProduto.Grupo
+                TipoCmb.Text = objProduto.Tipo
+                CustoTxt.Text = objProduto.Custo
+                MargemTxt.Text = objProduto.Margem
+                PrecoTxt.Text = objProduto.Preco
+                InativoChk.IsChecked = objProduto.Inativo
+            End If
+            GrupoTxt.ItemsSource = ctx.Produto.Select(Function(p) p.Grupo).Distinct.ToList
+            srcProduto.Source = ctx.Produto.ToList
+        Catch ex As Exception
+            MsgBox("Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Preencher Campos")
+        End Try
     End Sub
 
     Private Sub CalcularValores(tipo As String)
@@ -88,27 +94,27 @@
         retorno = "2 - Inserindo Objeto."
         If objProduto Is Nothing Then
             objProduto = New Produto
-            lstProduto.Add(objProduto)
+            ctx.Produto.Add(objProduto)
         End If
 
         retorno = "3 - Salvando Campos do Produto."
         objProduto.Codigo = CInt(CodigoTxt.Text)
         objProduto.Descricao = UCase(DescricaoTxt.Text)
-        objProduto.DataCadastro = DataTxt.Text
+        objProduto.Data = DataTxt.Text
         objProduto.Estoque = SimRdb.IsChecked
         objProduto.Grupo = UCase(GrupoTxt.Text)
-        objProduto.TipoProduto = TipoCmb.Text
+        objProduto.Tipo = TipoCmb.Text
         objProduto.Custo = Cfg.RetornarValorPadrao(CustoTxt.Text)
         objProduto.Margem = Cfg.RetornarValorPadrao(MargemTxt.Text)
         objProduto.Preco = CDbl(PrecoTxt.Text)
         objProduto.Inativo = InativoChk.IsChecked
 
         objProduto.Usuario = InputBox("Informe o seu nome para salvar um produto", "Auditoria", "")
-        objProduto.DataSalvamento = Date.Now
+        objProduto.Data = Date.Now
+
+        ctx.SaveChanges()
 
         retorno = "4 - Salvamento Concluído."
-
-        GrupoTxt.ItemsSource = lstProduto.Select(Function(p) p.Grupo).Distinct.ToList
         Return True
     End Function
 #End Region
@@ -124,11 +130,11 @@
                 Exit Sub
             End If
 
-            srcProduto.Source = lstProduto.ToList
-
             MsgBox("Produto salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
             LimparCampos()
-            CodigoTxt.Focus()
+            PreencherCampos()
+
+            DescricaoTxt.Focus()
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Salvar Produto")
         End Try
@@ -142,12 +148,16 @@
                 Exit Sub
             End If
 
-            lstProduto.Remove(objProduto)
-            srcProduto.Source = lstProduto.ToList
+            If MsgBox("Você deseja excluir o produto selecionado?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Excluir Produto") = MsgBoxResult.Yes Then
+                ctx.Produto.Remove(objProduto)
+                ctx.SaveChanges()
 
-            MsgBox("Produto excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+                MsgBox("Produto excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+                LimparCampos()
+                PreencherCampos()
+            End If
 
-            LimparCampos()
+            
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Excluir Produto")
         End Try
@@ -172,9 +182,11 @@
 
     Private Sub wdCadProduto_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
+            ctx = New SizexConnectionEntities
             lstProduto = New List(Of Produto)
             srcProduto = CType(Me.FindResource("ProdutoViewSource"), CollectionViewSource)
             LimparCampos()
+            PreencherCampos()
             DescricaoTxt.Focus()
             tipoPesquisa = "D"
             passou = True
@@ -183,7 +195,8 @@
 
     Private Sub ProdutoDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles ProdutoDataGrid.MouseDoubleClick
         If sender.selectedItem IsNot Nothing Then
-            PreencherCampos(sender)
+            objProduto = CType(sender.selectedItem, Produto)
+            PreencherCampos()
         End If
     End Sub
 

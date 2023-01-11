@@ -104,3 +104,7 @@ C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTre
 C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTreinamento\obj\Debug\ProjetoTreinamento.vbproj.GenerateResource.Cache
 C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTreinamento\obj\Debug\Cadastros\ucCadVenda.baml
 C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTreinamento\obj\Debug\Cadastros\ucCadVenda.g.vb
+C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTreinamento\bin\Debug\EntityFramework.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTreinamento\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTreinamento\bin\Debug\EntityFramework.xml
+C:\Users\admin\Documents\Visual Studio 2012\Projects\TreinamentoSizex\ProjetoTreinamento\bin\Debug\EntityFramework.SqlServer.xml

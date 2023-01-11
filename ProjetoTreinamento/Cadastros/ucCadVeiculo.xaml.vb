@@ -39,7 +39,7 @@
         ValorTxt.Text = objVeiculo.ValorCompra
         DataTxt.Text = objVeiculo.DataAquisicao
 
-        srcVeiculoRegistros.Source = objVeiculo.Registros.ToList
+        srcVeiculoRegistros.Source = objVeiculo.VeiculoRegistros.ToList
 
         PrincipalTb.SelectedItem = CadTb
         e.Handled = True
@@ -77,7 +77,7 @@
         If objVeiculo Is Nothing Then
             objVeiculo = New Veiculo
             lstVeiculo.Add(objVeiculo)
-            objVeiculo.Registros = New List(Of VeiculoRegistros)
+            objVeiculo.VeiculoRegistros = New List(Of VeiculoRegistros)
         End If
 
         retorno = "3 - Salvando Campos do Veículo."
@@ -149,7 +149,7 @@
 
             If objVeiculoRegistros Is Nothing Then
                 objVeiculoRegistros = New VeiculoRegistros
-                objVeiculo.Registros.Add(objVeiculoRegistros)
+                objVeiculo.VeiculoRegistros.Add(objVeiculoRegistros)
             End If
 
             objVeiculoRegistros.DataAbast = DataAbastTxt.Text
@@ -157,9 +157,9 @@
             objVeiculoRegistros.Litros = LitrosTxt.Text
             objVeiculoRegistros.ValorTotal = TotalTxt.Text
 
-            srcVeiculoRegistros.Source = objVeiculo.Registros.ToList
+            srcVeiculoRegistros.Source = objVeiculo.VeiculoRegistros.ToList
 
-            Dim mensagem As String = "Veículo salvo com sucesso!" & vbNewLine & "Total de Registros: " & objVeiculo.Registros.Count
+            Dim mensagem As String = "Veículo salvo com sucesso!" & vbNewLine & "Total de Registros: " & objVeiculo.VeiculoRegistros.Count
 
             MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
 
@@ -182,8 +182,8 @@
                 Exit Sub
             End If
 
-            objVeiculo.Registros.Remove(objVeiculoRegistros)
-            srcVeiculoRegistros.Source = objVeiculo.Registros.ToList
+            objVeiculo.VeiculoRegistros.Remove(objVeiculoRegistros)
+            srcVeiculoRegistros.Source = objVeiculo.VeiculoRegistros.ToList
 
             MsgBox("Registro deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 

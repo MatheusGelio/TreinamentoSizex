@@ -39,11 +39,10 @@
 
     Private Sub PreencherCamposVenda(sender As Object, e As MouseButtonEventArgs)
         objVenda = CType(sender.selectedItem, Venda)
-        TipoCmb.Text = objVenda.TipoVenda
+        TipoCmb.Text = objVenda.Tipo
         DataTxt.Text = objVenda.Data
-        ClienteTxt.Text = objVenda.Cliente
+        'ClienteTxt.Text = objVenda.Cliente'
         VendedorTxt.Text = objVenda.Vendedor
-        CenarioFiscalCmb.Text = objVenda.CenarioFiscal
         TotalItensTxt.Text = objVenda.TotalItens
         TotalProdutosTxt.Text = objVenda.TotalProdutos
         DescontoTxt.Text = objVenda.Desconto
@@ -52,7 +51,7 @@
         ImpostosTxt.Text = objVenda.Impostos
         TotalVendaTxt.Text = objVenda.TotalVenda
 
-        srcVendaRegistros.Source = objVenda.Registros.ToList
+        srcVendaRegistros.Source = objVenda.VendaRegistros.ToList
 
         BottomTb.SelectedItem = VendaTb
         e.Handled = True
@@ -60,10 +59,9 @@
 
     Private Sub PreencherCamposVendaRegistros(sender As Object, e As MouseButtonEventArgs)
         objVendaRegistros = CType(sender.selectedItem, VendaRegistros)
-        ProdutoTxt.Text = objVendaRegistros.Produto
+        ProdutoTxt.Text = objVendaRegistros.ProdutoId
         QuantidadeTxt.Text = objVendaRegistros.Quantidade
         ValorUniTxt.Text = objVendaRegistros.ValorUni
-        ValorTotalTxt.Text = objVendaRegistros.ValorTotal
     End Sub
 
     Private Sub CalcularValores(tipo As String)
@@ -115,15 +113,14 @@
         If objVenda Is Nothing Then
             objVenda = New Venda
             lstVenda.Add(objVenda)
-            objVenda.Registros = New List(Of VendaRegistros)
+            objVenda.VendaRegistros = New List(Of VendaRegistros)
         End If
 
         retorno = "3 - Salvando Campos da Venda."
-        objVenda.TipoVenda = TipoCmb.Text
+        objVenda.Tipo = TipoCmb.Text
         objVenda.Data = DataTxt.Text
-        objVenda.Cliente = UCase(ClienteTxt.Text)
+        'objVenda.Cliente.Nome = UCase(ClienteTxt.Text)'
         objVenda.Vendedor = UCase(VendedorTxt.Text)
-        objVenda.CenarioFiscal = CenarioFiscalCmb.Text
         objVenda.TotalItens = CInt(TotalItensTxt.Text)
         objVenda.TotalProdutos = CDbl(TotalProdutosTxt.Text)
         objVenda.Desconto = CDbl(DescontoTxt.Text)
@@ -236,19 +233,18 @@
 
             If objVendaRegistros Is Nothing Then
                 objVendaRegistros = New VendaRegistros
-                objVenda.Registros.Add(objVendaRegistros)
+                objVenda.VendaRegistros.Add(objVendaRegistros)
             End If
 
-            objVendaRegistros.Produto = UCase(ProdutoTxt.Text)
+            objVendaRegistros.ProdutoId = UCase(ProdutoTxt.Text)
             objVendaRegistros.Quantidade = CInt(QuantidadeTxt.Text)
             objVendaRegistros.ValorUni = CDbl(ValorUniTxt.Text)
-            objVendaRegistros.ValorTotal = CDbl(ValorTotalTxt.Text)
 
-            srcVendaRegistros.Source = objVenda.Registros.ToList
+            srcVendaRegistros.Source = objVenda.VendaRegistros.ToList
 
-            Dim mensagem As String = "Venda salva com sucesso!" & vbNewLine & "Total de Registros: " & objVenda.Registros.Count
+            Dim mensagem As String = "Venda salva com sucesso!" & vbNewLine & "Total de Registros: " & objVenda.VendaRegistros.Count
 
-            TotalItensTxt.Text = objVenda.Registros.Count
+            TotalItensTxt.Text = objVenda.VendaRegistros.Count
             totalProdutos = totalProdutos + ValorTotalTxt.Text
             TotalProdutosTxt.Text = totalProdutos
 
@@ -275,10 +271,10 @@
 
             totalProdutos = totalProdutos - ValorTotalTxt.Text
 
-            objVenda.Registros.Remove(objVendaRegistros)
-            srcVendaRegistros.Source = objVenda.Registros.ToList
+            objVenda.VendaRegistros.Remove(objVendaRegistros)
+            srcVendaRegistros.Source = objVenda.VendaRegistros.ToList
 
-            TotalItensTxt.Text = objVenda.Registros.Count
+            TotalItensTxt.Text = objVenda.VendaRegistros.Count
             TotalProdutosTxt.Text = totalProdutos
 
             MsgBox("Registro deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
@@ -321,7 +317,7 @@
     End Sub
     
     Private Sub PesquisarProdutoTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarProdutoTxt.TextChanged
-        srcVendaRegistros.Source = objVenda.Registros.Where(Function(p) p.Produto.Contains(PesquisarProdutoTxt.Text)).ToList
+        srcVendaRegistros.Source = objVenda.VendaRegistros.Where(Function(p) p.Produto.Descricao.Contains(PesquisarProdutoTxt.Text)).ToList
     End Sub
 
     Private Sub PesquisarVendaTxt_KeyDown(sender As Object, e As KeyEventArgs) Handles PesquisarVendaTxt.KeyDown
@@ -339,7 +335,7 @@
     Private Sub PesquisarVendaTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarVendaTxt.TextChanged
         If lstVenda.Count > 0 Then
             If tipoPesquisa = "C" Then
-                srcVenda.Source = lstVenda.Where(Function(p) p.Cliente.Contains(PesquisarVendaTxt.Text)).ToList
+                'srcVenda.Source = lstVenda.Where(Function(p) p.Cliente.Nome.Contains(PesquisarVendaTxt.Text)).ToList'
             ElseIf tipoPesquisa = "V" Then
                 srcVenda.Source = lstVenda.Where(Function(p) p.Vendedor.Contains(PesquisarVendaTxt.Text)).ToList
             End If

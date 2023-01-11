@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5940b1fb6c21403b8bbb37fbf92d38c2" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="SizexModel.Cliente" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.ClienteContatos" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.FormaPagamento" Width="1.5" PointX="3.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.FormaPrazo" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.Titulo" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.Veiculo" Width="1.5" PointX="8.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.VeiculoRegistros" Width="1.5" PointX="11" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.Venda" Width="1.5" PointX="3.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SizexModel.VendaRegistros" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="SizexModel.FK_ClienteContatos_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SizexModel.FK_Titulo_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="SizexModel.FK_FormaPrazo_FormaPagamento1" ManuallyRouted="false" />
+        <AssociationConnector Association="SizexModel.FK_Titulo_FormaPagamento1" ManuallyRouted="false" />
+        <AssociationConnector Association="SizexModel.FK_Titulo_Venda" ManuallyRouted="false" />
+        <AssociationConnector Association="SizexModel.FK_VeiculoRegistros_Veiculo" ManuallyRouted="false" />
+        <AssociationConnector Association="SizexModel.FK_VendaRegistros_Venda" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SizexModel.Produto" Width="1.5" PointX="0.75" PointY="9" />
+        <AssociationConnector Association="SizexModel.FK_VendaRegistros_Produto1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

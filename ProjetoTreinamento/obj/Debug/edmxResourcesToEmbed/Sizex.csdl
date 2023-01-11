@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SizexModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cpf" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+    <Property Name="Rg" Type="String" MaxLength="18" FixedLength="false" Unicode="true" />
+    <Property Name="Data" Type="DateTime" Precision="3" />
+    <Property Name="Inativo" Type="Boolean" />
+    <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Endereco" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Numero" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="Complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bairro" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Cidade" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Estado" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DataCadastro" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ClienteContatos" Relationship="Self.FK_ClienteContatos_Cliente" FromRole="Cliente" ToRole="ClienteContatos" />
+    <NavigationProperty Name="Titulo" Relationship="Self.FK_Titulo_Cliente" FromRole="Cliente" ToRole="Titulo" />
+  </EntityType>
+  <EntityType Name="ClienteContatos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClienteId" Type="Int32" />
+    <Property Name="Tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Dados" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_ClienteContatos_Cliente" FromRole="ClienteContatos" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="FormaPagamento">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descricao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Desconto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Juros" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Boleto" Type="Boolean" />
+    <NavigationProperty Name="FormaPrazo" Relationship="Self.FK_FormaPrazo_FormaPagamento1" FromRole="FormaPagamento" ToRole="FormaPrazo" />
+    <NavigationProperty Name="Titulo" Relationship="Self.FK_Titulo_FormaPagamento1" FromRole="FormaPagamento" ToRole="Titulo" />
+  </EntityType>
+  <EntityType Name="FormaPrazo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FormaId" Type="Int32" />
+    <Property Name="Parcela" Type="Int32" />
+    <Property Name="Prazo" Type="Int32" />
+    <NavigationProperty Name="FormaPagamento" Relationship="Self.FK_FormaPrazo_FormaPagamento1" FromRole="FormaPrazo" ToRole="FormaPagamento" />
+  </EntityType>
+  <EntityType Name="Titulo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClienteId" Type="Int32" />
+    <Property Name="FormaId" Type="Int32" />
+    <Property Name="VendaId" Type="Int32" />
+    <Property Name="Tipo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Pessoa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Resultado" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="VencimentoParc" Type="DateTime" Precision="3" />
+    <Property Name="Parcelas" Type="Int32" />
+    <Property Name="DiaProxParc" Type="Int32" />
+    <Property Name="Valor" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Desconto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Juros" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Multa" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FormaPgmt" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Obs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cliente" Relationship="Self.FK_Titulo_Cliente" FromRole="Titulo" ToRole="Cliente" />
+    <NavigationProperty Name="FormaPagamento" Relationship="Self.FK_Titulo_FormaPagamento1" FromRole="Titulo" ToRole="FormaPagamento" />
+    <NavigationProperty Name="Venda" Relationship="Self.FK_Titulo_Venda" FromRole="Titulo" ToRole="Venda" />
+  </EntityType>
+  <EntityType Name="Veiculo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Placa" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="DescricaoVeiculo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Combustivel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UltimoKm" Type="Int32" />
+    <Property Name="ValorCompra" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DataAquisicao" Type="DateTime" Precision="3" />
+    <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DataGravacao" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="VeiculoRegistros" Relationship="Self.FK_VeiculoRegistros_Veiculo" FromRole="Veiculo" ToRole="VeiculoRegistros" />
+  </EntityType>
+  <EntityType Name="VeiculoRegistros">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VeiculoId" Type="Int32" />
+    <Property Name="DataAbast" Type="DateTime" Precision="3" />
+    <Property Name="KmAbast" Type="Int32" />
+    <Property Name="Litros" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ValorTotal" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Veiculo" Relationship="Self.FK_VeiculoRegistros_Veiculo" FromRole="VeiculoRegistros" ToRole="Veiculo" />
+  </EntityType>
+  <EntityType Name="Venda">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClienteId" Type="Int32" />
+    <Property Name="Tipo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Data" Type="DateTime" Precision="3" />
+    <Property Name="Vendedor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TotalItens" Type="Int32" />
+    <Property Name="TotalProdutos" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Desconto" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Frete" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OutrasDes" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Impostos" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TotalVenda" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Titulo" Relationship="Self.FK_Titulo_Venda" FromRole="Venda" ToRole="Titulo" />
+    <NavigationProperty Name="VendaRegistros" Relationship="Self.FK_VendaRegistros_Venda" FromRole="Venda" ToRole="VendaRegistros" />
+  </EntityType>
+  <EntityType Name="VendaRegistros">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProdutoId" Type="Int32" />
+    <Property Name="VendaId" Type="Int32" />
+    <Property Name="Quantidade" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="ValorUni" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Venda" Relationship="Self.FK_VendaRegistros_Venda" FromRole="VendaRegistros" ToRole="Venda" />
+    <NavigationProperty Name="Produto" Relationship="SizexModel.FK_VendaRegistros_Produto1" FromRole="VendaRegistros" ToRole="Produto1" />
+  </EntityType>
+  <Association Name="FK_ClienteContatos_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ClienteContatos" Type="Self.ClienteContatos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClienteContatos">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Titulo_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Titulo" Type="Self.Titulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Titulo">
+        <PropertyRef Name="ClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FormaPrazo_FormaPagamento1">
+    <End Role="FormaPagamento" Type="Self.FormaPagamento" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FormaPrazo" Type="Self.FormaPrazo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FormaPagamento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FormaPrazo">
+        <PropertyRef Name="FormaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Titulo_FormaPagamento1">
+    <End Role="FormaPagamento" Type="Self.FormaPagamento" Multiplicity="1" />
+    <End Role="Titulo" Type="Self.Titulo" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="FormaPagamento">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Titulo">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Titulo_Venda">
+    <End Role="Venda" Type="Self.Venda" Multiplicity="0..1" />
+    <End Role="Titulo" Type="Self.Titulo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venda">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Titulo">
+        <PropertyRef Name="VendaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VeiculoRegistros_Veiculo">
+    <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VeiculoRegistros" Type="Self.VeiculoRegistros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Veiculo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VeiculoRegistros">
+        <PropertyRef Name="VeiculoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendaRegistros_Venda">
+    <End Role="Venda" Type="Self.Venda" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="VendaRegistros" Type="Self.VendaRegistros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venda">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VendaRegistros">
+        <PropertyRef Name="VendaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SizexConnectionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="ClienteContatos" EntityType="Self.ClienteContatos" />
+    <EntitySet Name="FormaPagamento" EntityType="Self.FormaPagamento" />
+    <EntitySet Name="FormaPrazo" EntityType="Self.FormaPrazo" />
+    <EntitySet Name="Titulo" EntityType="Self.Titulo" />
+    <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
+    <EntitySet Name="VeiculoRegistros" EntityType="Self.VeiculoRegistros" />
+    <EntitySet Name="Venda" EntityType="Self.Venda" />
+    <EntitySet Name="VendaRegistros" EntityType="Self.VendaRegistros" />
+    <AssociationSet Name="FK_ClienteContatos_Cliente" Association="Self.FK_ClienteContatos_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="ClienteContatos" EntitySet="ClienteContatos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Titulo_Cliente" Association="Self.FK_Titulo_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Titulo" EntitySet="Titulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FormaPrazo_FormaPagamento1" Association="Self.FK_FormaPrazo_FormaPagamento1">
+      <End Role="FormaPagamento" EntitySet="FormaPagamento" />
+      <End Role="FormaPrazo" EntitySet="FormaPrazo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Titulo_FormaPagamento1" Association="Self.FK_Titulo_FormaPagamento1">
+      <End Role="FormaPagamento" EntitySet="FormaPagamento" />
+      <End Role="Titulo" EntitySet="Titulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Titulo_Venda" Association="Self.FK_Titulo_Venda">
+      <End Role="Venda" EntitySet="Venda" />
+      <End Role="Titulo" EntitySet="Titulo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VeiculoRegistros_Veiculo" Association="Self.FK_VeiculoRegistros_Veiculo">
+      <End Role="Veiculo" EntitySet="Veiculo" />
+      <End Role="VeiculoRegistros" EntitySet="VeiculoRegistros" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendaRegistros_Venda" Association="Self.FK_VendaRegistros_Venda">
+      <End Role="Venda" EntitySet="Venda" />
+      <End Role="VendaRegistros" EntitySet="VendaRegistros" />
+    </AssociationSet>
+    <EntitySet Name="Produto" EntityType="SizexModel.Produto" />
+    <AssociationSet Name="FK_VendaRegistros_Produto1" Association="SizexModel.FK_VendaRegistros_Produto1">
+      <End Role="Produto1" EntitySet="Produto" />
+      <End Role="VendaRegistros" EntitySet="VendaRegistros" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="Int32" />
+    <Property Name="Descricao" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Data" Type="DateTime" Precision="3" />
+    <Property Name="Estoque" Type="Boolean" />
+    <Property Name="Grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Tipo" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+    <Property Name="Custo" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Margem" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Preco" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Inativo" Type="Boolean" />
+    <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="VendaRegistros" Relationship="SizexModel.FK_VendaRegistros_Produto1" FromRole="Produto1" ToRole="VendaRegistros" />
+  </EntityType>
+  <Association Name="FK_VendaRegistros_Produto1">
+    <End Type="SizexModel.Produto" Role="Produto1" Multiplicity="0..1" />
+    <End Type="SizexModel.VendaRegistros" Role="VendaRegistros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="VendaRegistros">
+        <PropertyRef Name="ProdutoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
