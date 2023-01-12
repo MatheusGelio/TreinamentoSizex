@@ -21,7 +21,7 @@
             InativoChk.IsChecked = False
             objProduto = Nothing
         Catch ex As Exception
-            MsgBox("Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Limpar Campos")
+            MsgBox("Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Limpar Campos")
         End Try
     End Sub
 
@@ -46,7 +46,7 @@
             GrupoTxt.ItemsSource = ctx.Produto.Select(Function(p) p.Grupo).Distinct.ToList
             srcProduto.Source = ctx.Produto.ToList
         Catch ex As Exception
-            MsgBox("Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Preencher Campos")
+            MsgBox("Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Preencher Campos")
         End Try
     End Sub
 
@@ -156,8 +156,6 @@
                 LimparCampos()
                 PreencherCampos()
             End If
-
-            
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Excluir Produto")
         End Try
@@ -242,13 +240,13 @@
     End Sub
 
     Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
-        If lstProduto.Count > 0 Then
+        If ctx.Produto.ToList.Count > 0 Then
             If tipoPesquisa = "D" Then
-                srcProduto.Source = lstProduto.Where(Function(p) p.Descricao.Contains(PesquisarTxt.Text)).ToList
+                srcProduto.Source = ctx.Produto.Where(Function(p) p.Descricao.Contains(CStr(PesquisarTxt.Text))).ToList
             ElseIf tipoPesquisa = "C" Then
-                srcProduto.Source = lstProduto.Where(Function(p) p.Codigo.ToString.Contains(PesquisarTxt.Text)).ToList
+                srcProduto.Source = ctx.Produto.Where(Function(p) p.Codigo = CInt(PesquisarTxt.Text)).ToList
             ElseIf tipoPesquisa = "G" Then
-                srcProduto.Source = lstProduto.Where(Function(p) p.Grupo.Contains(PesquisarTxt.Text)).ToList
+                srcProduto.Source = ctx.Produto.Where(Function(p) p.Grupo.Contains(CStr(PesquisarTxt.Text))).ToList
             End If
         End If
     End Sub

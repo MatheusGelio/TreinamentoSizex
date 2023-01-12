@@ -6,6 +6,7 @@
     Dim srcClienteContatos As CollectionViewSource
     Dim lstCliente As List(Of Cliente)
     Dim tipoPesquisa As String
+    Dim ctx As SizexConnectionEntities
 
     Public Sub New()
         InitializeComponent()
@@ -25,56 +26,73 @@
 
 #Region "Métodos"
     Private Sub LimparCampos(tipo As String)
-        If tipo = "C" Or tipo = "T" Then
-            CpfTxt.Text = ""
-            RgTxt.Text = ""
-            DataTxt.Text = Date.Today
-            InativoChk.IsChecked = False
-            NomeTxt.Text = ""
-            EnderecoTxt.Text = ""
-            NumeroTxt.Text = ""
-            ComplementoTxt.Text = ""
-            BairroTxt.Text = ""
-            CidadeTxt.Text = ""
-            EstadoTxt.SelectedItem = ""
-            objCliente = Nothing
+        Try
+            If tipo = "C" Or tipo = "T" Then
+                CpfTxt.Text = ""
+                RgTxt.Text = ""
+                DataTxt.Text = Date.Today
+                InativoChk.IsChecked = False
+                NomeTxt.Text = ""
+                EnderecoTxt.Text = ""
+                NumeroTxt.Text = ""
+                ComplementoTxt.Text = ""
+                BairroTxt.Text = ""
+                CidadeTxt.Text = ""
+                EstadoTxt.SelectedItem = ""
+                objCliente = Nothing
 
-            srcClienteContatos.Source = Nothing
-        End If
+                srcClienteContatos.Source = Nothing
+            End If
 
-        If tipo = "CT" Or tipo = "T" Then
-            TipoTxt.Text = ""
-            ContatoTxt.Text = ""
-            ObsTxt.Text = ""
-            objClienteContatos = Nothing
-        End If
+            If tipo = "CT" Or tipo = "T" Then
+                TipoTxt.Text = ""
+                ContatoTxt.Text = ""
+                ObsTxt.Text = ""
+                objClienteContatos = Nothing
+            End If
+
+            CidadeTxt.ItemsSource = ctx.Cliente.Select(Function(p) p.Cidade).Distinct.ToList
+            EstadoTxt.ItemsSource = ctx.Cliente.Select(Function(p) p.Estado).Distinct.ToList
+        Catch ex As Exception
+            MsgBox("Ocorreu um errro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Limpar Campos")
+        End Try
     End Sub
 
-    Private Sub PreencherCamposCliente(sender As Object, e As MouseButtonEventArgs)
-        objCliente = CType(sender.selectedItem, Cliente)
-        CpfTxt.Text = objCliente.Cpf
-        RgTxt.Text = objCliente.Rg
-        DataTxt.Text = objCliente.DataCadastro
-        InativoChk.IsChecked = objCliente.Inativo
-        NomeTxt.Text = objCliente.Nome
-        EnderecoTxt.Text = objCliente.Endereco
-        NumeroTxt.Text = objCliente.Numero
-        ComplementoTxt.Text = objCliente.Complemento
-        BairroTxt.Text = objCliente.Bairro
-        CidadeTxt.Text = objCliente.Cidade
-        EstadoTxt.Text = objCliente.Estado
-
-        srcClienteContatos.Source = objCliente.ClienteContatos.ToList
-
-        PrincipalTb.SelectedItem = CadTb
-        e.Handled = True
+    Private Sub PreencherCamposCliente()
+        Try
+            If objCliente IsNot Nothing Then
+                CpfTxt.Text = objCliente.Cpf
+                RgTxt.Text = objCliente.Rg
+                If objCliente.DataCadastro Is Nothing Then
+                    DataTxt.Text = ""
+                Else
+                    DataTxt.Text = objCliente.DataCadastro
+                End If
+                InativoChk.IsChecked = objCliente.Inativo
+                NomeTxt.Text = objCliente.Nome
+                EnderecoTxt.Text = objCliente.Endereco
+                NumeroTxt.Text = objCliente.Numero
+                ComplementoTxt.Text = objCliente.Complemento
+                BairroTxt.Text = objCliente.Bairro
+                CidadeTxt.Text = objCliente.Cidade
+                EstadoTxt.Text = objCliente.Estado
+            End If
+            srcClienteContatos.Source = ctx.ClienteContatos.Where(Function(p) p.ClienteId = objCliente.Id).ToList
+        Catch ex As Exception
+            MsgBox("Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Preencher Campos")
+        End Try
     End Sub
 
-    Private Sub PreencherCamposClienteContatos(sender As Object)
-        objClienteContatos = CType(sender.selectedItem, ClienteContatos)
-        TipoTxt.Text = objClienteContatos.Tipo
-        ContatoTxt.Text = objClienteContatos.Dados
-        ObsTxt.Text = objClienteContatos.Obs
+    Private Sub PreencherCamposClienteContatos()
+        Try
+            If objClienteContatos IsNot Nothing Then
+                TipoTxt.Text = objClienteContatos.Tipo
+                ContatoTxt.Text = objClienteContatos.Dados
+                ObsTxt.Text = objClienteContatos.Obs
+            End If
+        Catch ex As Exception
+            MsgBox("Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Preencher Campos")
+        End Try
     End Sub
 
     Private Function GravaCliente(Optional ByRef retorno As String = "") As Boolean
@@ -120,8 +138,7 @@
         retorno = "2 - Inserindo Objeto."
         If objCliente Is Nothing Then
             objCliente = New Cliente
-            lstCliente.Add(objCliente)
-            objCliente.ClienteContatos = New List(Of ClienteContatos)
+            ctx.Cliente.Add(objCliente)
         End If
 
         retorno = "3 - Gravando Campos do Cliente."
@@ -140,10 +157,9 @@
         objCliente.Usuario = InputBox("Informe o seu nome para gravar um cliente", "Auditoria", "")
         objCliente.Data = Date.Now
 
-        retorno = "4 - Gravação Concluída."
+        ctx.SaveChanges()
 
-        CidadeTxt.ItemsSource = lstCliente.Select(Function(p) p.Cidade).Distinct.ToList
-        EstadoTxt.ItemsSource = lstCliente.Select(Function(p) p.Estado).Distinct.ToList
+        retorno = "4 - Gravação Concluída."
         Return True
     End Function
 #End Region
@@ -163,6 +179,7 @@
 
     Private Sub wdCadCliente_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
+            ctx = New SizexConnectionEntities
             FotoCt.Content = New ucCadFoto
             lstCliente = New List(Of Cliente)
             srcCliente = CType(Me.FindResource("ClienteViewSource"), CollectionViewSource)
@@ -192,20 +209,23 @@
 
             If objClienteContatos Is Nothing Then
                 objClienteContatos = New ClienteContatos
-                objCliente.ClienteContatos.Add(objClienteContatos)
+                objClienteContatos.Cliente = objCliente
+                ctx.ClienteContatos.Add(objClienteContatos)
             End If
 
             objClienteContatos.Tipo = UCase(TipoTxt.Text)
             objClienteContatos.Dados = UCase(ContatoTxt.Text)
             objClienteContatos.Obs = UCase(ObsTxt.Text)
 
-            srcClienteContatos.Source = objCliente.ClienteContatos.ToList
+            ctx.SaveChanges()
 
             Dim mensagem As String = "Contato salvo com sucesso!" & vbNewLine & "Total de Registros: " & objCliente.ClienteContatos.Count
-
             MsgBox(mensagem, MsgBoxStyle.Information, "Parabéns!")
 
+            'srcClienteContatos.Source = ctx.ClienteContatos.Where(Function(p) p.ClienteId = objCliente.Id).ToList'
+
             LimparCampos("CT")
+            PreencherCamposCliente()
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Adicionar Contato")
         End Try
@@ -224,12 +244,15 @@
                 Exit Sub
             End If
 
-            objCliente.ClienteContatos.Remove(objClienteContatos)
-            srcClienteContatos.Source = objCliente.ClienteContatos.ToList
+            ctx.ClienteContatos.Remove(objClienteContatos)
+            ctx.SaveChanges()
+
+            'srcClienteContatos.Source = ctx.ClienteContatos.Where(Function(p) p.ClienteId = objCliente.Id).ToList'
 
             MsgBox("Contato deletado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
             LimparCampos("CT")
+            PreencherCamposCliente()
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Deletar Contato")
         End Try
@@ -242,7 +265,8 @@
                 Exit Sub
             End If
 
-            srcCliente.Source = lstCliente.ToList
+            'srcCliente.Source = ctx.Cliente.OrderBy(Function(p) p.Nome).ToList'
+            srcCliente.Source = ctx.Cliente.ToList
 
             MsgBox("Registro salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
             LimparCampos("T")
@@ -264,8 +288,9 @@
                 Exit Sub
             End If
 
-            lstCliente.Remove(objCliente)
-            srcCliente.Source = lstCliente.ToList
+            ctx.Cliente.Remove(objCliente)
+            ctx.SaveChanges()
+            srcCliente.Source = ctx.Cliente.ToList
 
             MsgBox("Cliente excluído com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
@@ -279,15 +304,19 @@
         Cfg.DestruirTela(Me)
     End Sub
 
-    Private Sub DataGrid_MouseDoubleClick_1(sender As Object, e As MouseButtonEventArgs) Handles ClienteContatosDataGrid.MouseDoubleClick
+    Private Sub ClienteContatosDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles ClienteContatosDataGrid.MouseDoubleClick
         If sender.selectedItem IsNot Nothing Then
-            PreencherCamposClienteContatos(sender)
+            objClienteContatos = CType(sender.selectedItem, ClienteContatos)
+            PreencherCamposClienteContatos()
         End If
     End Sub
 
     Private Sub ClienteDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles ClienteDataGrid.MouseDoubleClick
         If sender.selectedItem IsNot Nothing Then
-            PreencherCamposCliente(sender, e)
+            objCliente = CType(sender.selectedItem, Cliente)
+            PreencherCamposCliente()
+            PrincipalTb.SelectedItem = CadTb
+            e.Handled = True
         End If
     End Sub
 
@@ -336,13 +365,13 @@
     End Sub
 
     Private Sub PesquisarTxt_TextChanged(sender As Object, e As TextChangedEventArgs) Handles PesquisarTxt.TextChanged
-        If lstCliente.Count > 0 Then
+        If ctx.Cliente.ToList.Count > 0 Then
             If tipoPesquisa = "N" Then
-                srcCliente.Source = lstCliente.Where(Function(p) p.Nome.Contains(PesquisarTxt.Text)).ToList
+                srcCliente.Source = ctx.Cliente.Where(Function(p) p.Nome.Contains(CStr(PesquisarTxt.Text))).ToList
             ElseIf tipoPesquisa = "C" Then
-                srcCliente.Source = lstCliente.Where(Function(p) p.Cpf.Contains(PesquisarTxt.Text)).ToList
+                srcCliente.Source = ctx.Cliente.Where(Function(p) p.Cpf.Contains(CStr(PesquisarTxt.Text))).ToList
             ElseIf tipoPesquisa = "E" Then
-                srcCliente.Source = lstCliente.Where(Function(p) p.Endereco.Contains(PesquisarTxt.Text)).ToList
+                srcCliente.Source = ctx.Cliente.Where(Function(p) p.Endereco.Contains(CStr(PesquisarTxt.Text))).ToList
             End If
         End If
     End Sub

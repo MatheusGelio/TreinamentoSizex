@@ -3,51 +3,62 @@
     Dim srcTitulo As CollectionViewSource
     Dim lstTitulo As List(Of Titulo)
     Dim passou = False
+    Dim ctx As SizexConnectionEntities
 
 #Region "Métodos"
     Private Sub LimparCampos()
-        TipoCmb.SelectedIndex = -1
-        PessoaTxt.Text = ""
-        ResultadoTxt.Text = ""
-        VencimentoParcTxt.Text = Date.Today
-        ParcelasTxt.Text = "1"
-        DiaProxParcTxt.Text = "1"
-        ValorTxt.Text = "0,00"
-        DescontoTxt.Text = "0,00"
-        JurosTxt.Text = "0,00"
-        MultaTxt.Text = "0,00"
-        DocumentoTxt.Text = ""
-        FormaPgmtCmb.SelectedIndex = -1
-        ObsTxt.Text = ""
-        FormaDePgmtCmb.SelectedIndex = -1
-        VencimentoTxt.Text = ""
-        ValorParcTxt.Text = ""
-        objTitulo = Nothing
+        Try
+            TipoCmb.SelectedIndex = -1
+            PessoaTxt.Text = ""
+            ResultadoTxt.Text = ""
+            VencimentoParcTxt.Text = Date.Today
+            ParcelasTxt.Text = "1"
+            DiaProxParcTxt.Text = "1"
+            ValorTxt.Text = "0,00"
+            DescontoTxt.Text = "0,00"
+            JurosTxt.Text = "0,00"
+            MultaTxt.Text = "0,00"
+            DocumentoTxt.Text = ""
+            FormaPgmtCmb.SelectedIndex = -1
+            ObsTxt.Text = ""
+            FormaDePgmtCmb.SelectedIndex = -1
+            VencimentoTxt.Text = ""
+            ValorParcTxt.Text = ""
+            objTitulo = Nothing
+        Catch ex As Exception
+            MsgBox("Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Limpar Campos")
+        End Try
     End Sub
 
-    Private Sub PreencherCampos(sender As Object)
-        objTitulo = CType(sender.selectedItem, Titulo)
-        TipoCmb.Text = objTitulo.Tipo.ToString
-        PessoaTxt.Text = objTitulo.Pessoa
-        ResultadoTxt.Text = objTitulo.Resultado
-        VencimentoParcTxt.Text = objTitulo.VencimentoParc
-        ParcelasTxt.Text = objTitulo.Parcelas
-        DiaProxParcTxt.Text = objTitulo.DiaProxParc
-        ValorTxt.Text = objTitulo.Valor
-        DescontoTxt.Text = objTitulo.Desconto
-        JurosTxt.Text = objTitulo.Juros
-        MultaTxt.Text = objTitulo.Multa
-        DocumentoTxt.Text = objTitulo.Documento
-        FormaPgmtCmb.Text = objTitulo.FormaPgmt
-        ObsTxt.Text = objTitulo.Obs
-        FormaDePgmtCmb.Text = objTitulo.FormaPgmt
-        VencimentoTxt.Text = objTitulo.VencimentoParc
-        ValorParcTxt.Text = objTitulo.Valor
-
-        srcTitulo.Source = lstTitulo.ToList
+    Private Sub PreencherCampos()
+        Try
+            If objTitulo IsNot Nothing Then
+                TipoCmb.Text = objTitulo.Tipo.ToString
+                PessoaTxt.Text = objTitulo.Pessoa
+                ResultadoTxt.Text = objTitulo.Resultado
+                VencimentoParcTxt.Text = objTitulo.VencimentoParc
+                ParcelasTxt.Text = objTitulo.Parcelas
+                DiaProxParcTxt.Text = objTitulo.DiaProxParc
+                ValorTxt.Text = objTitulo.Valor
+                DescontoTxt.Text = objTitulo.Desconto
+                JurosTxt.Text = objTitulo.Juros
+                MultaTxt.Text = objTitulo.Multa
+                DocumentoTxt.Text = objTitulo.Documento
+                FormaPgmtCmb.Text = objTitulo.FormaPgmt
+                ObsTxt.Text = objTitulo.Obs
+                FormaDePgmtCmb.Text = objTitulo.FormaPgmt
+                VencimentoTxt.Text = objTitulo.VencimentoParc
+                ValorParcTxt.Text = objTitulo.Valor
+            End If
+            PessoaTxt.ItemsSource = ctx.Titulo.Select(Function(p) p.Pessoa).Distinct.ToList
+            ResultadoTxt.ItemsSource = ctx.Titulo.Select(Function(r) r.Resultado).Distinct.ToList
+            srcTitulo.Source = ctx.Titulo.ToList
+        Catch ex As Exception
+            MsgBox("Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Preencher Campos")
+        End Try
     End Sub
 
-    Private Function SalvarProduto(Optional ByRef retorno As String = "", Optional ByRef tipo As String = "") As Boolean
+    Private Function SalvarTitulo(Optional ByRef retorno As String = "", Optional ByRef tipo As String = "") As Boolean
         retorno = "1 - Validando Campos."
         If TipoCmb.SelectedItem Is Nothing Then
             MsgBox("Para salvar um título, é necessário preencher o campo de TIPO, verifique!", MsgBoxStyle.Exclamation, "Validação")
@@ -78,11 +89,11 @@
         retorno = "2 - Inserindo Objeto."
         If objTitulo Is Nothing Or tipo = "C" Then
             objTitulo = New Titulo
-            lstTitulo.Add(objTitulo)
+            ctx.Titulo.Add(objTitulo)
         End If
 
         retorno = "3 - Salvando Campos do Produto."
-        'objTitulo.Tipo = TipoCmb.Text'
+        objTitulo.Tipo = CStr(TipoCmb.Text)
         objTitulo.Pessoa = UCase(PessoaTxt.Text)
         objTitulo.Resultado = UCase(ResultadoTxt.Text)
         objTitulo.VencimentoParc = VencimentoParcTxt.Text
@@ -96,10 +107,9 @@
         objTitulo.FormaPgmt = FormaPgmtCmb.Text
         objTitulo.Obs = UCase(ObsTxt.Text)
 
-        retorno = "4 - Salvamento Concluído."
+        ctx.SaveChanges()
 
-        PessoaTxt.ItemsSource = lstTitulo.Select(Function(p) p.Pessoa).Distinct.ToList
-        ResultadoTxt.ItemsSource = lstTitulo.Select(Function(r) r.Resultado).Distinct.ToList
+        retorno = "4 - Salvamento Concluído."
         Return True
     End Function
 #End Region
@@ -108,12 +118,11 @@
         Dim retorno As String = ""
         Try
             For i As Integer = 1 To ParcelasTxt.Text
-                If SalvarProduto(retorno, "C") = False Then
+                If SalvarTitulo(retorno, "C") = False Then
                     Exit Sub
                 End If
                 objTitulo.Parcelas = i
-                'objTitulo.VencimentoParc = objTitulo.VencimentoParc.AddMonths(i - 1)'
-                srcTitulo.Source = lstTitulo.ToList
+                objTitulo.VencimentoParc = Date.Parse(objTitulo.VencimentoParc).AddMonths(i - 1)
             Next
 
             CalcularBtn.Visibility = Windows.Visibility.Hidden
@@ -121,6 +130,7 @@
 
             MsgBox("Título salvo com sucesso!", MsgBoxStyle.Information, "Parabéns!")
             LimparCampos()
+            PreencherCampos()
             TipoCmb.Focus()
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Calcular Título")
@@ -130,19 +140,22 @@
     Private Sub GerarBtn_Click(sender As Object, e As RoutedEventArgs) Handles GerarBtn.Click
         Dim retorno As String = ""
         Try
-            If lstTitulo.Count < 1 Then
+            If ctx.Titulo.ToList.Count < 1 Then
                 Exit Sub
             End If
 
-            lstTitulo.Clear()
-            srcTitulo.Source = lstTitulo.ToList
+            If MsgBox("Você deseja excluir o título selecionado?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Excluir Título") = MsgBoxResult.Yes Then
+                ctx.Titulo.Remove(objTitulo)
+                ctx.SaveChanges()
 
-            MsgBox("Título gerado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
+                MsgBox("Título gerado com sucesso!", MsgBoxStyle.Information, "Parabéns!")
 
-            CalcularBtn.Visibility = Windows.Visibility.Visible
-            GerarBtn.Visibility = Windows.Visibility.Hidden
+                CalcularBtn.Visibility = Windows.Visibility.Visible
+                GerarBtn.Visibility = Windows.Visibility.Hidden
 
-            LimparCampos()
+                LimparCampos()
+                PreencherCampos()
+            End If
         Catch ex As Exception
             MsgBox(retorno & vbNewLine & "Ocorreu um erro no sistema, entre em contato com a SIZEX!" & vbNewLine & "(" & ex.Message & ")", MsgBoxStyle.Critical, "Gerar Título")
         End Try
@@ -171,9 +184,11 @@
 
     Private Sub ucCadTitulo_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
         If passou = False Then
+            ctx = New SizexConnectionEntities
             lstTitulo = New List(Of Titulo)
             srcTitulo = CType(Me.FindResource("TituloViewSource"), CollectionViewSource)
             LimparCampos()
+            PreencherCampos()
             TipoCmb.Focus()
             GerarBtn.Visibility = Windows.Visibility.Hidden
             passou = True
@@ -182,7 +197,8 @@
 
     Private Sub TituloDataGrid_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs) Handles TituloDataGrid.MouseDoubleClick
         If sender.selectedItem IsNot Nothing Then
-            PreencherCampos(sender)
+            objTitulo = CType(sender.selectedItem, Titulo)
+            PreencherCampos()
         End If
     End Sub
 

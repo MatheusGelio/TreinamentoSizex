@@ -136,8 +136,8 @@
                                 <Grid Grid.Row="1">
                                     <DataGrid x:Name="ClienteContatosDataGrid" HorizontalAlignment="Stretch" Margin="5,5,5,5" ItemsSource="{Binding Source={StaticResource ClienteContatosViewSource}}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" MouseDoubleClick="DataGrid_MouseDoubleClick_1">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Tipo de Contato" Width="*" Binding="{Binding TipoContato}"/>
-                                            <DataGridTextColumn Header="Dados do Contato" Width="*" Binding="{Binding DadosContato}"/>
+                                            <DataGridTextColumn Header="Tipo de Contato" Width="*" Binding="{Binding Tipo}"/>
+                                            <DataGridTextColumn Header="Dados do Contato" Width="*" Binding="{Binding Dados}"/>
                                             <DataGridTextColumn Header="Observações" Width="*" Binding="{Binding Obs}"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
